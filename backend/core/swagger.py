@@ -6,12 +6,12 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="HRev V0.0.1",
+        title="InstaShop",
         default_version='V0.0.1',
-        description="Platform for fine work and friends, created by Mr_LeVaSiK and Dastanio",
+        description="Insta Shop swagger",
         terms_of_service="#",
-        contact=openapi.Contact(email="lev201611@gmail.com"),
-        license=openapi.License(name="BSD License"),
+        contact=openapi.Contact(email="email"),
+        license=openapi.License(name="GAGAGA"),
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
