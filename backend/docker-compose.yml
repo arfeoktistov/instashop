@@ -1,0 +1,93 @@
+version: "3"
+
+services:
+
+  insta_web:
+    container_name: web_insta
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "database:172.17.0.1"
+    volumes:
+      - ./static/:/bazar/static
+      - ./media/:/bazar/media
+      - ./:/bazar
+    entrypoint: ./wsgi-entrypoint.sh
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1800M
+    networks:
+      - insta_network
+    depends_on:
+      - redis
+
+
+
+  nginx:
+    container_name: insta_nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "81:80"
+      # - "4443:443"
+    volumes:
+      - ./static/:/insta/static
+      - ./media/:/insta/media
+      # - ./docker/nginx/certs:/etc/ssl/certs
+    depends_on:
+      - insta_web
+    networks:
+      - insta_network
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
+
+  redis:
+    container_name: redis_for_send_gmail_insta
+    image: redis
+    networks:
+      - insta_network
+    restart: always
+    ports: 
+      - "6380:6379"
+    deploy:
+      resources:
+        limits:
+          memory: 600M
+    
+
+
+  celery:
+    container_name: celery-worker
+    build:
+      context: .
+    restart: always
+    command: sh -c "celery -A core worker -l INFO"
+    volumes:
+      - ./:/app
+    depends_on:
+      - redis
+      - insta_web
+    networks:
+      - insta_network
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
+
+
+
+volumes:
+  media:
+  static:
+
+networks:
+  insta_network:

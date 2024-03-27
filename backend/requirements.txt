@@ -1,0 +1,16 @@
+Django==3.2.7
+django-cors-headers==3.13.0
+djangorestframework==3.13.1
+drf-yasg==1.21.3
+gunicorn==20.1.0
+Pillow==9.2.0
+django-environ==0.8.1
+django-redis==5.2.0
+psycopg2-binary
+django-filter
+ipython
+djangorestframework-simplejwt
+redis==4.3.1
+celery==5.2.6
+django-resized
+pyjwt
