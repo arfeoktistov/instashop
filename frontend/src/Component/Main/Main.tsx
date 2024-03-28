@@ -10,13 +10,14 @@ import SearchDetailView from '../../pages/DetailView/DetailViewComponents/Search
 
 const Main: FC = () => {
 	return (
-		<main className='main'>
+		<main className='container'>
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/search_input' element={<SearchDetailView />} />
 				<Route path='/detailview' element={<DetailView />} />
 				<Route path='/discover' element={<Discover />} />
 				<Route path='/profile' element={<Profile />} />
+				<Route path='/personal_profile' element={<PersonalProfile />} />
 				<Route path='/search' element={<Search />} />
 				<Route path='/search-results' element={<SearchResults />} />
 			</Routes>

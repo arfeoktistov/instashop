@@ -1,0 +1,53 @@
+.card {
+	flex: 0 0 24%;
+	height: 350px;
+	display: flex;
+	align-items: end;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+	border-radius: 30px 30px 0 0;
+
+	.in_card {
+		width: 100%;
+		height: 80px;
+		background-color: #fff;
+		padding: 16px;
+		display: flex;
+		justify-content: space-between;
+		align-items: end;
+		position: relative;
+
+		h3 {
+			font-size: 22px;
+			font-weight: 600;
+			line-height: 100%;
+			letter-spacing: 0%;
+			text-align: left;
+		}
+
+		p {
+			font-size: 20px;
+			font-weight: 300;
+			line-height: 130%;
+			letter-spacing: 0%;
+			text-align: left;
+		}
+
+		.img_dabi {
+			position: absolute;
+			top: -20px;
+			left: 16px;
+			border-radius: 50%;
+		}
+		.img_pos {
+			position: absolute;
+			top: -20px;
+			left: 50px;
+			border-radius: 50%;
+		}
+	}
+}
+@media (max-width: 1440px) {
+	.card {
+		height: 305px;
+	}
+}
