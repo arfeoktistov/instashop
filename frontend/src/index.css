@@ -115,12 +115,13 @@ span {
 	font-family: 'Roboto', sans-serif;
 }
 
+
 .container {
 	max-width: 85%;
 	margin: 0 auto;
 }
 
-@media screen and (min-width: 1921px) {
+@media screen and (min-width:1920px) {
 	.container {
 		max-width: 1440px;
 	}

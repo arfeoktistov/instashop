@@ -5,13 +5,16 @@ import SearchResults from '../../pages/SearchResults/SearchResults'
 import Search from '../../pages/Search/Search'
 import Profile from '../../pages/Profile/Profile'
 import Discover from '../../pages/Discover/Discover'
-import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
+import DetailView from '../../pages/DetailView/DetailView'
+import SearchDetailView from '../../pages/DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
 
 const Main: FC = () => {
 	return (
 		<main className='container'>
 			<Routes>
 				<Route path='/' element={<Home />} />
+				<Route path='/search_input' element={<SearchDetailView />} />
+				<Route path='/detailview' element={<DetailView />} />
 				<Route path='/discover' element={<Discover />} />
 				<Route path='/profile' element={<Profile />} />
 				<Route path='/personal_profile' element={<PersonalProfile />} />
