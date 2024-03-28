@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './slice/userSlice'
+import storesSlice from './slice/storesSlice'
 
 export const store = configureStore({
 	// devTools:false
 	reducer: {
 		user: userSlice,
+		stores: storesSlice,
 	},
 })
 

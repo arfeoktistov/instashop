@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from '../../pages/Home/Home'
 import SearchResults from '../../pages/SearchResults/SearchResults'
@@ -7,8 +7,17 @@ import Profile from '../../pages/Profile/Profile'
 import Discover from '../../pages/Discover/Discover'
 import DetailView from '../../pages/DetailView/DetailView'
 import SearchDetailView from '../../pages/DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
+import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
+import { useAppDispatch } from '../../store/hooks/hooks'
+import { getAllStores } from '../../store/slice/storesSlice'
 
 const Main: FC = () => {
+	const dispatch = useAppDispatch()
+
+	useEffect(() => {
+		dispatch(getAllStores())
+	}, [dispatch])
+
 	return (
 		<main className='container'>
 			<Routes>
