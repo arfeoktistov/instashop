@@ -1,0 +1,108 @@
+.add_form {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	gap: 70px;
+	width: 100%;
+
+	.field_to_fill {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		.left_part {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			width: 49%;
+
+			.left_part_field {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+
+				& h2 {
+					color: rgb(3, 3, 3);
+					font-size: 16px;
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: 0px;
+					text-align: left;
+				}
+
+				.text_field {
+					box-sizing: border-box;
+					border: 1px solid rgb(33, 33, 33);
+					border-radius: 4px;
+					width: 100%;
+					color: rgb(3, 3, 3);
+					font-family: Roboto;
+					font-size: 12px;
+					font-weight: 400;
+					line-height: 14px;
+					letter-spacing: 0px;
+					text-align: left;
+					padding: 12px 6px 12px 6px;
+				}
+
+				.description {
+					box-sizing: border-box;
+					border: 1px solid rgb(33, 33, 33);
+					padding: 12px 6px 12px 6px;
+					border-radius: 4px;
+				}
+			}
+		}
+
+		.right_part {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			width: 49%;
+
+			.right_part_field {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+
+				& h2 {
+					color: rgb(3, 3, 3);
+					font-size: 16px;
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: 0px;
+					text-align: left;
+				}
+
+				.category,
+				.subcategory {
+					box-sizing: border-box;
+					border: 1px solid rgb(33, 33, 33);
+					border-radius: 4px;
+					width: 100%;
+					color: rgb(3, 3, 3);
+					font-family: Roboto;
+					font-size: 12px;
+					font-weight: 400;
+					line-height: 14px;
+					letter-spacing: 0px;
+					text-align: left;
+					padding: 12px 6px 12px 6px;
+				}
+			}
+		}
+	}
+
+	& button {
+		border-radius: 24px;
+		padding: 10px 50px;
+		background: rgb(21, 21, 21);
+		color: rgb(255, 255, 255);
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 19px;
+		letter-spacing: 0px;
+		text-align: left;
+	}
+}
