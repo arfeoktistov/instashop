@@ -1,9 +1,14 @@
 import React, { FC } from 'react'
+import SearchInput from './SearchInput/SearchInput'
+import FeaturedShops from './FeaturedShops/FeaturedShops'
+import TrendingCategories from './TrendingCategories/TrendingCategories'
 
 const Home: FC = () => {
 	return (
 		<div>
-			<h2>home</h2>
+			<SearchInput />
+			<FeaturedShops />
+			<TrendingCategories />
 		</div>
 	)
 }
