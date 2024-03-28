@@ -5,12 +5,18 @@ import back from '../../assets/Profile/back.png'
 import adi from '../../assets/Profile/adi.jpg'
 import ProfileCard from '../../Component/ProfileCard/ProfileCard'
 import SearchDetailView from '../DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
+import { useNavigate } from 'react-router-dom'
 
 
 const Profile: FC = () => {
+	const navigate = useNavigate()
+
+	const goBack = () => {
+		navigate(-1)
+	}
 	return (
 		<div className={'container'}>
-			<img className={s.arrow} src={arrow} alt="arrow" />
+			<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 			<div className={s.backround} style={{
 				backgroundImage: `url(${back}) `,
 				backgroundRepeat: 'no-repeat',

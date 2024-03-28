@@ -3,6 +3,7 @@
 	flex-direction: column;
 	gap: 32px;
 	margin-bottom: 60px;
+
 	.title {
 		font-size: 30px;
 		font-weight: 400;
@@ -13,7 +14,7 @@
 
 	.output {
 		display: flex;
-		justify-content: space-between;
 		flex-wrap: wrap;
+		gap: 24px;
 	}
 }
