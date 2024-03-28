@@ -10,10 +10,13 @@ from apps.users.views import(
     UserRegistrationView,
     VerificationUserView,
     NewVerificationCodeView,
+    UserViewSet, SellerUserViewSet
 )
 
 
 router = DR()
+router.register(r'users', UserViewSet)
+router.register(r'seller-users', SellerUserViewSet)
 
 urlpatterns = [
     path(

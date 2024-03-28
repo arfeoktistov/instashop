@@ -11,9 +11,9 @@ services:
     extra_hosts:
       - "database:172.17.0.1"
     volumes:
-      - ./static/:/bazar/static
-      - ./media/:/bazar/media
-      - ./:/bazar
+      - ./static/:/insta/static
+      - ./media/:/insta/media
+      - ./:/insta
     entrypoint: ./wsgi-entrypoint.sh
     restart: always
     deploy:

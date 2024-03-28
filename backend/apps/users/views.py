@@ -175,3 +175,101 @@ class NewVerificationCodeView(APIView):
                     'Error': "User does not exists"
                 }, status=400
             )
+
+from rest_framework.viewsets import ModelViewSet
+from drf_yasg.utils import swagger_auto_schema
+from .models import User, SellerUser
+from .serializers import UserSerializer, SellerUserSerializer
+
+
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    @swagger_auto_schema(
+        tags=['Пользователь'],
+        operation_summary="Получить список всех пользователей",
+        responses={200: UserSerializer(many=True)}
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Пользователь'],
+        operation_summary="Создать нового пользователя",
+        request_body=UserSerializer,
+        responses={201: UserSerializer}
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Пользователь'],
+        operation_summary="Получить детали пользователя по ID",
+        responses={200: UserSerializer}
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Пользователь'],
+        operation_summary="Обновить пользователя по ID",
+        request_body=UserSerializer,
+        responses={200: UserSerializer}
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Пользователь'],
+        operation_summary="Удалить пользователя по ID",
+        responses={204: 'No Content'}
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+class SellerUserViewSet(ModelViewSet):
+    queryset = SellerUser.objects.all()
+    serializer_class = SellerUserSerializer
+
+    @swagger_auto_schema(
+        tags=['Магазин'],
+        operation_summary="Получить список всех магазинов",
+        responses={200: SellerUserSerializer(many=True)}
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Магазин'],
+        operation_summary="Создать новый магазинов",
+        request_body=SellerUserSerializer,
+        responses={201: SellerUserSerializer}
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Магазин'],
+        operation_summary="Получить детали магазина по ID пользователя",
+        responses={200: SellerUserSerializer}
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Магазин'],
+        operation_summary="Обновить магазин по ID пользователя",
+        request_body=SellerUserSerializer,
+        responses={200: SellerUserSerializer}
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Магазин'],
+        operation_summary="Удалить магазин по ID пользователя",
+        responses={204: 'No Content'}
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
