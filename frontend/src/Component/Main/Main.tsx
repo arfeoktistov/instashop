@@ -7,6 +7,7 @@ import Profile from '../../pages/Profile/Profile'
 import Discover from '../../pages/Discover/Discover'
 import DetailView from '../../pages/DetailView/DetailView'
 import SearchDetailView from '../../pages/DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
+import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
 
 const Main: FC = () => {
 	return (

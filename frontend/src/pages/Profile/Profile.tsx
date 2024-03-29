@@ -1,18 +1,35 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import s from './Profile.module.scss'
 import arrow from '../../assets/Profile/Icon arrow left.png'
 import back from '../../assets/Profile/back.png'
 import adi from '../../assets/Profile/adi.jpg'
 import ProfileCard from '../../Component/ProfileCard/ProfileCard'
 import SearchDetailView from '../DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
+import { fetchByDetailProfile } from '../../store/slice/detailProfileSlice'
+// import { fetchByDetailProfile } from '../../store/slice/DetailProfileSlice'
+
+
+
 
 
 const Profile: FC = () => {
+
+	const dispatch = useAppDispatch()
+
+	useEffect(() => {
+		if (2) {
+			dispatch(fetchByDetailProfile(2))
+		}
+	}, [dispatch])
+
+	const { profile } = useAppSelector(state => state.profile)
+
 	return (
 		<div className={'container'}>
 			<img className={s.arrow} src={arrow} alt="arrow" />
 			<div className={s.backround} style={{
-				backgroundImage: `url(${back}) `,
+				backgroundImage: `url(${profile?.main_image}) `,
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: '100% 224px',
 				borderRadius: 20,
@@ -22,8 +39,8 @@ const Profile: FC = () => {
 				objectPosition: 'center'
 			}} >
 				<div className={s.profileDiv}>
-					<img className={s.profile} src={adi} alt="adi" />
-					<h1>ShopOwner123</h1>
+					<img className={s.profile} src={profile?.insta_image} alt="adi" />
+					<h1>{profile?.shop_name}</h1>
 				</div>
 				<div className={s.stats}>
 					<div className={s.noLine}>
