@@ -11,5 +11,11 @@ const instanse = axios.create({
 export const storesApi = {
 	getAllStores() {
 		return instanse.get(`api/users/seller-users/`)
-	}
+	},
+	getCategory() {
+		return instanse.get(`api/categories/categories/`)
+	},
+	getSubCategory() {
+		return instanse.get(`api/categories/subcategories/`)
+	},
 }
