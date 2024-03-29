@@ -1,13 +1,6 @@
 import React, { FC, FormEventHandler, useEffect, useState } from 'react'
 import s from './Login.module.scss'
-import {
-	FormControl,
-	IconButton,
-	InputAdornment,
-	InputLabel,
-	OutlinedInput,
-	TextField,
-} from '@mui/material'
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 interface LoginProps {
 	setLogin: (e: boolean) => void
@@ -16,9 +9,7 @@ interface LoginProps {
 const Login: FC<LoginProps> = ({ login, setLogin }) => {
 	const [showPassword1, setShowPassword1] = useState(false)
 	const handleClickShowPassword = () => setShowPassword1(show => !show)
-	const handleMouseDownPassword = (
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
+	const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 	}
 	const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
@@ -40,10 +31,10 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 			// При закрытии  модального окна вернуть скролл
 			document.body.style.overflow = 'auto'
 			// При закрытии убрать действия с кнопки ESC
-			document.removeEventListener('keydown', () => {})
+			document.removeEventListener('keydown', () => { })
 			// При закрытии вернуть действие по умолчанию на кнопку назад в браузере
 			if (!login) window.history.back()
-			window.onpopstate = () => {}
+			window.onpopstate = () => { }
 		}
 	}, [])
 	return (
