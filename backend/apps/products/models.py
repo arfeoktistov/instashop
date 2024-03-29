@@ -11,6 +11,8 @@ from apps.users.models import(
 )
 
 
+
+
 class Product(models.Model):
     sub_category = models.ForeignKey(
         SubCategory, on_delete=models.PROTECT,
@@ -42,3 +44,20 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, verbose_name='Продукт')
+    image = ResizedImageField(
+        size=[500, 500],  # Пример размера, можете настроить под свои нужды
+        quality=100,
+        upload_to='product_images/',
+        verbose_name='Изображение'
+    )
+
+    def __str__(self):
+        return f"Image for {self.product.name}"
+
+    class Meta:
+        verbose_name = 'Изображение продукта'
+        verbose_name_plural = 'Изображения продуктов'

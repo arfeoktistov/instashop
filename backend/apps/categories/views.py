@@ -35,6 +35,9 @@ from rest_framework import viewsets
 from .models import Category, SubCategory
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import CategorySerializer, SubCategorySerializer
+from ..products.models import Product
+from ..users.models import SellerUser
+
 
 
 class CategoryViewSet(ModelViewSet):
@@ -135,3 +138,27 @@ class SubCategoryViewSet(ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         """Удаляет подкатегорию по ID."""
         return super().destroy(request, *args, **kwargs)
+
+
+class SellerCategoriesViewSet(ReadOnlyModelViewSet):
+    queryset = SellerUser.objects.all()
+    serializer_class = CategorySerializer  # Это всё ещё заглушка для DRF
+
+    @action(detail=True, methods=['get'], url_path='categories')
+    @swagger_auto_schema(
+        tags=['Получение категорий по ID'],
+        operation_summary="Получить категории и подкатегории товаров магазина по ID пользователя",
+        responses={200: CategorySerializer(many=True)}
+    )
+    def get_categories(self, request, pk=None):
+        seller = self.get_object()
+
+        products = Product.objects.filter(seller=seller)
+        categories_ids = products.values_list('sub_category__category', flat=True).distinct()
+        categories = Category.objects.filter(id__in=categories_ids)
+
+        # Передаем экземпляр продавца в контекст сериализатора
+        context = {'request': request, 'seller': seller}
+        serializer = CategorySerializer(categories, many=True, context=context)
+        return Response(serializer.data)
+
