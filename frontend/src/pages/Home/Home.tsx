@@ -8,7 +8,7 @@ const Home: FC = () => {
 		<div>
 			<SearchInput />
 			<FeaturedShops />
-			<TrendingCategories />
+			{/* <TrendingCategories /> */}
 		</div>
 	)
 }

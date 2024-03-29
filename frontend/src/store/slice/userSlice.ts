@@ -23,6 +23,4 @@ const userSlice = createSlice({
 	extraReducers: ({ addCase }) => {},
 })
 
-export const {} = userSlice.actions
-
 export default userSlice.reducer
