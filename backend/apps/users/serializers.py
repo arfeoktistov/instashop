@@ -54,8 +54,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class SellerUserSerializer(serializers.ModelSerializer):
-    user = UserSerializer(required=True)
 
     class Meta:
         model = SellerUser
-        fields = '__all__'
+        fields = (
+            'id', 'user', 'shop_name', 'main_image',
+            'insta_image', 'mini_description',
+        )

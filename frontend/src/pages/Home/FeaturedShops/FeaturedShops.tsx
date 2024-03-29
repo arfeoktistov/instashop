@@ -6,6 +6,7 @@ import Loading from '../../../Component/Loading/Loading'
 
 const FeaturedShops: FC = () => {
 	const { loading, stores, error } = useAppSelector(state => state.stores)
+	console.log(stores);
 
 	if (loading) {
 		return <Loading />

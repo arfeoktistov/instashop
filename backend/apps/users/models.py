@@ -61,6 +61,10 @@ class SellerUser(models.Model):
         verbose_name='Продавец',
         related_name='seller_user'
     )
+    shop_name = models.CharField(
+        max_length=100, verbose_name='Название магазина',
+        default=''
+        )
     background_image = ResizedImageField(
         verbose_name='Фото заднее', upload_to='users/images_back',
         size=[1440, 2560], quality=100,
@@ -71,8 +75,16 @@ class SellerUser(models.Model):
         size=[1440, 2560], quality=100,
         null=True, blank=True,
     )
+    main_image = ResizedImageField(
+        verbose_name='Фото главная', upload_to='users/images_main',
+        size=[1440, 2560], quality=100,
+        null=True, blank=True,)
     tin = models.CharField(max_length=127, verbose_name='ИНН', default='')
     description = models.TextField(verbose_name='Описание магазина', default='')
+    mini_description = models.CharField(
+        max_length=150, verbose_name='Описание на главной',
+        default=''
+    )
     paid_status = models.BooleanField(default=False, verbose_name='Статус оплаты подписки')
     paid_date = models.DateField(verbose_name='Дата оплаты', default='')
     instagram_link = models.CharField(max_length=150, verbose_name='Ссылка инстаграм', default='')
