@@ -60,4 +60,5 @@ class SellerUserSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'user', 'shop_name', 'main_image',
             'insta_image', 'mini_description',
+            'instagram_link', 'product', 'followers',
         )
