@@ -49,8 +49,7 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, verbose_name='Продукт')
     image = ResizedImageField(
-        size=[500, 500],  # Пример размера, можете настроить под свои нужды
-        quality=100,
+        size=[500, 500],
         upload_to='product_images/',
         verbose_name='Изображение'
     )
