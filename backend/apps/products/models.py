@@ -1,62 +1,76 @@
 from django.db import models
-
 from django_resized import ResizedImageField
-
-from apps.categories.models import(
-    SubCategory,
-)
-
-from apps.users.models import(
-    SellerUser,
-)
-
-
+from apps.categories.models import SubCategory
+from apps.users.models import SellerUser
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 
 class Product(models.Model):
-    sub_category = models.ForeignKey(
+    """Модель продукта.
+
+    ### Attrs:
+    - sub_category (ForeignKey): Подкатегория, к которой принадлежит продукт.
+    - name (str): Название продукта.
+    - description (str): Описание продукта.
+    - seller (ForeignKey): Продавец, предлагающий продукт.
+    - price (Decimal): Цена продукта.
+    - image (ResizedImageField): Основное изображение продукта.
+    """
+    sub_category: models.ForeignKey = models.ForeignKey(
         SubCategory, on_delete=models.PROTECT,
-        verbose_name = 'Подкатегория',
-        related_name = 'products'
+        verbose_name='Подкатегория',
+        related_name='products'
     )
-    name = models.CharField(
-        max_length = 127,
-        verbose_name = 'Название'
+    name: models.CharField = models.CharField(
+        max_length=127, verbose_name='Название'
     )
-    description = models.TextField(
-        verbose_name = 'Описание'
+    description: models.TextField = models.TextField(
+        verbose_name='Описание'
     )
-    seller = models.ForeignKey(
-        SellerUser,
-        on_delete=models.CASCADE,
+    seller: models.ForeignKey = models.ForeignKey(
+        SellerUser, on_delete=models.CASCADE,
         verbose_name='Продавец',
         related_name='products'
     )
-    price = models.IntegerField(verbose_name='Цена')
-    image = ResizedImageField(
-        verbose_name='Фото', upload_to='products/images',
-        size=[1440, 2560], quality=100, 
+    price: models.DecimalField = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name='Цена',
+        validators=[MinValueValidator(Decimal('0.01'))]
     )
-    
-    def __str__(self):
+    image: ResizedImageField = ResizedImageField(
+        verbose_name='Фото', upload_to='products/images',
+        size=[1440, 2560], quality=75
+    )
+
+    def __str__(self) -> str:
+        """Возвращает название продукта."""
         return self.name
-    
+
     class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
+        verbose_name: str = 'Продукт'
+        verbose_name_plural: str = 'Продукты'
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, verbose_name='Продукт')
-    image = ResizedImageField(
-        size=[500, 500],
-        upload_to='product_images/',
-        verbose_name='Изображение'
+    """Модель изображения продукта.
+
+    ### Attrs:
+    - product (ForeignKey): Продукт, к которому принадлежит изображение.
+    - image (ResizedImageField): Изображение продукта.
+    """
+    product: models.ForeignKey = models.ForeignKey(
+        Product, related_name='images', on_delete=models.CASCADE,
+        verbose_name='Продукт'
+    )
+    image: ResizedImageField = ResizedImageField(
+        verbose_name='Фото', upload_to='products/images',
+        size=[1440, 2560], quality=75
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Возвращает описание изображения, связанного с продуктом."""
         return f"Image for {self.product.name}"
 
     class Meta:
-        verbose_name = 'Изображение продукта'
-        verbose_name_plural = 'Изображения продуктов'
+        verbose_name: str = 'Изображение продукта'
+        verbose_name_plural: str = 'Изображения продуктов'
