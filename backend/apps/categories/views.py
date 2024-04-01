@@ -38,14 +38,57 @@ from rest_framework.decorators import action
 from rest_framework import viewsets
 from .models import Category, SubCategory
 from drf_yasg.utils import swagger_auto_schema
-from .serializers import CategorySerializer, SubCategorySerializer
+from .serializers import CategorySerializer, SubCategorySerializer, SellerUserWithCategoriesSerializer
 from ..products.models import Product
 from ..users.models import SellerUser
+from rest_framework.decorators import api_view
+from rest_framework import status
+
+from ..users.serializers import SellerUserSerializer
 
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+    @action(detail=True, methods=['get'], url_path='sellers')
+    @swagger_auto_schema(
+        tags=['Получить продавцов по категории и подкатегории'],
+        operation_summary="Получить продавцов по категории и подкатегории",
+        operation_description="Возвращает список продавцов, у которых есть товары в указанной категории и, опционально, подкатегории.",
+        manual_parameters=[
+            openapi.Parameter(
+                'subcategory_id',
+                in_=openapi.IN_QUERY,
+                description="ID подкатегории",
+                type=openapi.TYPE_INTEGER,
+                required=False
+            ),
+        ],
+        responses={
+            200: openapi.Response(
+                description="Список продавцов по категории и подкатегории",
+                schema=SellerUserSerializer(many=True),
+            ),
+            404: "Категория или подкатегория не найдены"
+        }
+    )
+    def get_sellers(self, request, pk=None):
+        category_id = self.kwargs.get('pk')
+        subcategory_id = request.query_params.get('subcategory_id')
+
+        if subcategory_id:
+            sellers_queryset = SellerUser.objects.filter(
+                products__sub_category__id=subcategory_id,
+                products__sub_category__category_id=category_id
+            )
+        else:
+            sellers_queryset = SellerUser.objects.filter(
+                products__sub_category__category_id=category_id
+            )
+
+        serializer = SellerUserSerializer(sellers_queryset, many=True)
+        return Response(serializer.data)
 
     @swagger_auto_schema(
         tags=['Категории'],
@@ -277,3 +320,5 @@ class SellerCategoriesViewSet(ReadOnlyModelViewSet):
         categories = Category.objects.filter(id__in=categories_ids)
         serializer = CategorySerializer(categories, many=True, context={'request': request, 'seller': seller})
         return Response(serializer.data)
+
+

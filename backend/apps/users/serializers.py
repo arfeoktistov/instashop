@@ -62,3 +62,4 @@ class SellerUserSerializer(serializers.ModelSerializer):
             'insta_image', 'mini_description',
             'instagram_link', 'product', 'followers',
         )
+
