@@ -7,6 +7,7 @@
 		display: flex;
 		justify-content: space-between;
 		height: 100px;
+
 		.title_header {
 			display: flex;
 			align-items: center;
@@ -19,6 +20,7 @@
 				letter-spacing: 0%;
 				text-align: center;
 			}
+
 			.logo {
 				font-size: 20px;
 				font-weight: 400;
@@ -32,6 +34,7 @@
 			display: flex;
 			align-items: center;
 			gap: 30px;
+			cursor: pointer;
 
 			img {
 				width: 25px;

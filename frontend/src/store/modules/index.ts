@@ -46,3 +46,14 @@ export type IStores = {
 	mini_description: string
 
 }
+
+type ISubCategory = {
+	id: number
+	name: string
+}
+
+export type ICategory = {
+	id: number
+	name: string
+	sub_categories: ISubCategory[]
+}

@@ -6,7 +6,6 @@ import Loading from '../../../Component/Loading/Loading'
 
 const FeaturedShops: FC = () => {
 	const { loading, stores, error } = useAppSelector(state => state.stores)
-	console.log(stores);
 
 	if (loading) {
 		return <Loading />
@@ -14,7 +13,7 @@ const FeaturedShops: FC = () => {
 
 	return (
 		<div className={s.FeaturedShops}>
-			<h2 className={s.title}>Featured shops</h2>
+			<h2 className={s.title}>Магазины</h2>
 			<div className={s.output}>
 				{
 					stores.length > 0 ?
