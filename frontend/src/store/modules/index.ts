@@ -16,3 +16,14 @@ export type IStores = {
 	insta_image: string
 	mini_description: string
 }
+
+type ISubCategory = {
+	id: number
+	name: string
+}
+
+export type ICategory = {
+	id: number
+	name: string
+	sub_categories: ISubCategory[]
+}

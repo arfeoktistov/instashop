@@ -1,7 +1,9 @@
 .SearchInput {
 	display: flex;
+	justify-content: center;
 	gap: 20px;
 	align-items: center;
+
 	.input_field {
 		width: 75%;
 		display: flex;
@@ -36,11 +38,19 @@
 		}
 	}
 
-	.category {
-		font-size: 30px;
-		font-weight: 500;
-		line-height: 130%;
-		letter-spacing: 0%;
-		text-align: left;
+	.category_wrapper {
+		position: relative;
+		width: 400px;
+
+		.category {
+			text-align: center;
+			font-size: 30px;
+			font-weight: 500;
+			line-height: 130%;
+			letter-spacing: 0%;
+			cursor: pointer;
+			user-select: none;
+		}
 	}
+
 }
