@@ -10,4 +10,39 @@ export type DetailProfile = {
 	mini_description: string
 	shop_name: string
 	user: number
+	followers: number
+	product: number
+	instagram_link: string
+}
+export type ImagesMas = {
+	image: string
+}
+export type ProfileCardModules = {
+	id: number
+	name: string
+	description: string
+	seller: number
+	price: string
+	image: string
+	images: ImagesMas[]
+
+
+}
+
+
+
+export type Icategory = {
+	id: number
+	name: string
+	category?: string
+}
+
+export type IStores = {
+	id: number
+	user: number
+	shop_name: string
+	main_image: string | null
+	insta_image: string
+	mini_description: string
+
 }

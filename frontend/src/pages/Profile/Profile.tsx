@@ -1,35 +1,48 @@
 import React, { FC, useEffect } from 'react'
 import s from './Profile.module.scss'
 import arrow from '../../assets/Profile/Icon arrow left.png'
-import back from '../../assets/Profile/back.png'
-import adi from '../../assets/Profile/adi.jpg'
+import defBack from '../../assets/Profile/back.png'
+import defStatus from '../../assets/Profile/status.png'
+
 import ProfileCard from '../../Component/ProfileCard/ProfileCard'
 import SearchDetailView from '../DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
-import { fetchByDetailProfile } from '../../store/slice/detailProfileSlice'
-// import { fetchByDetailProfile } from '../../store/slice/DetailProfileSlice'
+import { fetchByDetailProfile, fetchByProfileCard } from '../../store/slice/detailProfileSlice'
 
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 
 
 const Profile: FC = () => {
+	const { id } = useParams()
 
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		if (2) {
-			dispatch(fetchByDetailProfile(2))
+		if (id) {
+			dispatch(fetchByDetailProfile(+id))
+			dispatch(fetchByProfileCard(+id))
 		}
 	}, [dispatch])
 
-	const { profile } = useAppSelector(state => state.profile)
+
+	const { profile, profileCard } = useAppSelector(state => state.profile)
+
+	console.log(profileCard);
+
+
+	const navigate = useNavigate()
+
+	const goBack = () => {
+		navigate(-1)
+	}
 
 	return (
 		<div className={'container'}>
-			<img className={s.arrow} src={arrow} alt="arrow" />
+			<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 			<div className={s.backround} style={{
-				backgroundImage: `url(${profile?.main_image}) `,
+				backgroundImage: `url(${profile?.main_image ? profile?.main_image : defBack}) `,
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: '100% 224px',
 				borderRadius: 20,
@@ -39,48 +52,29 @@ const Profile: FC = () => {
 				objectPosition: 'center'
 			}} >
 				<div className={s.profileDiv}>
-					<img className={s.profile} src={profile?.insta_image} alt="adi" />
+					<img className={s.profile} src={profile?.insta_image ? profile?.insta_image : defStatus} alt="adi" />
 					<h1>{profile?.shop_name}</h1>
 				</div>
 				<div className={s.stats}>
 					<div className={s.noLine}>
-						<h2>500</h2>
+						<h2>{profile?.product}</h2>
 						<h3>products</h3>
 					</div>
-					{/* <div className={s.noLine}>
-						<h2>120</h2>
-						<h3>categories</h3>
-					</div>
-					<div className={s.noLine}>
-						<h2>8.500</h2>
-						<h3>followers</h3>
-					</div> */}
 					<div className={s.line}>
-						<h2>4.75</h2>
+						<h2>{profile?.followers}</h2>
 						<h3>bestseller</h3>
 					</div>
 				</div>
-				<button>Connect</button>
+				<a href={profile?.instagram_link}>
+					<button>Connect</button>
+				</a>
+
 			</div>
 
 			<h2 className={s.newArrivals}>New Arrivals</h2>
 			<SearchDetailView />
 			<div className={s.fiveCards}>
-				<div className={s.card}>
-					<ProfileCard />
-				</div>
-				<div className={s.card}>
-					<ProfileCard />
-				</div>
-				<div className={s.card}>
-					<ProfileCard />
-				</div>
-				<div className={s.card}>
-					<ProfileCard />
-				</div>
-				<div className={s.card}>
-					<ProfileCard />
-				</div>
+				{profileCard.length > 0 && profileCard.map(el => <ProfileCard key={el.id} profilCard={el} />)}
 			</div>
 		</div >
 	)
