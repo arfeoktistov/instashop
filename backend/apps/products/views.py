@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -47,7 +48,7 @@ class ProductViewSet(ModelViewSet):
         """Возвращает список всех продуктов."""
         return super().list(request, *args, **kwargs)
 
-    swagger_auto_schema(
+    @swagger_auto_schema(
         tags=['Продукты'],
         operation_summary="Создать новый продукт",
         operation_description="Создает новый продукт с деталями и изображениями.",
@@ -60,7 +61,6 @@ class ProductViewSet(ModelViewSet):
             400: "Некорректные данные запроса"
         }
     )
-
     def create(self, request, *args, **kwargs):
         """Создает новый продукт."""
         return super().create(request, *args, **kwargs)
