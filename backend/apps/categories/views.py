@@ -81,11 +81,11 @@ class CategoryViewSet(ModelViewSet):
             sellers_queryset = SellerUser.objects.filter(
                 products__sub_category__id=subcategory_id,
                 products__sub_category__category_id=category_id
-            )
+            ).distinct()
         else:
             sellers_queryset = SellerUser.objects.filter(
                 products__sub_category__category_id=category_id
-            )
+            ).distinct()
 
         serializer = SellerUserSerializer(sellers_queryset, many=True)
         return Response(serializer.data)
