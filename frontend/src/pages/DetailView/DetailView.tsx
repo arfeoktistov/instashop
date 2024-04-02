@@ -62,7 +62,7 @@ const DetailView: FC = () => {
 
                         {detailview && detailview?.images.length > 0 &&
                             detailview?.images.map((el, i) => (
-                                <SwiperSlide key={i} >
+                                <SwiperSlide className='cursor' key={i} >
                                     <img src={el.image} />
                                 </SwiperSlide>
                             ))
@@ -85,7 +85,7 @@ const DetailView: FC = () => {
                         </SwiperSlide>
                         {detailview && detailview?.images.length > 0 &&
                             detailview?.images.map((el, i) => (
-                                <SwiperSlide key={i} >
+                                <SwiperSlide className='cursor' key={i} >
                                     <img src={el.image} />
                                 </SwiperSlide>
                             ))
@@ -97,7 +97,7 @@ const DetailView: FC = () => {
                 <div className='detail_info'>
                     <div className='detail_text'>
                         <h1>{detailview?.name}</h1>
-                        <h2>{detailview?.price} $</h2>
+                        <h2>{Math.ceil(detailview?.price ? +detailview?.price : 0)} сом</h2>
                         <p>{detailview?.description}</p>
                     </div>
                     <div className='link'>
