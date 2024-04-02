@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import s from './ShopCard.module.scss'
 import Image from '../../assets/Home/Image5.png'
 import { IStores } from '../../store/modules'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Tilt } from 'react-tilt'
 import { pathLink } from '../../reused'
 
@@ -20,6 +20,8 @@ const defaultOptions = {
 
 
 const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) => {
+	const [searchParams] = useSearchParams()
+	const state = searchParams.get('c') ? { c: searchParams.get('c'), sub: searchParams.get('sub') } : null
 
 	return (
 		<Tilt options={defaultOptions} className={s.card}>
@@ -32,7 +34,9 @@ const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) 
 					<div className={s.top_up_field}>
 						<h2>{mini_description.length > 80 ? mini_description?.slice(0, 80) + '...' : mini_description}</h2>
 						{/* <h2>Handpicked items for you</h2> */}
-						<Link to={`/profile/${id}`} className={s.shop_link}>Перейти...</Link>
+						<Link
+							to={`/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`}
+							className={s.shop_link}>Перейти...</Link>
 					</div>
 				</div>
 			</div>

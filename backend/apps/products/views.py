@@ -6,6 +6,7 @@ from .serializers import ProductSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 
 class ProductViewSet(ModelViewSet):
@@ -114,33 +115,36 @@ class ProductViewSet(ModelViewSet):
 
 
 class SellerProductsViewSet(ReadOnlyModelViewSet):
-    """
-    A viewset for viewing products by a specific seller.
-    """
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        """
-        Filters the queryset by 'seller_id' from the URL kwargs.
-        """
         seller_id = self.kwargs.get('seller_id')
         return Product.objects.filter(seller__id=seller_id) if seller_id else Product.objects.none()
 
+    @action(detail=True, methods=['get'], url_path='products_by_category')
     @swagger_auto_schema(
         tags=['Получение категорий по ID'],
-        operation_summary="Получить список всех продуктов продавца",
-        operation_description="Возвращает список всех продуктов для заданного продавца по 'seller_id'.",
-        responses={
-            200: openapi.Response(
-                description="Список продуктов продавца",
-                schema=ProductSerializer(many=True),
-            ),
-            404: "Продавец с указанным ID не найден"
-        }
+        operation_summary="Получить продукты продавца по категории и подкатегории",
+        operation_description="Возвращает продукты заданного продавца, фильтруя по категории и подкатегории.",
+        manual_parameters=[
+            openapi.Parameter('category_id', openapi.IN_QUERY, description="ID категории", type=openapi.TYPE_INTEGER, required=False),
+            openapi.Parameter('subcategory_id', openapi.IN_QUERY, description="ID подкатегории", type=openapi.TYPE_INTEGER, required=False),
+        ],
+        responses={200: ProductSerializer(many=True)}
     )
-    def list(self, request, *args, **kwargs):
-        """
-        Returns a list of all products for a given seller identified by 'seller_id'.
-        """
-        return super().list(request, *args, **kwargs)
+    def products_by_category(self, request, *args, **kwargs):
+        seller_id = self.kwargs.get('seller_id')
+        category_id = request.query_params.get('category_id')
+        subcategory_id = request.query_params.get('subcategory_id')
+
+        queryset = Product.objects.filter(seller__id=seller_id)
+
+        if category_id:
+            queryset = queryset.filter(sub_category__category__id=category_id)
+        if subcategory_id:
+            queryset = queryset.filter(sub_category__id=subcategory_id)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+

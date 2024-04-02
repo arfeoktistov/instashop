@@ -6,7 +6,6 @@ import Search from '../../pages/Search/Search'
 import Profile from '../../pages/Profile/Profile'
 import Discover from '../../pages/Discover/Discover'
 import DetailView from '../../pages/DetailView/DetailView'
-import SearchDetailView from '../../pages/DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
 import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
 
 import AddingProduct from '../../pages/AddingProduct/AddingProduct'
@@ -19,13 +18,12 @@ const Main: FC = () => {
 
 	useEffect(() => {
 		!searchParams.get('c') && dispatch(getAllStores())
-	}, [dispatch])
+	}, [dispatch, searchParams.get('c')])
 
 	return (
 		<main className='container'>
 			<Routes>
 				<Route path='/' element={<Home />} />
-				<Route path='/search_input' element={<SearchDetailView />} />
 				<Route path='/detailview/:id' element={<DetailView />} />
 				<Route path='/discover' element={<Discover />} />
 				<Route path='/profile/:id' element={<Profile />} />

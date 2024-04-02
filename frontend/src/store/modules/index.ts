@@ -13,6 +13,7 @@ export type DetailProfile = {
 	followers: number
 	product: number
 	instagram_link: string
+	background_image: string
 }
 export type ImagesMas = {
 	image: string
@@ -56,4 +57,10 @@ export type ICategory = {
 	id: number
 	name: string
 	sub_categories: ISubCategory[]
+}
+
+export type IProductsCat = {
+	id: string
+	cat_id: string
+	sub_id: string
 }

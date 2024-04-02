@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { pathLink } from '../reused'
-import { ProfileCardModules } from '../store/modules'
+import { ProfileCardModules, IProductsCat } from '../store/modules'
 import { Observable } from 'redux'
 
 const instanse = axios.create({
@@ -34,4 +34,10 @@ export const storesApi = {
 	getDetailView(id: number) {
 		return instanse.get(`api/products/products/${id}/`)
 	},
+	getStoreCategories(id: number) {
+		return instanse.get(`/api/categories/sellers/${id}/categories/`)
+	},
+	getProductsByCategory({ id, cat_id, sub_id }: IProductsCat) {
+		return instanse.get(`/api/products/seller/${id}/products/${id}/products_by_category/?category_id=${cat_id}&subcategory_id=${sub_id}`)
+	}
 }

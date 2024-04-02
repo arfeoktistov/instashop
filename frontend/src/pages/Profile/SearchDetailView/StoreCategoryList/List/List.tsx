@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import s from './List.module.scss'
-import { ICategory } from '../../../../../store/modules';
 import plus from '../../../../../assets/CategoryList/plus.png'
 import minus from '../../../../../assets/CategoryList/Minus.png'
+import { ICategory } from '../../../../../store/modules';
 
 interface ListProps {
     handleFilter: (cat_id: string, sub_id?: string) => void
