@@ -2,6 +2,16 @@ export type IObjectKeys = {
 	[key: string]: string | null | undefined
 }
 
+export type UserLogin = {
+	email: string
+	password: string
+}
+
+export type GetToken = {
+	access: string
+	refresh: string
+}
+
 export type Icategory = {
 	id: number
 	name: string

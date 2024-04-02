@@ -9,16 +9,22 @@ import DetailView from '../../pages/DetailView/DetailView'
 import SearchDetailView from '../../pages/DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
 import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
 import AddingProduct from '../../pages/AddingProduct/AddingProduct'
-import { useAppDispatch } from '../../store/hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import { getAllStores } from '../../store/slice/storesSlice'
+import { getLSToken } from '../../LS'
+import { setToken } from '../../store/slice/userSlice'
 
 const Main: FC = () => {
 	const dispatch = useAppDispatch()
-
 	useEffect(() => {
 		dispatch(getAllStores())
 	}, [dispatch])
-
+	useEffect(() => {
+		let lsToken = getLSToken()
+		if (lsToken !== null && lsToken !== undefined) {
+			dispatch(setToken(lsToken))
+		}
+	}, [dispatch])
 	return (
 		<main className='container'>
 			<Routes>
