@@ -44,7 +44,7 @@ const Profile: FC = () => {
 			<div className={s.backround} style={{
 				backgroundImage: `url(${profile?.main_image ? profile?.main_image : defBack}) `,
 				backgroundRepeat: 'no-repeat',
-				backgroundSize: '100% 224px',
+				backgroundSize: '100% 274px',
 				borderRadius: 20,
 				borderBottomRightRadius: 20,
 				borderEndEndRadius: 20,
