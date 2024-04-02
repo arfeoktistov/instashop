@@ -27,30 +27,18 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct }) => {
 				<div className={s.left_part}>
 					<div className={s.left_part_field}>
 						<h2>Введите название</h2>
-						<input
-							className={s.text_field}
-							type='text'
-							placeholder='Название'
-						/>
+						<input className={s.text_field} type='text' placeholder='Название' />
 					</div>
 					<div className={s.left_part_field}>
 						<h2>Введите Описание</h2>
 						<textarea
 							// onChange={e => handleChange('description', e.target.value)}
 							// value={orderData.description}
-							rows={4}
-							cols={50}
-							placeholder='Описание'
-							className={s.description}
-						></textarea>
+							rows={4} cols={50} placeholder='Описание' className={s.description}></textarea>
 					</div>
 					<div className={s.left_part_field}>
 						<h2>Введите Стоимость</h2>
-						<input
-							className={s.text_field}
-							type='text'
-							placeholder='Стоимость'
-						/>
+						<input className={s.text_field} type='text' placeholder='Стоимость' />
 					</div>
 				</div>
 				<div className={s.right_part}>

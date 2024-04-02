@@ -9,6 +9,7 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+
 		.left_part {
 			display: flex;
 			flex-direction: column;
@@ -89,6 +90,12 @@
 					letter-spacing: 0px;
 					text-align: left;
 					padding: 12px 6px 12px 6px;
+					appearance: none;
+					background-color: #fff;
+					background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9bw6hBsfSPkaEUU6g7ydUhWhTjjp6xW6pGrTGlyEkSPJf7bqp8n0eaNyP3Cj-d1yrIpg&usqp=CAU'), linear-gradient(to bottom, #ffffff 0%, #ffffff 100%);
+					background-repeat: no-repeat, repeat;
+					background-position: right .5em top 50%, 0 0;
+					background-size: 1.2em auto, 100%;
 				}
 			}
 		}

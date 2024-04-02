@@ -11,10 +11,12 @@ interface ProfileCardProps {
 const ProfileCard: FC<ProfileCardProps> = ({ profilCard }) => {
     return (
         <Link className={s.card} to={`/detailview/${profilCard.id}`}>
-            <img src={profilCard.image} alt="img" />
+            <div className={s.imageClass}>
+                <img src={profilCard.image} alt="img" />
+            </div>
             <div>
-                <h2>Shop now!</h2>
-                <h3>1000$</h3>
+                <h2>{profilCard.name}</h2>
+                <h3>{Math.ceil(profilCard?.price ? +profilCard?.price : 0)} com</h3>
             </div>
         </Link >
 

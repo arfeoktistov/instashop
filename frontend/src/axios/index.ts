@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { pathLink } from '../reused'
-import { ProfileCardModules, IProductsCat } from '../store/modules'
-import { Observable } from 'redux'
+import { UserLogin } from '../store/modules'
+import { IProductsCat } from '../store/modules'
 
 const instanse = axios.create({
 
@@ -21,6 +21,10 @@ export const storesApi = {
 	},
 	getSubCategory() {
 		return instanse.get(`/api/categories/subcategories/`)
+
+	},
+	addNewUser(getUser: UserLogin) {
+		return instanse.post(`/api/users/token/`, getUser)
 	},
 	getStoresByCategory(cat_id: string, sub_id: string = '') {
 		return instanse.get(`/api/categories/categories/${cat_id}/sellers/?subcategory_id=${sub_id}`)

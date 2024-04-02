@@ -10,12 +10,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import insta from '../../assets/DetailView/ri_instagram-fill.png'
 import wh from '../../assets/DetailView/ri_whatsapp-fill.png'
-import first from '../../assets/DetailView/first.png'
+import arrow from '../../assets/Profile/Icon arrow left.png'
 
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { fetchByDetailView, fetchByProfileCard } from '../../store/slice/detailProfileSlice';
 
@@ -37,10 +37,19 @@ const DetailView: FC = () => {
     // console.log(profileCard);
 
 
+    const navigate = useNavigate()
+
+    const goBack = () => {
+        navigate(-1)
+    }
+
 
     return (
         <div className={'container'}>
+            <div>
 
+                <img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
+            </div>
 
             <div className='displayOne'>
 

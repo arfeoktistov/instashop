@@ -43,8 +43,9 @@
 			.username {
 				display: flex;
 				flex-direction: column;
-				gap: 5px;
+				gap: 8px;
 				margin-bottom: 20px;
+
 				& h3 {
 					color: rgb(3, 3, 3);
 					font-size: 16px;
@@ -53,6 +54,16 @@
 					letter-spacing: 0px;
 					text-align: left;
 				}
+
+				.error_text {
+					color: red;
+					font-size: 16px;
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: 0px;
+					text-align: left;
+				}
+
 				.input_username {
 					width: 100%;
 					height: 38px;
@@ -62,9 +73,19 @@
 			.password {
 				display: flex;
 				flex-direction: column;
-				gap: 5px;
+				gap: 8px;
+
 				& h3 {
 					color: rgb(3, 3, 3);
+					font-size: 16px;
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: 0px;
+					text-align: left;
+				}
+
+				.error_text {
+					color: red;
 					font-size: 16px;
 					font-weight: 500;
 					line-height: 20px;
@@ -81,9 +102,17 @@
 				width: 100%;
 				height: 30%;
 				display: flex;
-				flex-direction: column;
 				justify-content: space-between;
-				align-items: end;
+				align-items: center;
+
+				.error_text {
+					color: rgb(248, 60, 60);
+					font-size: 16px;
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: 0px;
+					text-align: left;
+				}
 
 				button {
 					border-radius: 24px;
@@ -122,13 +151,12 @@
 				}
 
 				.bottom_login {
-					.bottom {
-						flex-direction: column;
-						height: 50px;
+					flex-direction: column;
+					align-items: end;
+					gap: 15px;
 
-						.path {
-							color: #3498db;
-						}
+					.error_text {
+						text-align: center;
 					}
 				}
 			}
