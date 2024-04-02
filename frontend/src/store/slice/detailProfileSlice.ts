@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { storesApi } from "../../axios"
-import { DetailProfile, ProfileCardModules } from "../modules"
-
-
+import { DetailProfile, ICategory, IProductsCat, Icategory, ProfileCardModules } from "../modules"
 
 type NewsState = {
     loading: boolean
@@ -10,6 +8,7 @@ type NewsState = {
     profile: DetailProfile | null
     profileCard: ProfileCardModules[]
     detailview: ProfileCardModules | null
+    profile_categories: ICategory[]
 }
 
 const initialState: NewsState = {
@@ -18,7 +17,7 @@ const initialState: NewsState = {
     profile: null,
     profileCard: [],
     detailview: null,
-
+    profile_categories: []
 }
 
 
@@ -26,7 +25,7 @@ export const fetchByDetailProfile = createAsyncThunk<DetailProfile, number, { re
     'profile/fetchByDetailProfile',
     async (id, { rejectWithValue }) => {
         const res = await storesApi.getProfileDetail(id)
-        console.log(res);
+        // console.log(res);
         if (res.status !== 200) {
             return rejectWithValue('Server Error')
         }
@@ -49,11 +48,35 @@ export const fetchByDetailView = createAsyncThunk<ProfileCardModules, number, { 
     'profile/fetchByDetailView',
     async (id, { rejectWithValue }) => {
         const res = await storesApi.getDetailView(id)
-        console.log(res);
+        // console.log(res);
         if (res.status !== 200) {
             return rejectWithValue('Server Error')
         }
         return res.data as ProfileCardModules
+    }
+)
+
+export const fetchByProfileCategories = createAsyncThunk<ICategory[], number, { rejectValue: string }>(
+    'profile/fetchByProfileCategories',
+    async (id, { rejectWithValue }) => {
+        const res = await storesApi.getStoreCategories(id)
+        // console.log(res);
+        if (res.status !== 200) {
+            return rejectWithValue('Server Error')
+        }
+        return res.data as ICategory[]
+    }
+)
+
+export const fetchByCardsByCategories = createAsyncThunk<ProfileCardModules[], IProductsCat, { rejectValue: string }>(
+    'profile/fetchByCardsByCategories',
+    async (data, { rejectWithValue }) => {
+        const res = await storesApi.getProductsByCategory(data)
+        // console.log(res);
+        if (res.status !== 200) {
+            return rejectWithValue('Server Error')
+        }
+        return res.data as ProfileCardModules[]
     }
 )
 
@@ -81,6 +104,7 @@ const detailProfileSlice = createSlice({
                 state.error = action.payload
             }
         })
+        // =============================================================
         addCase(fetchByProfileCard.pending, (state) => {
             state.loading = true
             state.error = null
@@ -99,7 +123,7 @@ const detailProfileSlice = createSlice({
                 state.error = action.payload
             }
         })
-
+        // =============================================================
         addCase(fetchByDetailView.pending, (state) => {
             state.loading = true
             state.error = null
@@ -118,7 +142,45 @@ const detailProfileSlice = createSlice({
                 state.error = action.payload
             }
         })
+        // =============================================================
+        addCase(fetchByProfileCategories.pending, (state) => {
+            state.loading = true
+            state.error = null
+        })
 
+        addCase(fetchByProfileCategories.fulfilled, (state, action) => {
+            state.profile_categories = action.payload
+            state.loading = false
+        })
+
+        addCase(fetchByProfileCategories.rejected, (state, action) => {
+            state.loading = false
+            if (action.payload?.includes('404')) {
+                state.error = 'No Broouuuu,No News!'
+            } else {
+                state.error = action.payload
+            }
+        })
+        // =============================================================
+        addCase(fetchByCardsByCategories.pending, (state) => {
+            state.loading = true
+            state.error = null
+        })
+
+        addCase(fetchByCardsByCategories.fulfilled, (state, action) => {
+            state.profileCard = action.payload
+            state.loading = false
+        })
+
+        addCase(fetchByCardsByCategories.rejected, (state, action) => {
+            state.loading = false
+            if (action.payload?.includes('404')) {
+                state.error = 'No Broouuuu,No News!'
+            } else {
+                state.error = action.payload
+            }
+        })
+        // =============================================================
     }
 
 })
