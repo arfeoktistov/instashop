@@ -10,9 +10,12 @@ from apps.users.views import(
     UserRegistrationView,
     VerificationUserView,
     NewVerificationCodeView,
-    UserViewSet, SellerUserViewSet
+    UserViewSet, SellerUserViewSet,
+
+
 )
 
+from apps.users.views import GetUserIdView
 
 router = DR()
 router.register(r'users', UserViewSet)
@@ -39,6 +42,8 @@ urlpatterns = [
         NewVerificationCodeView.as_view(), 
         name='new_code'
     ),
+    path('users/token/user-id/', GetUserIdView.as_view(), name='get-user-id'),
+
 ]
 
 urlpatterns += router.urls

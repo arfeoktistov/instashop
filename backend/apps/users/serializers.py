@@ -1,4 +1,9 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model, authenticate
+
+
+User = get_user_model()
+
 
 
 class UserRegistrationSerializer(serializers.Serializer):
@@ -40,17 +45,23 @@ from .models import User, SellerUser
 
 
 class UserSerializer(serializers.ModelSerializer):
+    seller_details = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'email', 'first_name', 'last_name', 'seller_details',)  # добавьте нужные поля
         extra_kwargs = {
             'password': {'write_only': True},
             'code_activation': {'write_only': True},
         }
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+    def get_seller_details(self, obj):
+        try:
+            seller_user = SellerUser.objects.get(user=obj)
+            return SellerUserSerializer(seller_user).data
+        except SellerUser.DoesNotExist:
+            return None
+
 
 
 class SellerUserSerializer(serializers.ModelSerializer):
