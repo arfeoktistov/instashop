@@ -11,15 +11,11 @@ services:
     extra_hosts:
       - "database:172.17.0.1"
     volumes:
-      - ./static/:/insta/static
-      - ./media/:/insta/media
-      - ./:/insta
+      - static_volume:/bazar/static
+      - media_volume:/bazar/media
+      - ./:/bazar
     entrypoint: ./wsgi-entrypoint.sh
     restart: always
-    deploy:
-      resources:
-        limits:
-          memory: 1800M
     networks:
       - insta_network
     depends_on:
@@ -31,22 +27,15 @@ services:
     container_name: insta_nginx
     build:
       context: ./docker/nginx
-      dockerfile: Dockerfile
     ports:
       - "81:80"
-      # - "4443:443"
     volumes:
-      - ./static/:/insta/static
-      - ./media/:/insta/media
-      # - ./docker/nginx/certs:/etc/ssl/certs
+      - static_volume:/insta/static
+      - media_volume:/insta/media
     depends_on:
       - insta_web
     networks:
       - insta_network
-    deploy:
-      resources:
-        limits:
-          memory: 500M
 
 
   redis:
@@ -55,13 +44,13 @@ services:
     networks:
       - insta_network
     restart: always
-    ports: 
+    ports:
       - "6380:6379"
     deploy:
       resources:
         limits:
           memory: 600M
-    
+
 
 
   celery:
@@ -86,8 +75,8 @@ services:
 
 
 volumes:
-  media:
-  static:
+  media_volume:
+  static_volume:
 
 networks:
   insta_network:

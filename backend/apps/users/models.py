@@ -88,6 +88,8 @@ class SellerUser(models.Model):
     paid_status = models.BooleanField(default=False, verbose_name='Статус оплаты подписки')
     paid_date = models.DateField(verbose_name='Дата оплаты', default='')
     instagram_link = models.CharField(max_length=150, verbose_name='Ссылка инстаграм', default='')
+    product = models.IntegerField(verbose_name='Количество товаров', default=0)
+    followers = models.IntegerField(verbose_name='Количество подписчиков', default=0)
 
     def __str__(self):
         return self.user.email

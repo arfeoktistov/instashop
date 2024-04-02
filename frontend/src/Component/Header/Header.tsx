@@ -18,7 +18,7 @@ const Header: FC = () => {
 				<div className={s.header_profile}>
 					{
 						!token ? <img onClick={() => setLogin(true)} src={ikon} alt='ikon' /> :
-							''
+							'@'
 					}
 				</div>
 			</div>

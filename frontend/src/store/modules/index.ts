@@ -12,6 +12,35 @@ export type GetToken = {
 	refresh: string
 }
 
+export type DetailProfile = {
+	id: number
+	insta_image: string
+	main_image: null
+	mini_description: string
+	shop_name: string
+	user: number
+	followers: number
+	product: number
+	instagram_link: string
+	background_image: string
+}
+export type ImagesMas = {
+	image: string
+}
+export type ProfileCardModules = {
+	id: number
+	name: string
+	description: string
+	seller: number
+	price: string
+	image: string
+	images: ImagesMas[]
+
+
+}
+
+
+
 export type Icategory = {
 	id: number
 	name: string
@@ -25,4 +54,22 @@ export type IStores = {
 	main_image: string | null
 	insta_image: string
 	mini_description: string
+
+}
+
+type ISubCategory = {
+	id: number
+	name: string
+}
+
+export type ICategory = {
+	id: number
+	name: string
+	sub_categories: ISubCategory[]
+}
+
+export type IProductsCat = {
+	id: string
+	cat_id: string
+	sub_id: string
 }
