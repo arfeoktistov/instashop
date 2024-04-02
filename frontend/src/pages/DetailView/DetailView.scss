@@ -4,6 +4,10 @@
     justify-content: center;
 }
 
+.arrow {
+    cursor: pointer;
+}
+
 .display {
     display: flex;
     flex-direction: row-reverse;
@@ -35,10 +39,6 @@
     object-position: center;
 }
 
-// body {
-//     background: #000;
-//     color: #000;
-// }
 
 .swiper {
     width: 100%;

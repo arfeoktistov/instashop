@@ -1,1 +1,1 @@
-export const pathLink = 'http://45.90.35.207:8080/'
+export const pathLink = 'http://45.90.35.207:8080'

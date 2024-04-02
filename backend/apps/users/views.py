@@ -1,14 +1,14 @@
-from rest_framework.viewsets import(
+from rest_framework.viewsets import (
     ModelViewSet,
     ReadOnlyModelViewSet,
     GenericViewSet,
 )
 
-from rest_framework.views import(
+from rest_framework.views import (
     APIView,
 )
 
-from rest_framework.mixins import(
+from rest_framework.mixins import (
     CreateModelMixin,
     UpdateModelMixin,
     DestroyModelMixin,
@@ -18,12 +18,12 @@ from rest_framework.mixins import(
 
 from rest_framework.response import Response
 
-from rest_framework.permissions import(
+from rest_framework.permissions import (
     IsAuthenticated,
     IsAuthenticatedOrReadOnly,
 )
 
-from django_filters.rest_framework import(
+from django_filters.rest_framework import (
     DjangoFilterBackend,
 )
 
@@ -35,24 +35,25 @@ from rest_framework.status import (
     HTTP_201_CREATED,
 )
 
-from apps.users.serializers import(
+from apps.users.serializers import (
     UserRegistrationSerializer,
     VerificationUserSerializer,
     NewVerificationCodeSerializer,
 )
 
-from apps.users.models import(
+from apps.users.models import (
     User,
 )
 
-from apps.users.email import(
+from apps.users.email import (
     send_verification_code,
 )
 
-from datetime import(
+from datetime import (
     datetime,
     timedelta,
 )
+
 
 class UserRegistrationView(APIView):
 
@@ -68,7 +69,7 @@ class UserRegistrationView(APIView):
         email = data.get('email')
 
         user = User.objects.filter(email=email).first()
-        
+
         if user is not None:
             return Response(
                 {
@@ -99,6 +100,7 @@ class UserRegistrationView(APIView):
                 },
                 status=HTTP_201_CREATED
             )
+
 
 class VerificationUserView(APIView):
 
@@ -145,7 +147,6 @@ class VerificationUserView(APIView):
                     'Error': 'User does not exists'
                 }, status=400
             )
-        
 
 
 class NewVerificationCodeView(APIView):
@@ -175,6 +176,7 @@ class NewVerificationCodeView(APIView):
                     'Error': "User does not exists"
                 }, status=400
             )
+
 
 from rest_framework.viewsets import ModelViewSet
 from drf_yasg.utils import swagger_auto_schema
@@ -227,6 +229,7 @@ class UserViewSet(ModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+
 
 class SellerUserViewSet(ModelViewSet):
     queryset = SellerUser.objects.all()
