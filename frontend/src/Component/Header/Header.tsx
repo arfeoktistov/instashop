@@ -4,6 +4,7 @@ import ikon from '../../assets/Header/ikon.png'
 import Login from '../../pages/Login/Login'
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../store/hooks/hooks'
+import goose from '../../assets/Header/goose.gif'
 
 const Header: FC = () => {
 	const [login, setLogin] = useState(false)
@@ -15,6 +16,9 @@ const Header: FC = () => {
 					<h2 className={s.title}>AGREGAGATOR</h2>
 					<h2 className={s.logo}>LOGO</h2>
 				</Link>
+				<div className={s.running_goose}>
+					<img src={goose} alt="goose" />
+				</div>
 				<div className={s.header_profile}>
 					{
 						!token ? <img onClick={() => setLogin(true)} src={ikon} alt='ikon' /> :
