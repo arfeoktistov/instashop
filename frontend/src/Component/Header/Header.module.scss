@@ -6,7 +6,36 @@
 	.in_header {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		height: 100px;
+
+		& .running_goose {
+			flex: 0 1 65%;
+			height: 80px;
+			display: flex;
+			align-items: flex-end;
+			overflow: hidden;
+			position: relative;
+
+			& img {
+				width: 100px;
+				height: 80px;
+				position: absolute;
+				bottom: 0;
+				left: -40px;
+				animation: goose 4s infinite ease-out;
+
+				@keyframes goose {
+					0% {
+						left: -40px;
+					}
+
+					100% {
+						left: 100%
+					}
+				}
+			}
+		}
 
 		.title_header {
 			display: flex;
