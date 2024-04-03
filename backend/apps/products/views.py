@@ -101,7 +101,6 @@ class ProductViewSet(ModelViewSet):
         return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        method='patch',
         tags=['Продукты'],
         operation_summary="Частично обновить продукт по ID",
         operation_description="Обновляет часть данных продукта с указанным ID.",
