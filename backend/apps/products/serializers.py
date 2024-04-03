@@ -19,8 +19,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     sub_category = SubCategorySerializer()  # Сериализатор подкатегории включен для вложенности
     category = serializers.SerializerMethodField()  # Добавляем метод для получения категории
-    images_read = ProductImageSerializer(many=True, source='images', read_only=True)
-    images = serializers.ListField(
+    images = ProductImageSerializer(many=True, source='images', read_only=True)
+    images_write = serializers.ListField(
             child=serializers.ImageField(), required=False, write_only=True
         )
     image = serializers.ImageField(use_url=True)
