@@ -43,5 +43,9 @@ export const storesApi = {
 	},
 	getProductsByCategory({ id, cat_id, sub_id }: IProductsCat) {
 		return instanse.get(`/api/products/seller/${id}/products/${id}/products_by_category/?category_id=${cat_id}&subcategory_id=${sub_id}`)
+	},
+	getTokenUser(token: string) {
+		const headers = { Authorization: `Bearer ${token}` }
+		return instanse.get('/api/users/users/token/user-id/', { headers })
 	}
 }
