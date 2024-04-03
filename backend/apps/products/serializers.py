@@ -17,19 +17,23 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name']
 
-class ProductImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductImage
-        fields = ['image']
-
 class ProductSerializer(serializers.ModelSerializer):
+    sub_category = SubCategorySerializer()  # Сериализатор подкатегории включен для вложенности
+    category = serializers.SerializerMethodField()  # Добавляем метод для получения категории
     images = serializers.ListField(
         child=serializers.ImageField(), required=False, write_only=True
     )
+    image = serializers.ImageField(use_url=True)
 
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'price', 'image', 'images', 'sub_category', 'category', 'seller']
+
+    def get_category(self, obj):
+        # Возвращаем сериализованные данные категории через объект подкатегории
+        if obj.sub_category and obj.sub_category.category:
+            return CategorySerializer(obj.sub_category.category).data
+        return None  # Или вернуть пустое значение, если категории нет
 
     def create(self, validated_data):
         images_data = validated_data.pop('images', [])
