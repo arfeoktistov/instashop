@@ -17,27 +17,27 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name']
 
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ['image']
+
 class ProductSerializer(serializers.ModelSerializer):
-    sub_category = serializers.PrimaryKeyRelatedField(queryset=SubCategory.objects.all(), write_only=True)
-    category = serializers.SerializerMethodField()
-    images = ProductImageSerializer(many=True, required=False)
-    image = serializers.ImageField(use_url=True, required=False)
+    images = serializers.ListField(
+        child=serializers.ImageField(), required=False, write_only=True
+    )
 
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'price', 'image', 'images', 'sub_category', 'category', 'seller']
-
-    def get_category(self, obj):
-        if obj.sub_category and obj.sub_category.category:
-            return CategorySerializer(obj.sub_category.category).data
-        return None
 
     def create(self, validated_data):
         images_data = validated_data.pop('images', [])
         product = Product.objects.create(**validated_data)
 
         for image_data in images_data:
-            ProductImage.objects.create(product=product, **image_data)
+            # Для каждого файла создаем новый объект ProductImage
+            ProductImage.objects.create(product=product, image=image_data)
 
         return product
 
@@ -49,12 +49,12 @@ class ProductSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
         instance.save()
 
-        # Обновление изображений, если они есть в запросе
+        # Обработка новых изображений, если они есть
         if images_data is not None:
-            # Здесь может быть разная логика: полное удаление и создание, обновление существующих и т.д.
-            # Пример ниже - полное удаление и создание новых
+            # Удаляем существующие изображения, если это необходимо
             instance.images.all().delete()
             for image_data in images_data:
-                ProductImage.objects.create(product=instance, **image_data)
+                # Для каждого файла создаем новый объект ProductImage
+                ProductImage.objects.create(product=instance, image=image_data)
 
         return instance
