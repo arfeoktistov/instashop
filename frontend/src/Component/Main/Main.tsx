@@ -12,20 +12,24 @@ import AddingProduct from '../../pages/AddingProduct/AddingProduct'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import { getAllStores } from '../../store/slice/storesSlice'
 import { getLSToken } from '../../LS'
-import { setToken } from '../../store/slice/userSlice'
+import { fetchByToken, setToken } from '../../store/slice/userSlice'
 
 const Main: FC = () => {
+	const [searchParams] = useSearchParams()
 	const dispatch = useAppDispatch()
-	useEffect(() => {
-		dispatch(getAllStores())
-	}, [dispatch])
+	const { token } = useAppSelector(state => state.user)
+
 	useEffect(() => {
 		let lsToken = getLSToken()
 		if (lsToken !== null && lsToken !== undefined) {
 			dispatch(setToken(lsToken))
 		}
 	}, [dispatch])
-	const [searchParams] = useSearchParams()
+
+	useEffect(() => {
+		token &&
+			dispatch(fetchByToken(token))
+	}, [dispatch, token])
 
 	useEffect(() => {
 		!searchParams.get('c') && dispatch(getAllStores())

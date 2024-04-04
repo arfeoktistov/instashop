@@ -4,46 +4,21 @@ from rest_framework.viewsets import (
     GenericViewSet,
 )
 
-from rest_framework.views import (
-    APIView,
-)
 
 from drf_yasg import openapi
 
-from rest_framework.mixins import (
-    CreateModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    ListModelMixin,
-    RetrieveModelMixin,
-)
 
 from rest_framework.request import Request
 from rest_framework.response import Response
 from typing import Any
 
-from rest_framework.permissions import (
-    IsAuthenticated,
-    IsAuthenticatedOrReadOnly,
-)
-
-from django_filters.rest_framework import (
-    DjangoFilterBackend,
-)
-
-from rest_framework import filters
-
 from rest_framework.decorators import action
 
-from rest_framework import viewsets
 from .models import Category, SubCategory
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import CategorySerializer, SubCategorySerializer, SellerUserWithCategoriesSerializer
 from ..products.models import Product
 from ..users.models import SellerUser
-from rest_framework.decorators import api_view
-from rest_framework import status
-
 from ..users.serializers import SellerUserSerializer
 
 

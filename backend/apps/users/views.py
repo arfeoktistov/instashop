@@ -1,50 +1,24 @@
-from rest_framework.viewsets import (
-    ModelViewSet,
-    ReadOnlyModelViewSet,
-    GenericViewSet,
-)
-
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import (
     APIView,
 )
-
-from rest_framework.mixins import (
-    CreateModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    ListModelMixin,
-    RetrieveModelMixin,
-)
-
 from rest_framework.response import Response
-
-from rest_framework.permissions import (
-    IsAuthenticated,
-    IsAuthenticatedOrReadOnly,
-)
-
-from django_filters.rest_framework import (
-    DjangoFilterBackend,
-)
-
-from rest_framework import filters
-
-from rest_framework.decorators import action
 
 from rest_framework.status import (
     HTTP_201_CREATED,
 )
-
 from apps.users.serializers import (
     UserRegistrationSerializer,
     VerificationUserSerializer,
     NewVerificationCodeSerializer,
 )
-
 from apps.users.models import (
     User,
 )
-
 from apps.users.email import (
     send_verification_code,
 )
@@ -53,6 +27,16 @@ from datetime import (
     datetime,
     timedelta,
 )
+
+
+class GetUserIdView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        user_data = UserSerializer(user).data
+        return Response(user_data)
 
 
 class UserRegistrationView(APIView):

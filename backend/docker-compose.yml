@@ -11,8 +11,8 @@ services:
     extra_hosts:
       - "database:172.17.0.1"
     volumes:
-      - static_volume:/bazar/static
-      - media_volume:/bazar/media
+      - static_volume:/static
+      - media_volume:/media
       - ./:/bazar
     entrypoint: ./wsgi-entrypoint.sh
     restart: always
@@ -30,8 +30,8 @@ services:
     ports:
       - "81:80"
     volumes:
-      - static_volume:/insta/static
-      - media_volume:/insta/media
+      - static_volume:/static
+      - media_volume:/media
     depends_on:
       - insta_web
     networks:

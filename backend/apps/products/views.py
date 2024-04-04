@@ -102,6 +102,24 @@ class ProductViewSet(ModelViewSet):
 
     @swagger_auto_schema(
         tags=['Продукты'],
+        operation_summary="Частично обновить продукт по ID",
+        operation_description="Обновляет часть данных продукта с указанным ID.",
+        request_body=ProductSerializer,
+        responses={
+            200: openapi.Response(
+                description="Продукт частично обновлен.",
+                schema=ProductSerializer,
+            ),
+            400: "Некорректные данные запроса",
+            404: "Продукт не найден"
+        }
+    )
+    def partial_update(self, request, *args, **kwargs):
+        """Частично обновляет продукт по ID."""
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        tags=['Продукты'],
         operation_summary="Удалить продукт по ID",
         operation_description="Удаляет продукт с указанным ID из системы.",
         responses={

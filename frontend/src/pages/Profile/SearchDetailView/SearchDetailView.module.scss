@@ -1,8 +1,10 @@
+@import '../../../SCSS/mixins';
+
 .SearchInput {
     display: flex;
+    justify-content: center;
     gap: 20px;
     align-items: center;
-    padding-bottom: 40px;
 
     .input_field {
         width: 75%;
@@ -41,9 +43,8 @@
     .category_wrapper {
         position: relative;
         width: 400px;
-        margin: 0 auto;
 
-        .category {
+        .category_title {
             text-align: center;
             font-size: 30px;
             font-weight: 500;
@@ -51,6 +52,39 @@
             letter-spacing: 0%;
             cursor: pointer;
             user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: max-content;
+            margin: 0 auto;
+
+            @include mobileL {
+                font-size: 22px;
+            }
+
+            & .burger,
+            & .burger:before,
+            & .burger::after {
+                display: block;
+                position: relative;
+                height: 2px;
+                width: 25px;
+                background-color: #616161;
+                transition: 0.5s ease 0s;
+            }
+
+            .burger:before {
+                content: "";
+                top: -7px;
+            }
+
+            .burger::after {
+                content: "";
+                top: 5px;
+            }
+
+
         }
     }
+
 }
