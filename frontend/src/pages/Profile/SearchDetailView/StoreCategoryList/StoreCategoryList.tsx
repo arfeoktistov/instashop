@@ -27,7 +27,8 @@ const StoreCategoryList: FC<StoreCategoryListProps> = ({ clearParams, handleFilt
     const toggleBlock = (e: MouseEvent) => {
         const { target } = e
         if (blockRef.current && !blockRef.current.contains(target as Node)
-            && target instanceof HTMLElement && !target.className.includes('CategoryList') && !target.className.includes('category')) {
+            && target instanceof HTMLElement && !target.className.includes('CategoryList')
+            && !target.className.includes('category_title') && !target.className.includes('burger')) {
             hide()
         }
     }

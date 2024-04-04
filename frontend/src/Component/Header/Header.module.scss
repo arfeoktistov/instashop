@@ -1,3 +1,5 @@
+@import '../../SCSS/mixins';
+
 .header {
 	max-width: 100%;
 	box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.25);
@@ -49,6 +51,10 @@
 				letter-spacing: 0%;
 				text-align: center;
 				color: #000;
+
+				@include mobileM {
+					font-size: 16px;
+				}
 			}
 
 			.logo {

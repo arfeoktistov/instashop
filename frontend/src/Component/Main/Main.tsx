@@ -15,10 +15,9 @@ import { getLSToken } from '../../LS'
 import { fetchByToken, setToken } from '../../store/slice/userSlice'
 
 const Main: FC = () => {
+	const [searchParams] = useSearchParams()
 	const dispatch = useAppDispatch()
-	useEffect(() => {
-		dispatch(getAllStores())
-	}, [dispatch])
+	const { token } = useAppSelector(state => state.user)
 
 	useEffect(() => {
 		let lsToken = getLSToken()
@@ -26,12 +25,12 @@ const Main: FC = () => {
 			dispatch(setToken(lsToken))
 		}
 	}, [dispatch])
-	const [searchParams] = useSearchParams()
-	const { token } = useAppSelector(state => state.user)
+
 	useEffect(() => {
 		token &&
 			dispatch(fetchByToken(token))
 	}, [dispatch, token])
+
 	useEffect(() => {
 		!searchParams.get('c') && dispatch(getAllStores())
 	}, [dispatch, searchParams.get('c')])

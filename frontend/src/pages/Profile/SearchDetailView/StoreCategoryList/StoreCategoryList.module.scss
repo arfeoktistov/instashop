@@ -1,3 +1,5 @@
+@import '../../../../SCSS/mixins';
+
 .category_block {
     width: 100%;
     max-height: 400px;
@@ -11,6 +13,11 @@
     z-index: 100;
     padding: 20px;
     box-shadow: 0px 0px 10px 1px rgba(100, 100, 100, 0.471);
+
+    @include mobileM {
+        min-height: 560px;
+        max-height: 560px;
+    }
 
     & .all {
         font-size: 20px;

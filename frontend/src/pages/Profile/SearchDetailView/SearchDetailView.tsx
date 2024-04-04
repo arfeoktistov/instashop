@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import s from './SearchDetailView.module.scss'
 import lupa from '../../../../assets/Profile/l.jpg'
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import StoreCategoryList from './StoreCategoryList/StoreCategoryList';
 import { useAppDispatch } from '../../../store/hooks/hooks';
 import { fetchByCardsByCategories } from '../../../store/slice/detailProfileSlice';
@@ -15,6 +15,7 @@ const SearchDetailView: FC = () => {
     const [subCategory] = useState(searchParams.get('sub') || '')
     const [categoryStore, setCategoryStore] = useState(searchParams.get('c_store') || '')
     const [subCategoryStore, setSubCategoryStore] = useState(searchParams.get('sub_store') || '')
+    const location = useLocation()
 
     const hide = () => {
         setShow(false)
@@ -49,7 +50,7 @@ const SearchDetailView: FC = () => {
         if (sub) {
             setSubCategoryStore(sub)
         }
-    }, [dispatch])
+    }, [dispatch, location.search])
 
     useEffect(() => {
         if ((categoryStore || subCategoryStore) && id) {
@@ -70,7 +71,7 @@ const SearchDetailView: FC = () => {
             <div className={s.category_wrapper}>
                 <h2
                     onClick={() => setShow(!show)}
-                    className={s.category}>Категории магазина</h2>
+                    className={s.category_title}>Категории магазина <span onClick={() => setShow(!show)} className={s.burger}></span></h2>
                 {show && <StoreCategoryList
                     clearParams={clearParams}
                     handleFilter={handleFilter}

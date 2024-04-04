@@ -21,7 +21,6 @@ const defaultOptions = {
 
 const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) => {
 	const [searchParams] = useSearchParams()
-	const state = searchParams.get('c') ? { c: searchParams.get('c'), sub: searchParams.get('sub') } : null
 
 	return (
 		<Tilt options={defaultOptions} className={s.card}>
@@ -41,7 +40,7 @@ const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) 
 				</div>
 			</div>
 			<div className={s.name_block}>
-				<h2>{shop_name}</h2>
+				<h2>@{shop_name}</h2>
 			</div>
 		</Tilt>
 	)
