@@ -44,5 +44,6 @@ class UserAdminModel(UserAdmin):
             }
         )
     )
+    ordering = ('is_staff',)
 
 admin.site.register(User, UserAdminModel)
