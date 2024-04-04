@@ -93,8 +93,14 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
 
         if list_images is not None:
             instance.images.all().delete()
-            for img in list_images:
-                ProductImage.objects.create(product=instance, image=img.get('image'))
+            for img_dict in list_images:
+                # Достаем список файлов из MultiValueDict
+                img_files = img_dict.get('[image]')
+                # Проверяем, что мы действительно получили список файлов
+                if isinstance(img_files, list):
+                    for img_file in img_files:
+                        # Создаем новые объекты ProductImage
+                        ProductImage.objects.create(product=instance, image=img_file)
 
         return instance
 
