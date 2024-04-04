@@ -70,7 +70,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
 
 class ProductUpdateSerializer(serializers.ModelSerializer):
-    list_images = serializers.ListField(write_only=True, required=False)
+    list_images = serializers.ListField(write_only=True, required=True)
 
     class Meta:
         model = Product
