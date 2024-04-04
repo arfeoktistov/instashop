@@ -94,6 +94,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         if images_data:
             instance.images.all().delete()
             for img_file in images_data:
+                # ProductImage.objects.create(product=instance, image=img_file.get('image'))
                 ProductImage.objects.create(product=instance, image=img_file.get('image'))
 
         return instance
