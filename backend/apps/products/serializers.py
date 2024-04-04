@@ -18,9 +18,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     sub_category_name = serializers.ReadOnlyField(
-        source='sub_category.name')  # Сериализатор подкатегории включен для вложенности
+        source='sub_category.name')
     category_name = serializers.ReadOnlyField(
-        source='sub_category.category.name')  # Добавляем метод для получения категории
+        source='sub_category.category.name')
     images = ProductImageSerializer(read_only=True, many=True)
 
     class Meta:
@@ -106,5 +106,5 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
             'image': instance.image.url,
             'price': instance.price,
             'sub_category': instance.sub_category.id,
-            'images': [ProductImageSerializer(image) for image in instance.images.all()]
+            'images': [ProductImageSerializer(image).data for image in instance.images.all()]
         }

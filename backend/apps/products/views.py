@@ -99,6 +99,18 @@ class SellerProductsViewSet(ReadOnlyModelViewSet):
         seller_id = self.kwargs.get('seller_id')
         return Product.objects.filter(seller__id=seller_id) if seller_id else Product.objects.none()
 
+    @swagger_auto_schema(
+        tags=['Получить продавцов по категории и подкатегории'],
+        operation_summary="Получить товары по ID продавца и категориям",
+        operation_description="Получить товары по ID продавца и категориям",
+        responses={
+            200: openapi.Response(
+                description="Список продавцов по категории и подкатегории",
+                schema=ProductSerializer(many=True),
+            ),
+            404: "Категория или подкатегория не найдены"
+        }
+    )
     def products_by_category(self, request, *args, **kwargs):
         seller_id = self.kwargs.get('seller_id')
         category_id = request.query_params.get('category_id')
