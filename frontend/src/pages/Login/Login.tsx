@@ -33,14 +33,17 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 			dispatch(toggleRedirect(false))
 		}
 	}, [redirect])
+
 	const getUserData = (key: string, value: string) => {
 		setUserData({ ...userData, [key]: value.trim() })
 	}
+
 	if (errorText.includes('Email не правильно введён')) {
 		!validateEmail(userData.email) && setErrorText('')
 	} else if (errorText.includes('Введите пароль!')) {
 		userData.password && setErrorText('')
 	}
+
 	const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
 		e.preventDefault()
 		if (!validateEmail(userData.email) && userData.email && userData.password) {
@@ -51,6 +54,7 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 			setErrorText('Введите пароль!')
 		}
 	}
+
 	useEffect(() => {
 		// При рождении убрать скрол
 		document.body.style.overflow = 'hidden'
@@ -63,6 +67,7 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 			window.history.pushState(null, '', window.location.href)
 			window.onpopstate = () => setLogin(false)
 		}
+
 		return () => {
 			// При закрытии  модального окна вернуть скролл
 			document.body.style.overflow = 'auto'
@@ -73,9 +78,11 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 			window.onpopstate = () => { }
 		}
 	}, [])
+
 	if (loading) {
 		return <Loading />
 	}
+
 	return (
 		<div className={s.login} onClick={() => setLogin(false)}>
 			<div className={s.modal_login} onClick={e => e.stopPropagation()}>
