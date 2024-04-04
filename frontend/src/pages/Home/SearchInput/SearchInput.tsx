@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import s from './SearchInput.module.scss'
 import glass from '../../../assets/Home/lupa.png'
 import CategoryList from './CategoryList/CategoryList'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import { useAppDispatch } from '../../../store/hooks/hooks'
 import { getStoresByCategories } from '../../../store/slice/storesSlice'
 
@@ -12,6 +12,7 @@ const SearchInput: FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [category, setCategory] = useState(searchParams.get('c') || '')
 	const [subCategory, setSubCategory] = useState(searchParams.get('sub') || '')
+	const location = useLocation()
 
 	const hide = () => {
 		setShow(false)
@@ -46,7 +47,7 @@ const SearchInput: FC = () => {
 		if (sub) {
 			setSubCategory(sub)
 		}
-	}, [dispatch])
+	}, [dispatch, location.search])
 
 	useEffect(() => {
 		if (category || subCategory) {
@@ -64,7 +65,9 @@ const SearchInput: FC = () => {
 				</label>
 			</div> */}
 			<div className={s.category_wrapper}>
-				<h2 onClick={() => setShow(!show)} className={s.category}>Категории</h2>
+				<h2 onClick={() => setShow(!show)} className={s.category_title}>
+					Категории <span onClick={() => setShow(!show)} className={s.burger}></span>
+				</h2>
 				{show && <CategoryList
 					clearParams={clearParams}
 					handleFilter={handleFilter}

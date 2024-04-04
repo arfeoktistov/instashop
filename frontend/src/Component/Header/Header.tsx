@@ -16,7 +16,7 @@ const Header: FC = () => {
 			<div className={`container ${s.in_header}`}>
 				<Link to={'/'} className={s.title_header}>
 					<h2 className={s.title}>AGREGAGATOR</h2>
-					<h2 className={s.logo}>LOGO</h2>
+					{/* <h2 className={s.logo}>LOGO</h2> */}
 				</Link>
 				<div className={s.running_goose}>
 					<img src={goose} alt="goose" />

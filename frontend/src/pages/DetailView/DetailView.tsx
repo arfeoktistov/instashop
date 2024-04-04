@@ -25,7 +25,6 @@ const DetailView: FC = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
     const dispatch = useAppDispatch()
-    console.log(id);
 
     useEffect(() => {
         if (id) {
