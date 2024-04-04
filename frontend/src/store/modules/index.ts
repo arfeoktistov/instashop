@@ -11,6 +11,13 @@ export type GetToken = {
 	access: string
 	refresh: string
 }
+export type TokenNodules = {
+	email: string
+	first_name: string
+	id: number
+	last_name: string
+	seller_details: null
+}
 
 export type DetailProfile = {
 	id: number
