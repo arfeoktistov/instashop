@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { storesApi } from "../../axios"
-import { DetailProfile, ICategory, IProductsCat, Icategory, ProfileCardModules } from "../modules"
+import { DetailProfile, ICategory, IProductsCat, ProfileCardModules } from "../modules"
 
 type NewsState = {
     loading: boolean

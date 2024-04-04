@@ -8,7 +8,9 @@ import goose from '../../assets/Header/goose.gif'
 
 const Header: FC = () => {
 	const [login, setLogin] = useState(false)
-	const { token } = useAppSelector(state => state.user)
+	const { token, user } = useAppSelector(state => state.user)
+	// console.log(user);
+
 	return (
 		<div className={s.header}>
 			<div className={`container ${s.in_header}`}>
@@ -22,7 +24,10 @@ const Header: FC = () => {
 				<div className={s.header_profile}>
 					{
 						!token ? <img onClick={() => setLogin(true)} src={ikon} alt='ikon' /> :
-							'@'
+							<div className={s.user_data}>
+								<h2 className={s.nick_name}>{user?.first_name} </h2>
+								<div className={s.avatar}></div>
+							</div>
 					}
 				</div>
 			</div>

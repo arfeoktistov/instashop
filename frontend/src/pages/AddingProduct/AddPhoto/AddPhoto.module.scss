@@ -39,4 +39,12 @@
 			margin: 0;
 		}
 	}
+
+	.error_text {
+		border: 1.5px solid rgb(241, 62, 62);
+
+		& p {
+			color: rgb(241, 62, 62);
+		}
+	}
 }

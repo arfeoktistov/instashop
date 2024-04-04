@@ -1,22 +1,25 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { storesApi } from '../../axios'
-import { Icategory } from '../modules'
+import { IAddProductsCard, ICategory, ProfileCardModules } from '../modules'
 
 type UserState = {
 	loading: boolean
+	reboot: boolean
 	error: null | string
-	category: Icategory[]
-	subCategory: Icategory[]
+	category: ICategory[]
+	profileCard: ProfileCardModules[]
 }
 
 const initialState: UserState = {
 	error: null,
 	loading: false,
+	reboot: false,
 	category: [],
-	subCategory: [],
+	profileCard: [],
 }
-export const fetchByAllCategory = createAsyncThunk<Icategory[], void, { rejectValue: string }>(
-	'news/fetchByAllCategory', async (_, { rejectWithValue }) => {
+// Получение список категории
+export const fetchByAllCategory = createAsyncThunk<ICategory[], void, { rejectValue: string }>(
+	'product/fetchByAllCategory', async (_, { rejectWithValue }) => {
 		const res = await storesApi.getCategory()
 		// console.log(res)
 		if (res.status !== 200) {
@@ -25,14 +28,35 @@ export const fetchByAllCategory = createAsyncThunk<Icategory[], void, { rejectVa
 		return res.data
 	})
 
-export const fetchByAllSubCategory = createAsyncThunk<Icategory[], void, { rejectValue: string }>(
-	'news/fetchByAllSubCategory', async (_, { rejectWithValue }) => {
-		const res = await storesApi.getSubCategory()
+// Получение список карточек
+export const fetchByGetCard = createAsyncThunk<ProfileCardModules[], number, { rejectValue: string }>(
+	'product/fetchByGetCard', async (id, { rejectWithValue }) => {
+		const res = await storesApi.getProfileCard(id)
 		// console.log(res)
 		if (res.status !== 200) {
-			return rejectWithValue('Server Error')
+			return rejectWithValue('Server error')
 		}
 		return res.data
+	})
+// Для добавления карточек
+export const fetchByAddNewCard = createAsyncThunk<void, IAddProductsCard, { rejectValue: string }>(
+	'product/fetchByAddNewCard', async (productCard, { rejectWithValue }) => {
+		const res = await storesApi.AddNewProduct(productCard)
+		console.log(res)
+		// if (res.status !== 200) {
+		// 	return rejectWithValue('Server error')
+		// }
+		// return res.data
+	})
+
+// Для удаления карточек
+export const fetchByDeleteCard = createAsyncThunk<void, number, { rejectValue: string }>(
+	'product/fetchByDeleteCard', async (id, { rejectWithValue }) => {
+		const res = await storesApi.deleteNewProduct(id)
+		console.log(res)
+		if (res.status !== 204) {
+			return rejectWithValue('Server error')
+		}
 	})
 
 const addProductSlice = createSlice({
@@ -45,8 +69,8 @@ const addProductSlice = createSlice({
 			state.error = null
 		})
 		addCase(fetchByAllCategory.fulfilled, (state, action) => {
-			state.loading = false
 			state.category = action.payload
+			state.loading = false
 		})
 		addCase(fetchByAllCategory.rejected, (state, action) => {
 			state.loading = false
@@ -54,19 +78,56 @@ const addProductSlice = createSlice({
 				state.error = 'Упс что то пошло не так!'
 			}
 		})
-
-		addCase(fetchByAllSubCategory.pending, state => {
+		// =======================
+		addCase(fetchByGetCard.pending, (state) => {
 			state.loading = true
 			state.error = null
 		})
-		addCase(fetchByAllSubCategory.fulfilled, (state, action) => {
+
+		addCase(fetchByGetCard.fulfilled, (state, action) => {
+			state.profileCard = action.payload
 			state.loading = false
-			state.subCategory = action.payload
 		})
-		addCase(fetchByAllSubCategory.rejected, (state, action) => {
+
+		addCase(fetchByGetCard.rejected, (state, action) => {
 			state.loading = false
-			if (action.error.message?.includes('400')) {
-				state.error = 'Упс что то пошло не так!'
+			if (action.error.message?.includes('401')) {
+				state.error = 'Упс что-то пошло не так!'
+			}
+		})
+		// =======================
+		addCase(fetchByAddNewCard.pending, (state) => {
+			state.loading = true
+			state.error = null
+		})
+
+		addCase(fetchByAddNewCard.fulfilled, (state, action) => {
+			// state.profileCard = action.payload
+			state.loading = false
+		})
+
+		addCase(fetchByAddNewCard.rejected, (state, action) => {
+			state.loading = false
+			if (action.error.message?.includes('401')) {
+				state.error = 'Упс что-то пошло не так!'
+			}
+		})
+		// =======================
+		addCase(fetchByDeleteCard.pending, (state) => {
+			state.loading = true
+			state.error = null
+			state.reboot = true
+		})
+
+		addCase(fetchByDeleteCard.fulfilled, (state, action) => {
+			state.loading = false
+			state.reboot = false
+		})
+
+		addCase(fetchByDeleteCard.rejected, (state, action) => {
+			state.loading = false
+			if (action.error.message?.includes('404')) {
+				state.error = 'Продукт не найден!'
 			}
 		})
 	},

@@ -42,16 +42,14 @@ export type ProfileCardModules = {
 	price: string
 	image: string
 	images: ImagesMas[]
-
-
-}
-
-
-
-export type Icategory = {
-	id: number
-	name: string
-	category?: string
+	sub_category: {
+		name: string,
+		//  id: number, 
+	}
+	category: {
+		name: string,
+		//  id: number, 
+	}
 }
 
 export type IStores = {
@@ -64,7 +62,7 @@ export type IStores = {
 
 }
 
-type ISubCategory = {
+export type ISubCategory = {
 	id: number
 	name: string
 }
@@ -79,4 +77,18 @@ export type IProductsCat = {
 	id: string
 	cat_id: string
 	sub_id: string
+}
+
+
+export type IAddProductsCard = {
+	name: string,
+	description: string,
+	price: string,
+	sub_category: {
+		name: string,
+		//  id: number, 
+	},
+	seller: number | null
+	image: File | string
+	images: File[]
 }
