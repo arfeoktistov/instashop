@@ -80,7 +80,9 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
+        print("Validated data:", validated_data)
         list_images = validated_data.pop('list_images', None)
+        print("Validated data after list_images:", validated_data)
 
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
@@ -99,12 +101,17 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         # serializer = ProductSerializer(instance)
         # return serializer.data
-        return {
+        representation = {
             'id': instance.id,
             'name': instance.name,
             'description': instance.description,
-            'image': instance.image.url,
+            'image': instance.image.url if hasattr(instance.image, 'url') else None,
             'price': instance.price,
             'sub_category': instance.sub_category.id,
             'images': [ProductImageSerializer(image).data for image in instance.images.all()]
         }
+
+        # Логирование для отладки
+        print("Representation data:", representation)
+
+        return representation
