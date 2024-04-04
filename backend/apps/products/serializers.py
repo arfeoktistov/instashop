@@ -25,6 +25,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name']
 
+
 class ProductSerializer(serializers.ModelSerializer):
     sub_category = SubCategorySerializer()  # Сериализатор подкатегории включен для вложенности
     category = serializers.SerializerMethodField()  # Добавляем метод для получения категории
@@ -40,4 +41,3 @@ class ProductSerializer(serializers.ModelSerializer):
         if obj.sub_category and obj.sub_category.category:
             return CategorySerializer(obj.sub_category.category).data
         return None  # Или вернуть пустое значение, если категории нет
-
