@@ -91,10 +91,10 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         instance.sub_category = validated_data.get('sub_category', instance.sub_category)
         instance.save()
 
-        if images_data is not None:
+        if images_data:
             instance.images.all().delete()
             for img_file in images_data:
-                ProductImage.objects.create(product=instance, image=img_file)
+                ProductImage.objects.create(product=instance, image=img_file.get('image'))
 
         return instance
 
