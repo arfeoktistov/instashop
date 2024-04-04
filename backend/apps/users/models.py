@@ -22,7 +22,6 @@ class User(AbstractUser):
         choices=ROLE, default=BUYER
     )
     username = None
-    is_active = models.BooleanField(verbose_name='Активен ли?', default=True)
     email = models.EmailField(unique=True, verbose_name='Email')
 
     USERNAME_FIELD = 'email'
