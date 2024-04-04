@@ -76,12 +76,12 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         model = Product
         fields = (
             'id', 'name', 'description', 'price',
-            'image', 'sub_category', 'list_images',
+            'image', 'sub_category', 'images',
         )
 
     def update(self, instance, validated_data):
         print("Validated data:", validated_data)
-        list_images = validated_data.pop('list_images', None)
+        images_data = validated_data.pop('images', None)
         print("Validated data after list_images:", validated_data)
 
         instance.name = validated_data.get('name', instance.name)
@@ -91,13 +91,10 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         instance.sub_category = validated_data.get('sub_category', instance.sub_category)
         instance.save()
 
-        if list_images is not None:
+        if images_data is not None:
             instance.images.all().delete()
-            for img_dict in list_images:
-                img_files = img_dict.get('image')
-                if isinstance(img_files, list):
-                    for img_file in img_files:
-                        ProductImage.objects.create(product=instance, image=img_file)
+            for img_file in images_data:  # Непосредственно извлекаем файлы изображений
+                ProductImage.objects.create(product=instance, image=img_file)
 
         return instance
 
