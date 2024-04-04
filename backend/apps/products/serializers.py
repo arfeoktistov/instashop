@@ -70,7 +70,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
 
 class ProductUpdateSerializer(serializers.ModelSerializer):
-    list_images = serializers.ListField(write_only=True, required=True)
+    images = serializers.ListField(write_only=True, required=True)
 
     class Meta:
         model = Product
@@ -93,7 +93,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
 
         if images_data is not None:
             instance.images.all().delete()
-            for img_file in images_data:  # Непосредственно извлекаем файлы изображений
+            for img_file in images_data:
                 ProductImage.objects.create(product=instance, image=img_file)
 
         return instance
