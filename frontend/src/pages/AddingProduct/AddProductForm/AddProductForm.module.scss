@@ -1,7 +1,6 @@
 .add_form {
 	display: flex;
 	flex-direction: column;
-	align-items: end;
 	gap: 70px;
 	width: 100%;
 
@@ -51,6 +50,18 @@
 					border: 1px solid rgb(33, 33, 33);
 					padding: 12px 6px 12px 6px;
 					border-radius: 4px;
+					resize: none;
+				}
+			}
+
+			.error_text {
+				& h2 {
+					color: rgb(241, 62, 62);
+				}
+
+				.text_field,
+				.description {
+					border: 1.5px solid rgb(241, 62, 62);
 				}
 			}
 		}
@@ -99,17 +110,43 @@
 				}
 			}
 		}
+
+		.error_text {
+			& h2 {
+				color: rgb(241, 62, 62);
+			}
+
+			.text_field {
+				border: 1.5px solid rgb(241, 62, 62);
+			}
+		}
 	}
 
-	& button {
-		border-radius: 24px;
-		padding: 10px 50px;
-		background: rgb(21, 21, 21);
-		color: rgb(255, 255, 255);
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 19px;
-		letter-spacing: 0px;
-		text-align: left;
+	.button_form {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		gap: 20px;
+
+		& h2 {
+			color: rgb(241, 62, 62);
+			font-size: 22px;
+			font-weight: 500;
+			line-height: 20px;
+			letter-spacing: 0px;
+			text-align: right;
+		}
+
+		& button {
+			border-radius: 24px;
+			padding: 10px 50px;
+			background: rgb(21, 21, 21);
+			color: rgb(255, 255, 255);
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 19px;
+			letter-spacing: 0px;
+			text-align: left;
+		}
 	}
 }
