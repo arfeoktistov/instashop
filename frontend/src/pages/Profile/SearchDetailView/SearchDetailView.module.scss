@@ -49,14 +49,14 @@
             font-size: 30px;
             font-weight: 500;
             line-height: 130%;
-            letter-spacing: 0%;
             cursor: pointer;
             user-select: none;
             display: flex;
             align-items: center;
             gap: 10px;
             width: max-content;
-            margin: 0 auto;
+            margin: 0 auto 30px;
+            @include grotesk500;
 
             @include mobileL {
                 font-size: 22px;

@@ -23,25 +23,34 @@ const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) 
 	const [searchParams] = useSearchParams()
 
 	return (
-		<Tilt options={defaultOptions} className={s.card}>
-			<div className={s.image_shop}>
-				<img
-					src={`${main_image?.startsWith('http') ? main_image : pathLink + main_image}`}
-					alt={shop_name}
-				/>
-				<div className={s.up_field}>
-					<div className={s.top_up_field}>
-						<h2>{mini_description.length > 80 ? mini_description?.slice(0, 80) + '...' : mini_description}</h2>
-						{/* <h2>Handpicked items for you</h2> */}
-						<Link
+		<Tilt className={s.card} options={defaultOptions} >
+			<Link to={`/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`}>
+				<div className={s.image_shop}>
+					<img
+						src={`${main_image?.startsWith('http') ? main_image : pathLink + main_image}`}
+						alt={shop_name}
+					/>
+					{/* <div className={s.up_field}>
+						<div className={s.top_up_field}>
+							<p className={s.description}>
+								{mini_description.length > 80 ? mini_description?.slice(0, 80) + '...' : mini_description}
+							</p>
+							<h2>Handpicked items for you</h2>
+							<Link
 							to={`/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`}
 							className={s.shop_link}>Перейти...</Link>
-					</div>
+						</div>
+					</div> */}
 				</div>
-			</div>
-			<div className={s.name_block}>
-				<h2>@{shop_name}</h2>
-			</div>
+				<div className={s.name_block}>
+					<h2 title={"@" + shop_name}>@{shop_name}</h2>
+					<p
+						title={mini_description}
+						className={s.description}>
+						{mini_description.length > 80 ? mini_description?.slice(0, 80) + '...' : mini_description}
+					</p>
+				</div>
+			</Link>
 		</Tilt>
 	)
 }

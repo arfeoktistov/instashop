@@ -1,5 +1,49 @@
+/* Proxima */
+@font-face {
+    font-family: 'ProximaReg', sans-serif;
+    /* 400 */
+    font-display: swap;
+    src: url('./assets/fonts/Proxima/MarkSimonsonProximaNovaRegular.otf') format('otf');
+}
+
+@font-face {
+    font-family: 'ProximaSemiBold', sans-serif;
+    /* 600 */
+    font-display: swap;
+    src: url('./assets/fonts/Proxima/MarkSimonsonProximaNovaSemibold.otf') format('otf');
+}
+
+@font-face {
+    font-family: 'ProximaBold', sans-serif;
+    /* 700 */
+    font-display: swap;
+    src: url('./assets/fonts/Proxima/MarkSimonsonProximaNovaBold.otf') format('otf');
+}
+
+/* Grotesk */
+@font-face {
+    font-family: 'GroteskReg', sans-serif;
+    /* 400 */
+    font-display: swap;
+    src: url('./assets/fonts/Grotesk/AktivGrotesk_Trial_Rg.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'GroteskMedium', sans-serif;
+    /* 500 */
+    font-display: swap;
+    src: url('./assets/fonts/Grotesk/AktivGrotesk_Trial_Md.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'GroteskBold', sans-serif;
+    /* 700 */
+    font-display: swap;
+    src: url('./assets/fonts/Grotesk/AktivGrotesk_Trial_Bd.ttf') format('ttf');
+}
+
 main {
-    min-height: 600px;
+    min-height: 700px;
 }
 
 body::-webkit-scrollbar {
