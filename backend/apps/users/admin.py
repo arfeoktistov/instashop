@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.users.models import(
+from apps.users.models import (
     User,
     SellerUser,
 )
@@ -12,9 +12,11 @@ admin.site.register(SellerUser)
 
 admin.site.unregister(Group)
 from django.contrib.auth.admin import UserAdmin
+
+
 class UserAdminModel(UserAdmin):
     list_display = (
-        'id','email',
+        'id', 'email',
         'first_name',
         'last_name',
         'is_active',

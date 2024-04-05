@@ -23,8 +23,7 @@ class ProductViewSet(ModelViewSet):
             return ProductCreateSerializer
         elif self.action == 'update':
             return ProductUpdateSerializer
-        else:
-            pass
+        return ProductSerializer
 
     @swagger_auto_schema(
         tags=['Продукты'],
