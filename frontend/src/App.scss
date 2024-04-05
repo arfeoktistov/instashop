@@ -1,40 +1,59 @@
 /* Proxima */
 @font-face {
-    font-family: 'ProximaReg', sans-serif;
+    font-family: 'MontserratReg', sans-serif;
+    font-style: normal;
+    font-weight: 400;
     /* 400 */
-    src: url('./assets/fonts/Proxima/MarkSimonsonProximaNovaRegular.otf') format('otf');
-    src: url('./assets/fonts/Proxima/ProximaNovaRegular.woff2') format('woff2');
+    src: url('./assets/fonts/Montserat/Montserrat-Regular.ttf') format('ttf');
 }
 
 @font-face {
-    font-family: 'ProximaSemiBold', sans-serif;
+    font-family: 'MontserratSemiBold', sans-serif;
+    font-style: normal;
+    font-weight: 600;
     /* 600 */
-    src: url('./assets/fonts/Proxima/MarkSimonsonProximaNovaSemibold.otf') format('otf');
+    src: url('./assets/fonts/Montserat/Montserrat-SemiBold.ttf') format('ttf');
 }
 
 @font-face {
-    font-family: 'ProximaBold', sans-serif;
+    font-family: 'MontserratBold', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     /* 700 */
-    src: url('./assets/fonts/Proxima/MarkSimonsonProximaNovaBold.otf') format('otf');
+    src: url('./assets/fonts/Montserat/Montserrat-Bold.ttf') format('ttf');
 }
 
 /* Grotesk */
 @font-face {
-    font-family: 'GroteskReg', sans-serif;
+    font-family: 'RubikReg', sans-serif;
+    font-style: normal;
+    font-weight: 400;
     /* 400 */
-    src: url('./assets/fonts/Grotesk/AktivGrotesk_Trial_Rg.ttf') format('ttf');
+    src: url('./assets/fonts/Rubik/Rubik-Regular.ttf') format('ttf');
 }
 
 @font-face {
-    font-family: 'GroteskMedium', sans-serif;
+    font-family: 'RubikMedium', sans-serif;
+    font-style: normal;
+    font-weight: 500;
     /* 500 */
-    src: url('./assets/fonts/Grotesk/AktivGrotesk_Trial_Md.ttf') format('ttf');
+    src: url('./assets/fonts/Rubik/Rubik-Medium.ttf') format('ttf');
 }
 
 @font-face {
-    font-family: 'GroteskBold', sans-serif;
+    font-family: 'RubikSemiBold', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    /* 600 */
+    src: url('./assets/fonts/Rubik/Rubik-SemiBold.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'RubikBold', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     /* 700 */
-    src: url('./assets/fonts/Grotesk/AktivGrotesk_Trial_Bd.ttf') format('ttf');
+    src: url('./assets/fonts/Rubik/Rubik-Bold.ttf') format('ttf');
 }
 
 main {

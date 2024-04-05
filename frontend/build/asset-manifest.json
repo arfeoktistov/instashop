@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.27edc3f7.css",
-    "main.js": "/static/js/main.34591b41.js",
+    "main.css": "/static/css/main.95bddd86.css",
+    "main.js": "/static/js/main.014ca769.js",
     "static/media/goose.gif": "/static/media/goose.761fbad5b51df4d5fac8.gif",
     "static/media/back.png": "/static/media/back.d723fb96c3884b3126da.png",
-    "static/media/AktivGrotesk_Trial_Rg.ttf": "/static/media/AktivGrotesk_Trial_Rg.ba65dddb639f75994451.ttf",
-    "static/media/AktivGrotesk_Trial_Md.ttf": "/static/media/AktivGrotesk_Trial_Md.6bf74164594b3460024b.ttf",
-    "static/media/AktivGrotesk_Trial_Bd.ttf": "/static/media/AktivGrotesk_Trial_Bd.4c9145ab4b26120d562a.ttf",
-    "static/media/MarkSimonsonProximaNovaBold.otf": "/static/media/MarkSimonsonProximaNovaBold.fcaab2524c5baabd71f6.otf",
-    "static/media/MarkSimonsonProximaNovaRegular.otf": "/static/media/MarkSimonsonProximaNovaRegular.ea03f826587148b7335d.otf",
-    "static/media/MarkSimonsonProximaNovaSemibold.otf": "/static/media/MarkSimonsonProximaNovaSemibold.815823c606e8fb5e1338.otf",
-    "static/media/Rectangle.png": "/static/media/Rectangle.183d1c8e2b6dd7a2190c.png",
+    "static/media/Rubik-Bold.ttf": "/static/media/Rubik-Bold.c934eb22c2c69992b34c.ttf",
+    "static/media/Rubik-SemiBold.ttf": "/static/media/Rubik-SemiBold.869208702057daef053d.ttf",
+    "static/media/Rubik-Medium.ttf": "/static/media/Rubik-Medium.0e121b4fa4d6e9bc5c69.ttf",
+    "static/media/Rubik-Regular.ttf": "/static/media/Rubik-Regular.55fa11cdc8b9a3ee842f.ttf",
+    "static/media/Montserrat-Bold.ttf": "/static/media/Montserrat-Bold.50f0257aa1e905f4bfaf.ttf",
+    "static/media/Montserrat-SemiBold.ttf": "/static/media/Montserrat-SemiBold.93b37a465fc4ec0d0415.ttf",
+    "static/media/Montserrat-Regular.ttf": "/static/media/Montserrat-Regular.24785cc015b27a3e964b.ttf",
+    "static/media/logo.png": "/static/media/logo.1aa9d5b5f861579e11c6.png",
     "static/media/status.png": "/static/media/status.7c71626f5e07da7523e0.png",
-    "static/media/ProximaNovaRegular.woff2": "/static/media/ProximaNovaRegular.aae6e1f1ddf41051bf88.woff2",
     "index.html": "/index.html",
-    "main.27edc3f7.css.map": "/static/css/main.27edc3f7.css.map",
-    "main.34591b41.js.map": "/static/js/main.34591b41.js.map"
+    "main.95bddd86.css.map": "/static/css/main.95bddd86.css.map",
+    "main.014ca769.js.map": "/static/js/main.014ca769.js.map"
   },
   "entrypoints": [
-    "static/css/main.27edc3f7.css",
-    "static/js/main.34591b41.js"
+    "static/css/main.95bddd86.css",
+    "static/js/main.014ca769.js"
   ]
 }
