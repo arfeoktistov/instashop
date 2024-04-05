@@ -59,6 +59,10 @@ class ProductViewSet(ModelViewSet):
         }
     )
     def create(self, request, *args, **kwargs):
+        print(f"Request to create a product received\n"
+              f"____________________________________\n"
+              f"RATATATATTATATTATATTATATATATTATATATT\n"
+              f"____________________________________")
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(
