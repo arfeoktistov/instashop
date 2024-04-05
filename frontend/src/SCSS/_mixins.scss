@@ -1,3 +1,37 @@
+@mixin description {
+    color: #030303;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    line-height: 18px;
+    white-space: nowrap;
+    position: relative;
+}
+
+@mixin proxima400 {
+    font-family: 'ProximaReg', sans-serif;
+}
+
+@mixin proxima600 {
+    font-family: 'ProximaSemiBold', sans-serif;
+}
+
+@mixin proxima700 {
+    font-family: 'ProximaBold', sans-serif;
+}
+
+@mixin grotesk400 {
+    font-family: 'GroteskReg', sans-serif;
+}
+
+@mixin grotesk500 {
+    font-family: 'GroteskMedium', sans-serif;
+}
+
+@mixin grotesk700 {
+    font-family: 'GroteskBold', sans-serif;
+}
+
 @mixin oldMonitor {
     @media screen and (max-width: 1280px) {
         @content;
