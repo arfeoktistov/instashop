@@ -3,8 +3,6 @@ from rest_framework.views import (
     APIView,
 )
 from rest_framework.response import Response
-
-
 from apps.users.serializers import (
     UserSerializer
 )
@@ -12,6 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from drf_yasg.utils import swagger_auto_schema
 from .models import User, SellerUser
 from .serializers import UserSerializer, SellerUserSerializer
+from .pagination import CustomPagination
 
 class GetUserIdView(APIView):
 
@@ -28,8 +27,9 @@ class GetUserIdView(APIView):
 
 
 class SellerUserViewSet(ModelViewSet):
-    queryset = SellerUser.objects.all()
+    queryset = SellerUser.objects.exlude(id=33)
     serializer_class = SellerUserSerializer
+    pagination_class = CustomPagination
 
     @swagger_auto_schema(
         tags=['Магазин'],
