@@ -27,7 +27,7 @@ class GetUserIdView(APIView):
 
 
 class SellerUserViewSet(ModelViewSet):
-    queryset = SellerUser.objects.exlude(id=33)
+    queryset = SellerUser.objects.exclude(id=33)
     serializer_class = SellerUserSerializer
     pagination_class = CustomPagination
 
