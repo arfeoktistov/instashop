@@ -1,3 +1,4 @@
+from django.http import QueryDict
 from rest_framework import serializers
 from .models import Product, ProductImage
 from ..categories.models import Category, SubCategory
@@ -85,7 +86,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         print("Validated data:", validated_data)
-        images_data = validated_data.pop('images', [])
+        images_data = validated_data.pop('images', None)
         print("Validated data after images_data:", validated_data)
 
         # Обновление остальных полей модели Product
@@ -95,6 +96,13 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         instance.image = validated_data.get('image', instance.image)
         instance.sub_category = validated_data.get('sub_category', instance.sub_category)
         instance.save()
+
+        if isinstance(images_data, QueryDict):
+            print("images_data is a QueryDict")
+            images_files = images_data.getlist('images')  # Ключ должен соответствовать тому, что отправляется с фронта
+            # Далее ваша логика обработки images_files
+        else:
+            print("images_data is not a QueryDict:", type(images_data))
 
         if images_data:
             instance.images.all().delete()
