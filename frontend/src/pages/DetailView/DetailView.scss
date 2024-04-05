@@ -1,7 +1,15 @@
+@import '../../SCSS/mixins';
+
+
 .displayOne {
     display: flex;
     padding-top: 60px;
     justify-content: center;
+
+    @include mobileL {
+        flex-direction: column;
+
+    }
 }
 
 .arrow {
@@ -12,6 +20,22 @@
     display: flex;
     flex-direction: row-reverse;
     width: 40%;
+
+    @include newMonitor1440 {
+        width: 60%;
+    }
+
+    @include old1024 {
+        width: 70%;
+    }
+
+    @include mobileL {
+        width: 100%;
+    }
+
+    // @include tablet {
+    //     width: 80%;
+    // }
 }
 
 .swiper {
@@ -63,6 +87,11 @@
         object-fit: cover;
         object-position: center;
         border-radius: 50px;
+
+        @include mobileL {
+            height: 400px;
+
+        }
     }
 }
 
@@ -72,8 +101,17 @@
     box-sizing: border-box;
     padding: 10px 0;
 
+    @include mobileL {
+        display: none;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
     .swiper-wrapper {
         width: 120px;
+
+
 
     }
 
@@ -114,6 +152,11 @@
     padding-left: 30px;
     width: 40%;
 
+    @include mobileL {
+        width: 100%;
+        padding-left: 0;
+    }
+
     .detail_text {
         display: flex;
         flex-direction: column;
@@ -126,6 +169,11 @@
             line-height: 130%;
             letter-spacing: 0px;
             text-align: left;
+
+            @include mobileL {
+                padding-top: 20px;
+
+            }
         }
 
         h2 {
@@ -168,12 +216,13 @@
             display: flex;
             gap: 15px;
 
-            a {}
-
         }
     }
 }
 
 .cursor {
     cursor: pointer;
+    display: flex;
+
+
 }

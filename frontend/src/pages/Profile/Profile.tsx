@@ -33,12 +33,13 @@ const Profile: FC = () => {
 	}
 
 	return (
-		<div className={'container'}>
+		<div >
 			<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 			<div className={s.backround} style={{
 				backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `,
 				backgroundRepeat: 'no-repeat',
-				backgroundSize: '100% 274px',
+
+
 				borderRadius: 20,
 				borderBottomRightRadius: 20,
 				borderEndEndRadius: 20,
@@ -56,11 +57,11 @@ const Profile: FC = () => {
 					</div>
 					<div className={s.line}>
 						<h2>{profile?.followers}</h2>
-						<h3>bestseller</h3>
+						<h3>followers</h3>
 					</div>
 				</div>
 				<a href={profile?.instagram_link}>
-					<button>Connect</button>
+					<button>Instagram</button>
 				</a>
 
 			</div>

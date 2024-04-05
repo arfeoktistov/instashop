@@ -1,6 +1,5 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, } from 'react';
 import s from './ProfileCard.module.scss'
-import cardOne from '../../assets/Profile/cardOne.png'
 import { Link } from 'react-router-dom';
 import { ProfileCardModules } from '../../store/modules';
 

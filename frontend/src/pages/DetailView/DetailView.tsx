@@ -22,6 +22,11 @@ import { fetchByDetailView, fetchByProfileCard } from '../../store/slice/detailP
 
 
 const DetailView: FC = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
     const dispatch = useAppDispatch()
@@ -48,25 +53,18 @@ const DetailView: FC = () => {
 
                 <img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
             </div>
-
             <div className='displayOne'>
-
                 <div className='display'>
-
                     <Swiper
-
                         loop={true}
                         spaceBetween={10}
-                        // navigation={true}
                         thumbs={{ swiper: thumbsSwiper }}
                         modules={[FreeMode, Navigation, Thumbs]}
                         className="mySwiper2"
-                    // autoHeight
                     >
                         <SwiperSlide>
                             <img src={detailview?.image} alt="img" />
                         </SwiperSlide>
-
                         {
                             error ?
                                 <span className='error animate__backOutUp animate__animated'>{error}</span>
@@ -102,11 +100,8 @@ const DetailView: FC = () => {
                                         <img src={el.image} />
                                     </SwiperSlide>
                                 ))
-
                         }
-
                     </Swiper>
-
                 </div>
                 <div className='detail_info'>
                     <div className='detail_text'>
@@ -124,8 +119,6 @@ const DetailView: FC = () => {
                                 <img src={wh} alt="img" />
                             </Link>
                         </div>
-
-
                     </div>
                 </div>
             </div>
