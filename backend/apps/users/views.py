@@ -27,9 +27,13 @@ class GetUserIdView(APIView):
 
 
 class SellerUserViewSet(ModelViewSet):
-    queryset = SellerUser.objects.exclude(id=33)
     serializer_class = SellerUserSerializer
     pagination_class = CustomPagination
+
+    def get_queryset(self):
+        if self.action == 'retrieve':
+            return SellerUser.objects.all()
+        SellerUser.objects.exclude(id=33)
 
     @swagger_auto_schema(
         tags=['Магазин'],
