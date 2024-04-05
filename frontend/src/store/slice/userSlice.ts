@@ -29,12 +29,12 @@ export const fetchByLogin = createAsyncThunk<GetToken, UserLogin, { rejectValue:
 		return res.data as GetToken
 	})
 
-
+// получение инфо по user
 
 export const fetchByToken = createAsyncThunk<TokenNodules, string, { rejectValue: string }>(
 	'user/fetchByToken', async (token, { rejectWithValue }) => {
 		const res = await storesApi.getTokenUser(token)
-		console.log(res)
+		// console.log(res)
 		if (res.status !== 200) {
 			return rejectWithValue('Server error')
 		}
@@ -79,24 +79,22 @@ const userSlice = createSlice({
 				state.error = 'Упс что-то пошло не так попробуйте снова!'
 			}
 		})
-		// addCase(fetchByToken.pending, (state) => {
-		// 	state.loading = true
-		// 	state.error = null
-		// })
+		addCase(fetchByToken.pending, (state) => {
+			state.loading = true
+			state.error = null
+		})
 
-		// addCase(fetchByToken.fulfilled, (state, action) => {
-		// 	state.user = action.payload
-		// 	state.loading = false
-		// })
+		addCase(fetchByToken.fulfilled, (state, action) => {
+			state.user = action.payload
+			state.loading = false
+		})
 
-		// addCase(fetchByToken.rejected, (state, action) => {
-		// 	state.loading = false
-		// 	if (action.payload?.includes('404')) {
-		// 		state.error = 'No Broouuuu,No News!'
-		// 	} else {
-		// 		state.error = action.payload
-		// 	}
-		// })
+		addCase(fetchByToken.rejected, (state, action) => {
+			state.loading = false
+			if (action.error.message?.includes('401')) {
+				state.error = 'Токен не правильный!'
+			}
+		})
 	},
 })
 export const { toggleRedirect, setToken, logOut, } = userSlice.actions
