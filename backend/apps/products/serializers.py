@@ -46,11 +46,13 @@ class ProductCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         print("Validated data CREATE:", validated_data)
         images_data = validated_data.pop('images')
-        product = Product.objects.create(**validated_data)
+        user = self.context['request'].user
+        seller = user.seller_user
+        product = Product.objects.create(**validated_data, seller=seller)
         print("Validated data after images_data:", validated_data)
 
-        for image_file in images_data:
-            ProductImage.objects.create(product=product, image=image_file)
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)
 
         return product
 
