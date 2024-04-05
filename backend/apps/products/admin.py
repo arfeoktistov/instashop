@@ -11,7 +11,10 @@ class ProductImageInline(admin.TabularInline):
 
     def image_preview(self, instance):
         if instance.image:
-            return format_html('<img src="{}" style="max-width: 100px; max-height: 100px;" />', instance.image.url)
+            return format_html(
+                '<img src="{}" style="max-width: 100px; max-height: 100px;" />',
+                instance.image.url
+            )
         return "Нет изображения"
 
     image_preview.short_description = "Предпросмотр"
@@ -21,12 +24,15 @@ class ProductImageInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'sub_category', 'seller', 'price', 'image_preview')
     search_fields = ('name', 'description', 'sub_category__name', 'seller__user__username')
-    list_filter = ('sub_category', 'seller',)
+    list_filter = ('seller', 'sub_category',)
     inlines = [ProductImageInline, ]
 
     def image_preview(self, obj):
         if obj.image:
-            return format_html('<img src="{}" style="max-width: 100px; max-height: 100px;" />', obj.image.url)
+            return format_html(
+                '<img src="{}" style="max-width: 100px; max-height: 100px;" />',
+                obj.image.url
+            )
         return "Нет изображения"
 
     image_preview.short_description = "Основное изображение"

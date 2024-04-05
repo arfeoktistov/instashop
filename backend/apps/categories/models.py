@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     """ Модель категорий.
 
@@ -46,4 +47,3 @@ class SubCategory(models.Model):
     class Meta:
         verbose_name: str = 'Подкатегория'
         verbose_name_plural: str = 'Подкатегории'
-

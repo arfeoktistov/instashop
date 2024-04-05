@@ -22,9 +22,6 @@ class User(AbstractUser):
         choices=ROLE, default=BUYER
     )
     username = None
-    is_active = models.BooleanField(verbose_name='Активен ли?', default=False)
-    code_activation = models.CharField(max_length=127, verbose_name='Код активации', null=True, blank=True)
-    code_time = models.DateTimeField(null=True)
     email = models.EmailField(unique=True, verbose_name='Email')
 
     USERNAME_FIELD = 'email'
@@ -32,17 +29,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return f'{self.last_name} {self.first_name} {self.email} - {self.phone_number}'
-
-    @property
-    def generate_code(self):
-        from random import randint
-        code = ''
-        for i in range(6):
-            code += str(randint(0, 9))
-        self.code_activation = code
-        self.code_time = timezone.now()
-        self.save()
-        return code
 
     objects = UserModelManager()
 
