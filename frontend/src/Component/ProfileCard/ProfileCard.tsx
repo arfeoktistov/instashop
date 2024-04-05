@@ -15,7 +15,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ profilCard }) => {
                 <img src={profilCard.image} alt="img" />
             </div>
             <div>
-                <h2>{profilCard.name}</h2>
+                <h2 title={profilCard.name}>{profilCard.name.length > 30 ? profilCard.name.slice(0, 30) + '...' : profilCard.name}</h2>
                 <h3>{Math.ceil(profilCard?.price ? +profilCard?.price : 0)} com</h3>
             </div>
         </Link >

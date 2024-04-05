@@ -33,8 +33,7 @@ const DetailView: FC = () => {
         }
     }, [dispatch, id])
 
-    const { detailview } = useAppSelector(state => state.profile)
-    // console.log(profileCard);
+    const { detailview, error } = useAppSelector(state => state.profile)
 
 
     const navigate = useNavigate()
@@ -69,12 +68,15 @@ const DetailView: FC = () => {
                             <img src={detailview?.image} alt="img" />
                         </SwiperSlide>
 
-                        {detailview && detailview?.images.length > 0 &&
-                            detailview?.images.map((el, i) => (
-                                <SwiperSlide className='cursor' key={i} >
-                                    <img src={el.image} />
-                                </SwiperSlide>
-                            ))
+                        {
+                            error ?
+                                <span className='error animate__backOutUp animate__animated'>{error}</span>
+                                : detailview && detailview?.images.length > 0 &&
+                                detailview?.images.map((el, i) => (
+                                    <SwiperSlide className='cursor' key={i} >
+                                        <img src={el.image} />
+                                    </SwiperSlide>
+                                ))
                         }
 
                     </Swiper>
@@ -92,12 +94,16 @@ const DetailView: FC = () => {
                         <SwiperSlide>
                             <img src={detailview?.image} alt="img" />
                         </SwiperSlide>
-                        {detailview && detailview?.images.length > 0 &&
-                            detailview?.images.map((el, i) => (
-                                <SwiperSlide className='cursor' key={i} >
-                                    <img src={el.image} />
-                                </SwiperSlide>
-                            ))
+                        {
+                            error ?
+                                <span className='error animate__backOutUp animate__animated'>{error}</span>
+                                : detailview && detailview?.images.length > 0 &&
+                                detailview?.images.map((el, i) => (
+                                    <SwiperSlide className='cursor' key={i} >
+                                        <img src={el.image} />
+                                    </SwiperSlide>
+                                ))
+
                         }
 
                     </Swiper>

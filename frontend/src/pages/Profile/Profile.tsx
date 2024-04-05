@@ -13,7 +13,7 @@ const Profile: FC = () => {
 	const { id } = useParams()
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
-	const { profile, profileCard } = useAppSelector(state => state.profile)
+	const { profile, profileCard, error } = useAppSelector(state => state.profile)
 	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
@@ -44,7 +44,7 @@ const Profile: FC = () => {
 				borderEndEndRadius: 20,
 				objectFit: 'cover',
 				objectPosition: 'center'
-			}} >
+			}}>
 				<div className={s.profileDiv}>
 					<img className={s.profile} src={profile?.insta_image ? profile?.insta_image : defStatus} alt="adi" />
 					<h1>{profile?.shop_name}</h1>
@@ -68,7 +68,11 @@ const Profile: FC = () => {
 			<h2 className={s.newArrivals}>Товары</h2>
 			<SearchDetailView />
 			<div className={s.fiveCards}>
-				{profileCard.length > 0 && profileCard.map(el => <ProfileCard key={el.id} profilCard={el} />)}
+				{
+					error ?
+						<span className='error animate__backOutUp animate__animated'>{error}</span>
+						:
+						profileCard.length > 0 && profileCard.map(el => <ProfileCard key={el.id} profilCard={el} />)}
 			</div>
 		</div >
 	)

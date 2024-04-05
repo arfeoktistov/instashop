@@ -99,7 +99,7 @@ const detailProfileSlice = createSlice({
         addCase(fetchByDetailProfile.rejected, (state, action) => {
             state.loading = false
             if (action.payload?.includes('404')) {
-                state.error = 'No Broouuuu,No News!'
+                state.error = 'Упс что-то пошло не так попробуйте снова!'
             } else {
                 state.error = action.payload
             }
@@ -118,7 +118,7 @@ const detailProfileSlice = createSlice({
         addCase(fetchByProfileCard.rejected, (state, action) => {
             state.loading = false
             if (action.payload?.includes('404')) {
-                state.error = 'No Broouuuu,No News!'
+                state.error = 'Упс что-то пошло не так попробуйте снова!'
             } else {
                 state.error = action.payload
             }
@@ -137,7 +137,7 @@ const detailProfileSlice = createSlice({
         addCase(fetchByDetailView.rejected, (state, action) => {
             state.loading = false
             if (action.payload?.includes('404')) {
-                state.error = 'No Broouuuu,No News!'
+                state.error = 'Упс что-то пошло не так попробуйте снова!'
             } else {
                 state.error = action.payload
             }
@@ -156,7 +156,7 @@ const detailProfileSlice = createSlice({
         addCase(fetchByProfileCategories.rejected, (state, action) => {
             state.loading = false
             if (action.payload?.includes('404')) {
-                state.error = 'No Broouuuu,No News!'
+                state.error = 'Упс что-то пошло не так попробуйте снова!'
             } else {
                 state.error = action.payload
             }
@@ -175,7 +175,7 @@ const detailProfileSlice = createSlice({
         addCase(fetchByCardsByCategories.rejected, (state, action) => {
             state.loading = false
             if (action.payload?.includes('404')) {
-                state.error = 'No Broouuuu,No News!'
+                state.error = 'Упс что-то пошло не так попробуйте снова!'
             } else {
                 state.error = action.payload
             }
