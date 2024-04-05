@@ -38,8 +38,6 @@ const Profile: FC = () => {
 			<div className={s.backround} style={{
 				backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `,
 				backgroundRepeat: 'no-repeat',
-
-
 				borderRadius: 20,
 				borderBottomRightRadius: 20,
 				borderEndEndRadius: 20,

@@ -44,13 +44,13 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        print("Validated data CREATE:", validated_data)
         images_data = validated_data.pop('images')
-        product = Product.objects.create(**validated_data)
-        print("Validated data after images_data:", validated_data)
+        user = self.context['request'].user
+        seller = user.seller_user
+        product = Product.objects.create(**validated_data, seller=seller)
 
-        for image_file in images_data:
-            ProductImage.objects.create(product=product, image=image_file)
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)
 
         return product
 
@@ -64,8 +64,6 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'sub_category': instance.sub_category.id,
             'images': [image.image.url for image in instance.images.all()]
         }
-        print("Representation data for CREATE:", representation)
-
         return representation
 
 
@@ -84,9 +82,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        print("Validated data:", validated_data)
         images_data = validated_data.pop('images', None)
-        print("Validated data after images_data:", validated_data)
 
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
@@ -103,8 +99,6 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         return instance
 
     def to_representation(self, instance):
-        # serializer = ProductSerializer(instance)
-        # return serializer.data
         representation = {
             'id': instance.id,
             'name': instance.name,
@@ -114,8 +108,4 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
             'sub_category': instance.sub_category.id,
             'images': [ProductImageSerializer(image).data for image in instance.images.all()]
         }
-
-        # Логирование для отладки
-        print("Representation data:", representation)
-
         return representation

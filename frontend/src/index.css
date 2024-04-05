@@ -1,18 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
 body {
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
-	font-family: 'Inter', sans-serif;
 }
 
 * {
@@ -56,16 +45,9 @@ body {
 	font-size: 100%;
 	line-height: 1;
 	font-size: 14px;
-	font-family: 'Inter', sans-serif;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
-}
-
-input,
-button,
-textarea {
-	font-family: 'Roboto', sans-serif;
 }
 
 input::-ms-clear {
@@ -74,7 +56,6 @@ input::-ms-clear {
 
 button {
 	cursor: pointer;
-	font-family: 'Roboto', sans-serif;
 }
 
 button::-moz-focus-inner {
@@ -85,7 +66,6 @@ button::-moz-focus-inner {
 a,
 a:visited {
 	text-decoration: none;
-	font-family: 'Roboto', sans-serif;
 }
 
 a:hover {
@@ -94,8 +74,6 @@ a:hover {
 
 ul li {
 	list-style: none;
-
-	font-family: 'Roboto', sans-serif;
 }
 
 img {
@@ -112,7 +90,6 @@ p,
 span {
 	font-size: inherit;
 	font-weight: inherit;
-	font-family: 'Roboto', sans-serif;
 }
 
 

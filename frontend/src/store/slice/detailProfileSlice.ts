@@ -48,7 +48,7 @@ export const fetchByDetailView = createAsyncThunk<ProfileCardModules, number, { 
     'profile/fetchByDetailView',
     async (id, { rejectWithValue }) => {
         const res = await storesApi.getDetailView(id)
-        // console.log(res);
+        console.log(res);
         if (res.status !== 200) {
             return rejectWithValue('Server Error')
         }

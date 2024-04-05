@@ -17,7 +17,7 @@ import arrow from '../../assets/Profile/Icon arrow left.png'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { fetchByDetailView, fetchByProfileCard } from '../../store/slice/detailProfileSlice';
+import { fetchByDetailView, } from '../../store/slice/detailProfileSlice';
 
 
 
