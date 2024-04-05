@@ -70,7 +70,11 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
 
 class ProductUpdateSerializer(serializers.ModelSerializer):
-    images = serializers.ListField(write_only=True, required=True)
+    images = serializers.ListField(
+        child=serializers.ImageField(),
+        write_only=True,
+        required=False
+    )
 
     class Meta:
         model = Product
@@ -81,7 +85,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         print("Validated data:", validated_data)
-        images_data = validated_data.pop('images', None)
+        images_data = validated_data.pop('images', [])
         print("Validated data after images_data:", validated_data)
 
         # Обновление остальных полей модели Product
@@ -92,17 +96,10 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         instance.sub_category = validated_data.get('sub_category', instance.sub_category)
         instance.save()
 
-        # Обработка изображений
-        if images_data is not None:
-            # Удалить все старые изображения
+        if images_data:
             instance.images.all().delete()
-            # Добавить новые изображения
-            for img_dict in images_data:
-                # Предполагается, что в img_dict передается объект файла напрямую,
-                # не в MultiValueDict
-                image_file = img_dict.get('image')
-                if image_file:
-                    ProductImage.objects.create(product=instance, image=image_file)
+            for image_file in images_data:
+                ProductImage.objects.create(product=instance, image=image_file)
 
         return instance
 
