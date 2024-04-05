@@ -106,6 +106,6 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
             'image': instance.image.url if hasattr(instance.image, 'url') else None,
             'price': instance.price,
             'sub_category': instance.sub_category.id,
-            'images': [image.image.url for image in instance.images.all()]
+            'images': [ProductImageSerializer(image).data for image in instance.images.all()]
         }
         return representation
