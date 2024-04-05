@@ -6,11 +6,13 @@ import { fetchByGetCard } from '../../../store/slice/addProductSlice'
 
 const ProductList: FC = () => {
 	const dispatch = useAppDispatch()
+	const { user } = useAppSelector(state => state.user)
 	const { profileCard, reboot } = useAppSelector(state => state.addProductSlice)
+
 	useEffect(() => {
-		dispatch(fetchByGetCard(3))
-	}, [dispatch, reboot])
-	console.log(profileCard);
+		user && user?.seller_user &&
+			dispatch(fetchByGetCard(user.seller_user?.id))
+	}, [dispatch, user, reboot])
 
 	return (
 		<div className={s.ProductList}>

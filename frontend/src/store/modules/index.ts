@@ -11,12 +11,25 @@ export type GetToken = {
 	access: string
 	refresh: string
 }
+
+type ISellerUser = {
+	background_image: string
+	id: number
+	insta_image: string
+	instagram_link: string
+	main_image: string
+	mini_description: string
+	product: number
+	shop_name: string
+	user: number
+}
+
 export type TokenNodules = {
 	email: string
 	first_name: string
 	id: number
 	last_name: string
-	seller_details: null
+	seller_user: null | ISellerUser
 }
 
 export type DetailProfile = {
@@ -42,14 +55,9 @@ export type ProfileCardModules = {
 	price: string
 	image: string
 	images: ImagesMas[]
-	sub_category: {
-		name: string,
-		//  id: number, 
-	}
-	category: {
-		name: string,
-		//  id: number, 
-	}
+	sub_category: number
+	sub_category_name: string
+	category_name: string
 }
 
 export type IStores = {
@@ -84,11 +92,23 @@ export type IAddProductsCard = {
 	name: string,
 	description: string,
 	price: string,
-	sub_category: {
-		name: string,
-		//  id: number, 
-	},
-	seller: number | null
+	sub_category: string
 	image: File | string
 	images: File[]
+}
+
+export type IForAddProduct = {
+	productCard: FormData
+	token: string
+}
+
+export type IForChangeProduct = {
+	productCard: FormData
+	token: string
+	id: number
+}
+
+export type IIdToken = {
+	id: number
+	token: string
 }

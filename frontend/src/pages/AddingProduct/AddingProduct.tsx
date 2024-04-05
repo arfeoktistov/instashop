@@ -4,41 +4,38 @@ import AddPhoto from './AddPhoto/AddPhoto'
 import AddProductForm from './AddProductForm/AddProductForm'
 import { IAddProductsCard } from '../../store/modules'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
-import { fetchByAddNewCard } from '../../store/slice/addProductSlice'
-import axios from 'axios'
+import { fetchByAddNewCard, fetchByChangeCard, fetchByGetDetailCard } from '../../store/slice/addProductSlice'
 import Loading from '../../Component/Loading/Loading'
 import { useSearchParams } from 'react-router-dom'
-
+import SuccessfullRequest from './SuccessfullRequest/SuccessfullRequest'
+interface ImagesObj {
+	blobUrl: string
+	file: File
+}
 const AddingProduct: FC = () => {
 	const dispatch = useAppDispatch()
-	const { loading, error, profileCard } = useAppSelector(state => state.addProductSlice)
+	const { token, user } = useAppSelector(state => state.user)
+	const { loading, error, reboot, detail_card } = useAppSelector(state => state.addProductSlice)
+	const [previewImg, setPreviewImg] = useState<string[]>([])
+	const [files, setFiles] = useState<ImagesObj[]>([])
 	const [filesReq, setFilesReq] = useState<File[]>([])
 	const [errorText, setErrorText] = useState('')
-
+	const [categories, setCategories] = useState('')
 	const [searchParams] = useSearchParams()
 	const [query] = useState(searchParams.get('id_card'))
-	console.log(query);
 
 
 	const [productCard, setProductCard] = useState<IAddProductsCard>({
 		name: '',
 		description: '',
 		price: '',
-		sub_category: {
-			name: '',
-		},
-		seller: 3,
+		sub_category: '',
 		image: '',
 		images: [],
 	})
-	useEffect(() => {
-		if (query) {
-			profileCard.filter((el) => el.id === +query && setProductCard({ ...productCard, name: el.name, description: el.description, price: el.price, seller: el.seller, image: el.image, sub_category: { ...productCard.sub_category, name: el.sub_category.name } }))
-		}
-	}, [query])
 
-	if (errorText.includes('Добавьте фото!')) {
-		filesReq.length > 0 && setErrorText('')
+	if (errorText.includes('Картинки должны быть от 2 до 6')) {
+		(filesReq.length > 2 && filesReq.length < 6) && setErrorText('')
 	} else if (errorText.includes('Введите название!')) {
 		productCard.name && setErrorText('')
 	} else if (errorText.includes('Введите описание!')) {
@@ -46,55 +43,95 @@ const AddingProduct: FC = () => {
 	} else if (errorText.includes('Введите стоимость!')) {
 		productCard.price && setErrorText('')
 	} else if (errorText.includes('Введите подкатегорию!')) {
-		productCard.sub_category.name && setErrorText('')
+		productCard.sub_category && setErrorText('')
 	}
 
 	const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
 		e.preventDefault()
-		console.log({ ...productCard, image: filesReq[0], images: filesReq });
-		if (productCard.name && productCard.description && productCard.price && productCard.sub_category.name && productCard.seller && filesReq.length > 0) {
-			dispatch(fetchByAddNewCard({ ...productCard, image: filesReq[0], images: filesReq }))
-		} else if (filesReq.length === 0) {
-			setErrorText('Добавьте фото!')
+		if (productCard.name && productCard.description && productCard.price && productCard.sub_category && query && token && user) {
+			const formData = new FormData()
+			formData.append('name', `${productCard.name}`);
+			formData.append('description', `${productCard.description}`);
+			formData.append('price', `${productCard.price}`);
+			formData.append('seller_id', `${user?.id}`);
+			formData.append('sub_category', `${productCard.sub_category}`);
+			// Добавление основного изображения  
+			if (filesReq.length >= 2 && filesReq.length <= 6) {
+				formData.append('image', filesReq[0]);
+				// Добавление списка изображений 
+				const newArr = filesReq.slice(1)
+				for (let file of newArr) {
+					formData.append('images', file);
+				}
+
+			}
+			dispatch(fetchByChangeCard({ id: +query, token, productCard: formData }))
+		} else if (productCard.name && productCard.description && productCard.price && productCard.sub_category && (filesReq.length >= 2 && filesReq.length <= 6) && token && user) {
+			const formData = new FormData()
+			formData.append('name', `${productCard.name}`);
+			formData.append('description', `${productCard.description}`);
+			formData.append('price', `${productCard.price}`);
+			formData.append('seller_id', `${user?.id}`);
+			formData.append('sub_category', `${productCard.sub_category}`);
+			// Добавление основного изображения  
+			formData.append('image', filesReq[0]);
+			// Добавление списка изображений 
+			const newArr = filesReq.slice(1)
+			for (let file of newArr) {
+				formData.append('images', file);
+			}
+			dispatch(fetchByAddNewCard({ token, productCard: formData }))
+		} else if (filesReq.length < 2) {
+			setErrorText('Картинки должны быть от 2 до 6')
 		} else if (!productCard.name) {
 			setErrorText('Введите название!')
 		} else if (!productCard.description) {
 			setErrorText('Введите описание!')
 		} else if (!productCard.price) {
 			setErrorText('Введите стоимость!')
-		} else if (!productCard.sub_category.name) {
+		} else if (!productCard.sub_category) {
 			setErrorText('Введите подкатегорию!')
 		}
 	}
-	// console.log(filesReq);
-	// const handleSend = () => {
-	// 	axios.post(`http://agregagator.gagaga.kg:8080/api/products/products/`, {
-	// 		"name": "RATATA",
-	// 		"description": "ifhdh dbvugdfg dvfgbud",
-	// 		"price": "200000.00",
-	// 		"sub_category": {
-	// 			"name": "Футболки"
-	// 		},
-	// 		"seller": 1,
-	// 		"image": filesReq[0],
-	// 		"images": filesReq,
-	// 		"category": 'Женская',
-	// 	}, {
-	// 		headers: {
-	// 			"Content-Type": "multipart/form-data"
-	// 		}
-	// 	})
-	// }
-	if (loading) {
-		// return <Loading />
+
+	const deleteImg = (url: string) => {
+		setFiles(files.filter(item => item.blobUrl !== url))
+		for (let file of files) {
+			setFilesReq([...filesReq.filter(el => el !== file.file)]);
+		}
 	}
+
+	useEffect(() => {
+		if (query) {
+			dispatch(fetchByGetDetailCard(+query))
+		}
+
+	}, [query])
+
+	useEffect(() => {
+		if (detail_card && query) {
+			setProductCard({ ...productCard, name: detail_card.name, description: detail_card.description, price: detail_card.price, sub_category: `${detail_card.sub_category}` })
+			setCategories(detail_card.category_name)
+		}
+	}, [detail_card])
+
+	useEffect(() => {
+		if (reboot) {
+			setFilesReq([])
+			setFiles([])
+			setCategories('')
+			setPreviewImg([])
+			setProductCard({ name: '', description: '', price: '', sub_category: '', image: '', images: [], })
+		}
+	}, [reboot])
 	return (
 		<div className={s.AddingProduct}>
 			<h2>Заполните данные для добавления товара</h2>
-			<AddPhoto errorText={errorText} setFilesReq={setFilesReq} />
-			<AddProductForm query={query} errorText={errorText} productCard={productCard} setProductCard={setProductCard} handleAddProduct={handleAddProduct} />
-			{/* <button onClick={handleSend}>sdf</button> */}
+			<AddPhoto deleteImg={deleteImg} setFiles={setFiles} files={files} previewImg={previewImg} setPreviewImg={setPreviewImg} setErrorText={setErrorText} errorText={errorText} setFilesReq={setFilesReq} />
+			<AddProductForm categories={categories} setCategories={setCategories} query={query} errorText={errorText} productCard={productCard} setProductCard={setProductCard} handleAddProduct={handleAddProduct} />
 			{loading && <Loading />}
+			{(reboot || error?.includes('Упс что-то пошло не так!')) && < SuccessfullRequest id={query} text={`Карточка успешно создана`} />}
+			{(reboot || error?.includes('Упс что-то пошло не так!')) && query && < SuccessfullRequest id={query} text={`Карточка успешно изменена`} />}
 		</div>
 	)
 }

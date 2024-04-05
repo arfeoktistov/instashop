@@ -1,35 +1,44 @@
 import React, { ChangeEventHandler, FC, useEffect, useRef, useState } from 'react'
 import s from './AddPhoto.module.scss'
 import camera from '../../../assets/PersonalProfile/camera.png'
-interface AddPhotoProps {
-	setFilesReq: (e: File[]) => void
-	errorText: string
-}
 interface ImagesObj {
 	blobUrl: string
 	file: File
 }
-const AddPhoto: FC<AddPhotoProps> = ({ setFilesReq, errorText }) => {
+interface AddPhotoProps {
+	setFilesReq: (e: File[]) => void
+	setErrorText: (e: string) => void
+	setPreviewImg: (e: string[]) => void
+	previewImg: string[]
+	errorText: string
+	setFiles: (e: ImagesObj[]) => void
+	files: ImagesObj[]
+	deleteImg: (url: string) => void
+}
+
+const AddPhoto: FC<AddPhotoProps> = ({ deleteImg, setFilesReq, errorText, setErrorText, previewImg, setPreviewImg, files, setFiles }) => {
 	const filePickerLeft = useRef<HTMLInputElement>(null)
-	// Стэйт для хранения файлов и пребразованных картинок в локальный url
-	const [files, setFiles] = useState<ImagesObj[]>([])
-	// Стэйт для записи и отрисовки локальных ссылок на картинки
-	const [previewImg, setPreviewImg] = useState<string[]>([])
-	// Стэйт для хранения всех картинок в типе файл , для отправки на сервер
 
 	// Функция принимающая все картинки от пользователя и записывающая 
 	// в состояния картинки
 	const onSelectImage = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		// Хранилище всех картинок но с обрезкой не более 6 штук
-		const files = Array.from(e.target.files || []).slice(0, 6);
+		if (e.target.files) {
+			if (e.target.files.length > 1 && e.target.files.length < 7) {
 
-		// Тут записываем и сами файлы и ссылку blob(локальную)
-		setFiles(files.map((file) => ({
-			file,
-			blobUrl: URL.createObjectURL(new Blob([file]))
-		})));
-		// Тут записываем сами файли в стэйт для отправки
-		setFilesReq([...files])
+				const files = Array.from(e.target.files || []).slice(0, 6);
+				// Тут записываем и сами файлы и ссылку blob(локальную)
+				setFiles(files.map((file) => ({
+					file,
+					blobUrl: URL.createObjectURL(new Blob([file]))
+				})));
+				// Тут записываем сами файли в стэйт для отправки
+				setFilesReq([...files])
+				setErrorText('')
+			} else {
+				setErrorText('Картинки должны быть от 2 до 6')
+			}
+		}
 	}, [])
 
 	useEffect(() => {
@@ -46,12 +55,12 @@ const AddPhoto: FC<AddPhotoProps> = ({ setFilesReq, errorText }) => {
 
 	return (
 		<div className={s.AddPhoto}>
-			<div onClick={handlePickLeft} className={errorText.includes('Добавьте фото!') ? `${s.error_text} ${s.add_photo}` : s.add_photo}>
+			<div onClick={handlePickLeft} className={errorText.includes('Картинки должны быть от 2 до 6') ? `${s.error_text} ${s.add_photo}` : s.add_photo}>
 				<img src={camera} alt='camera' />
 				<p>Добавить фото</p>
 				<input ref={filePickerLeft} onChange={onSelectImage} className={s.hidden} type='file' multiple accept='image/*' />
 			</div>
-			{previewImg.map((url, i) => <img width={100} height={100} key={i} src={url} />)}
+			{previewImg.map((url, i) => <div key={i} className={s.images_download} onClick={() => deleteImg(url)}><img src={url} /></div>)}
 		</div>
 	)
 }

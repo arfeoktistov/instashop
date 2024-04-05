@@ -42,7 +42,8 @@
 		.title_header {
 			display: flex;
 			align-items: center;
-			gap: 30px;
+
+			gap: 10px;
 
 			.title {
 				font-size: 24px;
@@ -58,12 +59,7 @@
 			}
 
 			.logo {
-				font-size: 20px;
-				font-weight: 400;
-				line-height: 130%;
-				letter-spacing: 0%;
-				text-align: center;
-				color: #000;
+				width: 70px;
 			}
 		}
 
@@ -73,8 +69,13 @@
 			gap: 30px;
 			cursor: pointer;
 
-			img {
-				width: 25px;
+			.login {
+				font-size: 24px;
+				font-weight: 500;
+				line-height: 130%;
+				letter-spacing: 0%;
+				text-align: center;
+				color: #000;
 			}
 
 			.user_data {
@@ -92,10 +93,18 @@
 				}
 
 				.avatar {
-					width: 35px;
-					height: 35px;
+					width: 45px;
+					height: 45px;
 					border-radius: 50%;
-					background-color: aqua;
+					overflow: hidden;
+					box-shadow: 2px 2px 2px 2px#00000069;
+
+					& img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						object-position: center;
+					}
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { pathLink } from '../reused'
 import { UserLogin } from '../store/modules'
-import { IProductsCat, IAddProductsCard } from '../store/modules'
+import { IProductsCat, IForAddProduct, IIdToken, IForChangeProduct } from '../store/modules'
 
 const instanse = axios.create({
 	baseURL: pathLink,
@@ -29,13 +29,13 @@ export const storesApi = {
 		return instanse.get(`/api/categories/categories/${cat_id}/sellers/?subcategory_id=${sub_id}`)
 	},
 	getProfileDetail(id: number) {
-		return instanse.get(`api/users/seller-users/${id}/`)
+		return instanse.get(`/api/users/seller-users/${id}/`)
 	},
 	getProfileCard(id: number) {
-		return instanse.get(`api/products/seller/${id}/products/`)
+		return instanse.get(`/api/products/seller/${id}/products/`)
 	},
 	getDetailView(id: number) {
-		return instanse.get(`api/products/products/${id}/`)
+		return instanse.get(`/api/products/products/${id}/`)
 	},
 	getStoreCategories(id: number) {
 		return instanse.get(`/api/categories/sellers/${id}/categories/`)
@@ -47,15 +47,16 @@ export const storesApi = {
 		const headers = { "Authorization": `Bearer ${token}` }
 		return instanse.get('/api/users/users/token/user-id/', { headers })
 	},
-	AddNewProduct(productCard: IAddProductsCard) {
-		const headers = { 'Content-Type': 'multipart/form-data' }
+	AddNewProduct({ productCard, token }: IForAddProduct) {
+		const headers = { "Authorization": `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
 		return instanse.post('/api/products/products/', productCard, { headers })
 	},
-	// AddNewProduct(productCard: IAddProductsCard) {
-	// 	const headers = { 'Content-Type': 'multipart/form-data' }
-	// 	return instanse.patch('api/products/products/60/', productCard, { headers })
-	// },
-	deleteNewProduct(id: number) {
-		return instanse.delete(`api/products/products/${id}/`)
+	changeProduct({ productCard, token, id }: IForChangeProduct) {
+		const headers = { "Authorization": `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
+		return instanse.put(`/api/products/products/${id}/`, productCard, { headers })
+	},
+	deleteNewProduct({ id, token }: IIdToken) {
+		const headers = { "Authorization": `Bearer ${token}` }
+		return instanse.delete(`/api/products/products/${id}/`, { headers })
 	}
 }

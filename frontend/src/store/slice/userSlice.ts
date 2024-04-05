@@ -22,19 +22,19 @@ const initialState: UserState = {
 export const fetchByLogin = createAsyncThunk<GetToken, UserLogin, { rejectValue: string }>(
 	'user/fetchByLogin', async (getUser, { rejectWithValue }) => {
 		const res = await storesApi.addNewUser(getUser)
-		console.log(res)
+		// console.log(res)
 		if (res.status !== 200) {
 			return rejectWithValue('Server error')
 		}
 		return res.data as GetToken
 	})
 
-
+// получение инфо по user
 
 export const fetchByToken = createAsyncThunk<TokenNodules, string, { rejectValue: string }>(
 	'user/fetchByToken', async (token, { rejectWithValue }) => {
 		const res = await storesApi.getTokenUser(token)
-		console.log(res)
+		// console.log(res)
 		if (res.status !== 200) {
 			return rejectWithValue('Server error')
 		}

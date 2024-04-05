@@ -6,11 +6,13 @@ import { IAddProductsCard, ISubCategory } from '../../../store/modules'
 interface AddProductFormProps {
 	handleAddProduct: FormEventHandler<HTMLFormElement>
 	setProductCard: (e: IAddProductsCard) => void
+	setCategories: (e: string) => void
 	productCard: IAddProductsCard
+	categories: string
 	errorText: string
 	query: string | null
 }
-const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductCard, productCard, errorText, query }) => {
+const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductCard, productCard, errorText, query, setCategories, categories }) => {
 	const dispatch = useAppDispatch()
 	useEffect(() => {
 		dispatch(fetchByAllCategory())
@@ -19,12 +21,16 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 	const getProductCard = (key: string, value: string) => {
 		setProductCard({ ...productCard, [key]: value.trimStart() })
 	}
-	const { category, profileCard } = useAppSelector(state => state.addProductSlice)
+	const { category } = useAppSelector(state => state.addProductSlice)
 
-	const handleSubCategories = (value: string) => {
-		category.filter((el) => el.name === value && setSubCategories(el.sub_categories))
-	}
-	// console.log(subCategories);
+	useEffect(() => {
+		if (categories) {
+			category.filter((el) => el.name === categories && setSubCategories(el.sub_categories))
+		} else if (categories === '') {
+			setSubCategories([])
+		}
+	}, [categories])
+
 
 	return (
 		<form onSubmit={handleAddProduct} className={s.add_form}>
@@ -43,13 +49,13 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 					</div>
 					<div className={errorText.includes('Введите стоимость!') ? `${s.error_text} ${s.left_part_field}` : s.left_part_field}>
 						<h2>Введите Стоимость</h2>
-						<input value={productCard.price} onChange={e => getProductCard('price', e.target.value)} className={s.text_field} type='text' placeholder='Стоимость' />
+						<input value={productCard.price} onChange={e => getProductCard('price', e.target.value)} className={s.text_field} type='number' placeholder='Стоимость' />
 					</div>
 				</div>
 				<div className={s.right_part}>
 					<div className={s.right_part_field}>
 						<h2>Выберите Категорию</h2>
-						<select onChange={(e) => handleSubCategories(e.target.value)} className={s.category}>
+						<select value={categories} onChange={(e) => setCategories(e.target.value)} className={s.category}>
 							<option value=''>Выберите категорию</option>
 							{category.length > 0 && category.map(el => <option key={el.id} value={el.name}>{el.name}</option>)}
 						</select>
@@ -57,9 +63,9 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 					{subCategories.length > 0 &&
 						<div className={errorText.includes('Введите подкатегорию!') ? `${s.error_text} ${s.right_part_field}` : s.right_part_field}>
 							<h2>Выберите Категорию</h2>
-							<select value={productCard.sub_category.name} onChange={e => setProductCard({ ...productCard, sub_category: { ...productCard.sub_category, name: e.target.value } })} className={s.category}>
+							<select value={productCard.sub_category ? productCard.sub_category : ''} onChange={e => getProductCard('sub_category', e.target.value)} className={s.category}>
 								<option value=''>Выберите подкатегорию</option>
-								{category.length > 0 && subCategories.map(el => <option key={el.id} value={el.name}>{el.name}</option>)}
+								{category.length > 0 && subCategories.map(el => <option key={el.id} value={el.id}>{el.name}</option>)}
 							</select>
 						</div>
 					}
@@ -67,7 +73,7 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 			</div>
 			<div className={s.button_form}>
 				<h2>{errorText}</h2>
-				<button>Добавить</button>
+				<button>{query ? 'Изменить' : 'Добавить'}</button>
 			</div>
 		</form>
 	)

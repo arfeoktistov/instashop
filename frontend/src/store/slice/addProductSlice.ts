@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { storesApi } from '../../axios'
-import { IAddProductsCard, ICategory, ProfileCardModules } from '../modules'
+import { IAddProductsCard, ICategory, IForAddProduct, IForChangeProduct, IIdToken, ProfileCardModules } from '../modules'
 
 type UserState = {
 	loading: boolean
@@ -8,6 +8,7 @@ type UserState = {
 	error: null | string
 	category: ICategory[]
 	profileCard: ProfileCardModules[]
+	detail_card: ProfileCardModules | null
 }
 
 const initialState: UserState = {
@@ -16,6 +17,7 @@ const initialState: UserState = {
 	reboot: false,
 	category: [],
 	profileCard: [],
+	detail_card: null
 }
 // Получение список категории
 export const fetchByAllCategory = createAsyncThunk<ICategory[], void, { rejectValue: string }>(
@@ -39,21 +41,42 @@ export const fetchByGetCard = createAsyncThunk<ProfileCardModules[], number, { r
 		return res.data
 	})
 // Для добавления карточек
-export const fetchByAddNewCard = createAsyncThunk<void, IAddProductsCard, { rejectValue: string }>(
-	'product/fetchByAddNewCard', async (productCard, { rejectWithValue }) => {
-		const res = await storesApi.AddNewProduct(productCard)
-		console.log(res)
-		// if (res.status !== 200) {
-		// 	return rejectWithValue('Server error')
-		// }
-		// return res.data
+export const fetchByAddNewCard = createAsyncThunk<void, IForAddProduct, { rejectValue: string }>(
+	'product/fetchByAddNewCard', async (forProductCard, { rejectWithValue }) => {
+		const res = await storesApi.AddNewProduct(forProductCard)
+		// console.log(res)
+		if (res.status !== 201) {
+			return rejectWithValue('Server error')
+		}
+	})
+// Для изменение карточек
+export const fetchByChangeCard = createAsyncThunk<void, IForChangeProduct, { rejectValue: string }>(
+	'product/fetchByChangeCard', async (forProductCard, { rejectWithValue }) => {
+		const res = await storesApi.changeProduct(forProductCard)
+		// console.log(res)
+		if (res.status !== 200) {
+			return rejectWithValue('Server error')
+		}
 	})
 
+// Для детального просмотра карточек
+export const fetchByGetDetailCard = createAsyncThunk<ProfileCardModules, number, { rejectValue: string }>(
+	'profile/fetchByGetDetailCard',
+	async (id, { rejectWithValue }) => {
+		const res = await storesApi.getDetailView(id)
+		// console.log(res);
+		if (res.status !== 200) {
+			return rejectWithValue('Server Error')
+		}
+		return res.data as ProfileCardModules
+	}
+)
+
 // Для удаления карточек
-export const fetchByDeleteCard = createAsyncThunk<void, number, { rejectValue: string }>(
+export const fetchByDeleteCard = createAsyncThunk<void, IIdToken, { rejectValue: string }>(
 	'product/fetchByDeleteCard', async (id, { rejectWithValue }) => {
 		const res = await storesApi.deleteNewProduct(id)
-		console.log(res)
+		// console.log(res)
 		if (res.status !== 204) {
 			return rejectWithValue('Server error')
 		}
@@ -62,7 +85,14 @@ export const fetchByDeleteCard = createAsyncThunk<void, number, { rejectValue: s
 const addProductSlice = createSlice({
 	name: 'product',
 	initialState,
-	reducers: {},
+	reducers: {
+		toggleReboot(state, action: PayloadAction<boolean>) {
+			state.reboot = action.payload
+		},
+		changeError(state, action: PayloadAction<string | null>) {
+			state.error = action.payload
+		},
+	},
 	extraReducers: ({ addCase }) => {
 		addCase(fetchByAllCategory.pending, state => {
 			state.loading = true
@@ -102,13 +132,13 @@ const addProductSlice = createSlice({
 		})
 
 		addCase(fetchByAddNewCard.fulfilled, (state, action) => {
-			// state.profileCard = action.payload
+			state.reboot = true
 			state.loading = false
 		})
 
 		addCase(fetchByAddNewCard.rejected, (state, action) => {
 			state.loading = false
-			if (action.error.message?.includes('401')) {
+			if (action.error.message?.includes('40')) {
 				state.error = 'Упс что-то пошло не так!'
 			}
 		})
@@ -116,21 +146,55 @@ const addProductSlice = createSlice({
 		addCase(fetchByDeleteCard.pending, (state) => {
 			state.loading = true
 			state.error = null
-			state.reboot = true
 		})
 
 		addCase(fetchByDeleteCard.fulfilled, (state, action) => {
 			state.loading = false
-			state.reboot = false
+			state.reboot = true
 		})
 
 		addCase(fetchByDeleteCard.rejected, (state, action) => {
 			state.loading = false
 			if (action.error.message?.includes('404')) {
+				state.error = 'Упс что-то пошло не так не удалось удалить!'
+			}
+		})
+		// =======================
+		addCase(fetchByGetDetailCard.pending, (state) => {
+			state.loading = true
+			state.error = null
+		})
+
+		addCase(fetchByGetDetailCard.fulfilled, (state, action) => {
+			state.loading = false
+			state.detail_card = action.payload
+		})
+
+		addCase(fetchByGetDetailCard.rejected, (state, action) => {
+			state.loading = false
+			if (action.error.message?.includes('404')) {
 				state.error = 'Продукт не найден!'
+			}
+		})
+		// =======================
+		addCase(fetchByChangeCard.pending, (state) => {
+			state.loading = true
+			state.error = null
+		})
+
+		addCase(fetchByChangeCard.fulfilled, (state, action) => {
+			state.loading = false
+			state.reboot = true
+		})
+
+		addCase(fetchByChangeCard.rejected, (state, action) => {
+			state.loading = false
+			if (action.error.message?.includes('40')) {
+				state.error = 'Упс что-то пошло не так!'
 			}
 		})
 	},
 })
+export const { toggleReboot, changeError } = addProductSlice.actions
 
 export default addProductSlice.reducer
