@@ -18,9 +18,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     sub_category_name = serializers.ReadOnlyField(
-        source='sub_category.name')  # Сериализатор подкатегории включен для вложенности
+        source='sub_category.name')
     category_name = serializers.ReadOnlyField(
-        source='sub_category.category.name')  # Добавляем метод для получения категории
+        source='sub_category.category.name')
     images = ProductImageSerializer(read_only=True, many=True)
 
     class Meta:
@@ -30,57 +30,59 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-    list_images = serializers.ListField(write_only=True)
+    images = serializers.ListField(
+        child=serializers.ImageField(),
+        write_only=True,
+        required=True
+    )
 
     class Meta:
         model = Product
         fields = (
             'id', 'name', 'description', 'price',
-            'image', 'sub_category', 'list_images',
-
+            'image', 'sub_category', 'images',
         )
 
     def create(self, validated_data):
-        list_images = validated_data.pop('list_images')
-        product = Product.objects.create(
-            name=validated_data.get('name'),
-            description=validated_data.get('description'),
-            price=validated_data.get('price'),
-            image=validated_data.get('image'),
-            sub_category=validated_data.get('sub_category')
-        )
+        images_data = validated_data.pop('images')
+        user = self.context['request'].user
+        seller = user.seller_user
+        product = Product.objects.create(**validated_data, seller=seller)
 
-        for image in list_images:
-            ProductImage.objects.create(
-                product=product,
-                image=image.get('image')
-            )
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)
+
         return product
 
     def to_representation(self, instance):
-        return {
+        representation = {
             'id': instance.id,
             'name': instance.name,
             'description': instance.description,
-            'image': instance.image.url,
+            'image': instance.image.url if instance.image else None,
             'price': instance.price,
             'sub_category': instance.sub_category.id,
-            'images': [ProductImageSerializer(image) for image in instance.images.all()]
+            'images': [image.image.url for image in instance.images.all()]
         }
+        return representation
 
 
 class ProductUpdateSerializer(serializers.ModelSerializer):
-    list_images = serializers.ListField(write_only=True, required=False)
+    images = serializers.ListField(
+        child=serializers.ImageField(),
+        write_only=True,
+        required=False
+    )
 
     class Meta:
         model = Product
         fields = (
             'id', 'name', 'description', 'price',
-            'image', 'sub_category', 'list_images',
+            'image', 'sub_category', 'images',
         )
 
     def update(self, instance, validated_data):
-        list_images = validated_data.pop('list_images', None)
+        images_data = validated_data.pop('images', None)
 
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
@@ -89,13 +91,21 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         instance.sub_category = validated_data.get('sub_category', instance.sub_category)
         instance.save()
 
-        if list_images is not None:
+        if images_data:
             instance.images.all().delete()
-            for img in list_images:
-                ProductImage.objects.create(product=instance, image=img.get('image'))
+            for image_file in images_data:
+                ProductImage.objects.create(product=instance, image=image_file)
 
         return instance
 
     def to_representation(self, instance):
-        serializer = ProductSerializer(instance)
-        return serializer.data
+        representation = {
+            'id': instance.id,
+            'name': instance.name,
+            'description': instance.description,
+            'image': instance.image.url if hasattr(instance.image, 'url') else None,
+            'price': instance.price,
+            'sub_category': instance.sub_category.id,
+            'images': [ProductImageSerializer(image).data for image in instance.images.all()]
+        }
+        return representation

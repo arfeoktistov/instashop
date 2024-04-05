@@ -4,10 +4,7 @@ import environ
 
 from datetime import timedelta
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 env = environ.Env()
@@ -18,9 +15,7 @@ DEBUG = env('DEBUG')
 
 IS_DB = bool(int(env("IS_DB")))
 
-
 ALLOWED_HOSTS = ["*"]
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -75,8 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
-
 if IS_DB:
     DATABASES = {
         "default": {
@@ -96,7 +89,6 @@ else:
         }
     }
 
-
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = [
         {
@@ -113,10 +105,8 @@ if DEBUG:
         },
     ]
 
-
-
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60*24*10),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60 * 24 * 10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -144,7 +134,7 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jti",
 
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
-    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=60*24*10),
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=60 * 24 * 10),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=10),
 
     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
@@ -155,7 +145,6 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -164,7 +153,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
-
 
 LANGUAGE_CODE = 'ru-ru'
 
@@ -176,16 +164,13 @@ USE_L10N = True
 
 USE_TZ = False
 
-
-
-STATIC_URL = 'static/' 
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static/'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -194,44 +179,38 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
-
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_BROKER_TRANSPORT = 'redis'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Dhaka'
 CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 *60
+CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
-
-
-APPEND_SLASH=False
-
+APPEND_SLASH = False
 
 AUTH_USER_MODEL = 'users.User'
 
+# LOGGING = {
+#     "version": 1,
+#     "handlers": {
+#         "console": {
+#             "class": "logging.StreamHandler"
+#         }
+#     },
+#     "loggers": {
+#         "django.db.backends": {
+#             "handlers": ["console"],
+#             "level": "DEBUG"
+#         }
+#     }
+# }
 
-LOGGING = {
-    "version": 1,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler"
-        }
-    },
-    "loggers": {
-        "django.db.backends": {
-            "handlers": ["console"],
-            "level": "DEBUG"
-        }
-    }
-}
-
-DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
-DJANGORESIZED_DEFAULT_SCALE = 0.5
-DJANGORESIZED_DEFAULT_QUALITY = 75
+DJANGORESIZED_DEFAULT_SIZE = [3840, 2160]
+DJANGORESIZED_DEFAULT_SCALE = 0.8
+DJANGORESIZED_DEFAULT_QUALITY = 90
 DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
-

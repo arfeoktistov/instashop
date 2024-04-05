@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from rest_framework.decorators import action
 from .models import Product
 from .serializers import ProductSerializer, ProductCreateSerializer, ProductUpdateSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -22,8 +23,7 @@ class ProductViewSet(ModelViewSet):
             return ProductCreateSerializer
         elif self.action == 'update':
             return ProductUpdateSerializer
-        else:
-            pass
+        return ProductSerializer
 
     @swagger_auto_schema(
         tags=['Продукты'],
@@ -99,6 +99,19 @@ class SellerProductsViewSet(ReadOnlyModelViewSet):
         seller_id = self.kwargs.get('seller_id')
         return Product.objects.filter(seller__id=seller_id) if seller_id else Product.objects.none()
 
+    @action(detail=False, methods=['get'], url_path='products-by-category')
+    @swagger_auto_schema(
+        tags=['Получить продавцов по категории и подкатегории'],
+        operation_summary="Получить товары по ID продавца и категориям",
+        operation_description="Получить товары по ID продавца и категориям",
+        responses={
+            200: openapi.Response(
+                description="Список продавцов по категории и подкатегории",
+                schema=ProductSerializer(many=True),
+            ),
+            404: "Категория или подкатегория не найдены"
+        }
+    )
     def products_by_category(self, request, *args, **kwargs):
         seller_id = self.kwargs.get('seller_id')
         category_id = request.query_params.get('category_id')

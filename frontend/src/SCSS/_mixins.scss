@@ -1,3 +1,41 @@
+@mixin description {
+    color: #030303;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    line-height: 18px;
+    white-space: nowrap;
+    position: relative;
+}
+
+@mixin montserrat400 {
+    font-family: 'MontserratReg', sans-serif;
+}
+
+@mixin montserrat600 {
+    font-family: 'MontserratBold', sans-serif;
+}
+
+@mixin montserrat700 {
+    font-family: 'MontserratBold', sans-serif;
+}
+
+@mixin rubik400 {
+    font-family: 'RubikReg', sans-serif;
+}
+
+@mixin rubik500 {
+    font-family: 'RubikMedium', sans-serif;
+}
+
+@mixin rubik600 {
+    font-family: 'RubikBold', sans-serif;
+}
+
+@mixin rubik700 {
+    font-family: 'RubikBold', sans-serif;
+}
+
 @mixin oldMonitor {
     @media screen and (max-width: 1280px) {
         @content;

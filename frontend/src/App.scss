@@ -1,0 +1,67 @@
+/* Proxima */
+@font-face {
+    font-family: 'MontserratReg', sans-serif;
+    /* 400 */
+    src: url('./assets/fonts/Montserat/Montserrat-Regular.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'MontserratSemiBold', sans-serif;
+    /* 600 */
+    src: url('./assets/fonts/Montserat/Montserrat-SemiBold.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'MontserratBold', sans-serif;
+    /* 700 */
+    src: url('./assets/fonts/Montserat/Montserrat-Bold.ttf') format('ttf');
+}
+
+/* Grotesk */
+@font-face {
+    font-family: 'RubikReg', sans-serif;
+    /* 400 */
+    src: url('./assets/fonts/Rubik/Rubik-Regular.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'RubikMedium', sans-serif;
+    /* 500 */
+    src: url('./assets/fonts/Rubik/Rubik-Medium.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'RubikSemiBold', sans-serif;
+    /* 600 */
+    src: url('./assets/fonts/Rubik/Rubik-SemiBold.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'RubikBold', sans-serif;
+    /* 700 */
+    src: url('./assets/fonts/Rubik/Rubik-Bold.ttf') format('ttf');
+}
+
+main {
+    min-height: 700px;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #434343;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 12px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #1e1e1e;
+}
