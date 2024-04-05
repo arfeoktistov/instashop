@@ -8,28 +8,32 @@
     position: relative;
 }
 
-@mixin proxima400 {
-    font-family: 'ProximaReg', sans-serif;
+@mixin montserrat400 {
+    font-family: 'MontserratReg', sans-serif;
 }
 
-@mixin proxima600 {
-    font-family: 'ProximaSemiBold', sans-serif;
+@mixin montserrat600 {
+    font-family: 'MontserratBold', sans-serif;
 }
 
-@mixin proxima700 {
-    font-family: 'ProximaBold', sans-serif;
+@mixin montserrat700 {
+    font-family: 'MontserratBold', sans-serif;
 }
 
-@mixin grotesk400 {
-    font-family: 'GroteskReg', sans-serif;
+@mixin rubik400 {
+    font-family: 'RubikReg', sans-serif;
 }
 
-@mixin grotesk500 {
-    font-family: 'GroteskMedium', sans-serif;
+@mixin rubik500 {
+    font-family: 'RubikMedium', sans-serif;
 }
 
-@mixin grotesk700 {
-    font-family: 'GroteskBold', sans-serif;
+@mixin rubik600 {
+    font-family: 'RubikBold', sans-serif;
+}
+
+@mixin rubik700 {
+    font-family: 'RubikBold', sans-serif;
 }
 
 @mixin oldMonitor {
