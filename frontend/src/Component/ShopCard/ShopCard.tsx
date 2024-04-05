@@ -5,6 +5,7 @@ import { IStores } from '../../store/modules'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Tilt } from 'react-tilt'
 import { pathLink } from '../../reused'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const defaultOptions = {
 	reverse: true,  // reverse the tilt direction
@@ -26,9 +27,11 @@ const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) 
 		<Tilt className={s.card} options={defaultOptions} >
 			<Link to={`/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`}>
 				<div className={s.image_shop}>
-					<img
+					<LazyLoadImage
+						alt={`${shop_name}`}
+						effect="blur"
 						src={`${main_image?.startsWith('http') ? main_image : pathLink + main_image}`}
-						alt={shop_name}
+						className={s.image}
 					/>
 					{/* <div className={s.up_field}>
 						<div className={s.top_up_field}>
