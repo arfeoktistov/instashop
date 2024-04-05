@@ -29,6 +29,7 @@ class GetUserIdView(APIView):
 class SellerUserViewSet(ModelViewSet):
     serializer_class = SellerUserSerializer
     pagination_class = CustomPagination
+    queryset = SellerUser.objects.all()
 
     def get_queryset(self):
         if self.action == 'retrieve':
