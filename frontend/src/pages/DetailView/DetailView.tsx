@@ -17,11 +17,16 @@ import arrow from '../../assets/Profile/Icon arrow left.png'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { fetchByDetailView, fetchByProfileCard } from '../../store/slice/detailProfileSlice';
+import { fetchByDetailView, } from '../../store/slice/detailProfileSlice';
 
 
 
 const DetailView: FC = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
     const dispatch = useAppDispatch()
@@ -32,8 +37,7 @@ const DetailView: FC = () => {
         }
     }, [dispatch, id])
 
-    const { detailview } = useAppSelector(state => state.profile)
-    // console.log(profileCard);
+    const { detailview, error } = useAppSelector(state => state.profile)
 
 
     const navigate = useNavigate()
@@ -49,31 +53,27 @@ const DetailView: FC = () => {
 
                 <img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
             </div>
-
             <div className='displayOne'>
-
                 <div className='display'>
-
                     <Swiper
-
                         loop={true}
                         spaceBetween={10}
-                        // navigation={true}
                         thumbs={{ swiper: thumbsSwiper }}
                         modules={[FreeMode, Navigation, Thumbs]}
                         className="mySwiper2"
-                    // autoHeight
                     >
                         <SwiperSlide>
                             <img src={detailview?.image} alt="img" />
                         </SwiperSlide>
-
-                        {detailview && detailview?.images.length > 0 &&
-                            detailview?.images.map((el, i) => (
-                                <SwiperSlide className='cursor' key={i} >
-                                    <img src={el.image} />
-                                </SwiperSlide>
-                            ))
+                        {
+                            error ?
+                                <span className='error animate__backOutUp animate__animated'>{error}</span>
+                                : detailview && detailview?.images.length > 0 &&
+                                detailview?.images.map((el, i) => (
+                                    <SwiperSlide className='cursor' key={i} >
+                                        <img src={el.image} />
+                                    </SwiperSlide>
+                                ))
                         }
 
                     </Swiper>
@@ -91,16 +91,17 @@ const DetailView: FC = () => {
                         <SwiperSlide>
                             <img src={detailview?.image} alt="img" />
                         </SwiperSlide>
-                        {detailview && detailview?.images.length > 0 &&
-                            detailview?.images.map((el, i) => (
-                                <SwiperSlide className='cursor' key={i} >
-                                    <img src={el.image} />
-                                </SwiperSlide>
-                            ))
+                        {
+                            error ?
+                                <span className='error animate__backOutUp animate__animated'>{error}</span>
+                                : detailview && detailview?.images.length > 0 &&
+                                detailview?.images.map((el, i) => (
+                                    <SwiperSlide className='cursor' key={i} >
+                                        <img src={el.image} />
+                                    </SwiperSlide>
+                                ))
                         }
-
                     </Swiper>
-
                 </div>
                 <div className='detail_info'>
                     <div className='detail_text'>
@@ -118,8 +119,6 @@ const DetailView: FC = () => {
                                 <img src={wh} alt="img" />
                             </Link>
                         </div>
-
-
                     </div>
                 </div>
             </div>
