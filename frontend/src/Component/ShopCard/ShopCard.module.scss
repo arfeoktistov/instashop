@@ -24,6 +24,10 @@
 		& span {
 			width: 100%;
 			height: 280px;
+
+			@include mobileM {
+				height: 200px;
+			}
 		}
 
 		.image {
@@ -165,7 +169,7 @@
 			position: relative;
 			white-space: nowrap;
 			word-break: keep-all;
-			@include proxima600;
+			@include montserrat600;
 
 			&::after {
 				display: block;
@@ -186,7 +190,7 @@
 
 		& .description {
 			@include description;
-			@include proxima400;
+			@include montserrat400;
 
 			&::after {
 				display: block;

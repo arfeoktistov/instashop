@@ -170,7 +170,7 @@
             letter-spacing: 0px;
             text-align: left;
 
-            @include grotesk700;
+            @include rubik400;
 
             @include mobileL {
                 padding-top: 20px;
@@ -185,7 +185,7 @@
             line-height: 130%;
             letter-spacing: 0px;
             text-align: left;
-            @include grotesk400;
+            @include rubik400;
 
         }
 
@@ -194,7 +194,7 @@
             font-size: 16px;
             font-weight: 400;
             line-height: 24px;
-            @include proxima400;
+            @include montserrat400;
             letter-spacing: 0px;
             text-align: left;
             white-space: break-spaces;
@@ -214,7 +214,7 @@
             text-align: left;
             padding-top: 7px;
             padding-right: 10px;
-            @include proxima400;
+            @include montserrat400;
 
         }
 

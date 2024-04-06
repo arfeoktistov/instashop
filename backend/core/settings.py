@@ -151,7 +151,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         "rest_framework.authentication.SessionAuthentication",
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+
+    ],
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 100
 }
 
 LANGUAGE_CODE = 'ru-ru'
@@ -207,9 +210,9 @@ AUTH_USER_MODEL = 'users.User'
 #     }
 # }
 
-DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
-DJANGORESIZED_DEFAULT_SCALE = 0.5
-DJANGORESIZED_DEFAULT_QUALITY = 75
+DJANGORESIZED_DEFAULT_SIZE = [3840, 2160]
+DJANGORESIZED_DEFAULT_SCALE = 0.8
+DJANGORESIZED_DEFAULT_QUALITY = 90
 DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
