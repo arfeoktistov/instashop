@@ -27,7 +27,7 @@
         h1 {
             color: '#030303';
             font-size: 26px;
-            // font-family: 'Roboto', sans-serif;
+            @include grotesk400;
             font-weight: 700;
             line-height: 30px;
         }
@@ -49,7 +49,7 @@
 
                 color: #030303;
                 font-size: 18px;
-                font-family: "Roboto";
+                @include proxima400;
                 font-weight: 500;
                 line-height: 22px;
                 text-align: center;
@@ -58,7 +58,7 @@
             h3 {
                 color: #030303;
                 font-size: 12px;
-                font-family: "Roboto";
+                @include proxima400;
                 font-weight: 300;
                 line-height: 14px;
                 text-align: center;
@@ -72,7 +72,7 @@
             h2 {
                 color: #030303;
                 font-size: 18px;
-                font-family: "Roboto";
+                @include proxima400;
                 font-weight: 500;
                 line-height: 22px;
                 text-align: center;
@@ -81,7 +81,7 @@
             h3 {
                 color: #030303;
                 font-size: 12px;
-                font-family: "Roboto";
+                @include proxima400;
                 font-weight: 300;
                 line-height: 14px;
                 text-align: center;
@@ -105,7 +105,7 @@
         background-color: #151515;
         color: #ffffff;
         font-size: 14px;
-        font-family: "Roboto";
+        @include grotesk400;
         font-weight: 500;
         line-height: 18px;
         outline: none;
@@ -117,22 +117,17 @@
 .newArrivals {
     color: #030303;
     font-size: 28px;
-    font-family: "Roboto";
     line-height: 30px;
     padding: 64px 0 24px 0;
+    @include grotesk400;
 
     @include mobileL {
         text-align: center;
+
     }
+
 }
 
-.shopCollections {
-    color: #030303;
-    font-size: 28px;
-    font-family: "Roboto";
-    line-height: 30px;
-    padding: 64px 0 24px 0;
-}
 
 .fiveCards {
     display: flex;
@@ -198,13 +193,7 @@
         }
     }
 
-    .newArrivals {
-        color: #030303;
-        font-size: 25px;
-        font-family: "Roboto";
-        line-height: 30px;
-        padding: 44px 0 24px 0;
-    }
+
 
 }
 
@@ -261,12 +250,5 @@
         }
     }
 
-    .newArrivals {
-        color: #030303;
-        font-size: 20px;
-        font-family: "Roboto";
-        line-height: 30px;
-        padding: 24px 0 24px 0;
-    }
 
 }

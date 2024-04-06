@@ -1,3 +1,5 @@
+@import '../../SCSS/mixins';
+
 .card {
     flex: 0 0 23%;
     height: 320px;
@@ -38,7 +40,7 @@
             height: 60px;
             color: #030303;
             font-size: 18px;
-            font-family: "Roboto";
+            @include proxima400;
             font-weight: 500;
             line-height: 16px;
             padding: 16px 0 5px 0;
@@ -47,7 +49,7 @@
         h3 {
             color: #030303;
             font-size: 14px;
-            font-family: "Roboto";
+            @include proxima400;
             font-weight: 300;
             line-height: 12px;
         }
