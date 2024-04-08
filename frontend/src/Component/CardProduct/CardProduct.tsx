@@ -22,7 +22,7 @@ const CardProduct: FC<ProfileCardModules> = ({ image, id, name }) => {
 				<img src={image} alt='photos' />
 			</Link>
 			<div className={s.name_pr}>
-				<NavLink className={s.name} to={`/detailview/${id}`} title={name}>{name.length > 15 ? name.slice(0, 15) + '...' : name}</NavLink>
+				<NavLink className={s.name} to={`/detailview/${id}`} title={name}>{name.length > 10 ? name.slice(0, 10) + '...' : name}</NavLink>
 				<div className={s.buttons}>
 					<Link to={`/adding_product?id_card=${id}`}>
 						<img src={pen} alt='pen' />

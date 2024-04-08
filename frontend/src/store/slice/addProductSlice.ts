@@ -19,6 +19,7 @@ const initialState: UserState = {
 	profileCard: [],
 	detail_card: null
 }
+
 // Получение список категории
 export const fetchByAllCategory = createAsyncThunk<ICategory[], void, { rejectValue: string }>(
 	'product/fetchByAllCategory', async (_, { rejectWithValue }) => {
@@ -75,7 +76,7 @@ export const fetchByGetDetailCard = createAsyncThunk<ProfileCardModules, number,
 // Для удаления карточек
 export const fetchByDeleteCard = createAsyncThunk<void, IIdToken, { rejectValue: string }>(
 	'product/fetchByDeleteCard', async (id, { rejectWithValue }) => {
-		const res = await storesApi.deleteNewProduct(id)
+		const res = await storesApi.deleteProduct(id)
 		// console.log(res)
 		if (res.status !== 204) {
 			return rejectWithValue('Server error')
