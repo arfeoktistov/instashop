@@ -20,9 +20,9 @@ const Header: FC = () => {
 					<img className={s.logo} src={logo} alt="logo" />
 					<h2 className={s.title}>AGREGAGATOR</h2>
 				</Link>
-				<div className={s.running_goose}>
+				{/* <div className={s.running_goose}>
 					<img src={goose} alt="goose" />
-				</div>
+				</div> */}
 				<div className={s.header_profile}>
 					{
 						!token ? <h2 onClick={() => setLogin(true)} className={s.login}>Войти</h2> :
