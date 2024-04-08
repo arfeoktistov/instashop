@@ -96,7 +96,7 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 						<TextField
 							className={s.input_username}
 							value={userData.email}
-							onChange={e => getUserData('email', e.target.value)}
+							onChange={e => getUserData('email', e.target.value.toLowerCase())}
 							label='Email'
 							type='text'
 							autoComplete='current-username'

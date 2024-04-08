@@ -42,8 +42,11 @@
 		.title_header {
 			display: flex;
 			align-items: center;
-
 			gap: 10px;
+
+			@include mobileL {
+				gap: 0px;
+			}
 
 			.title {
 				font-size: 24px;
@@ -77,6 +80,11 @@
 				letter-spacing: 0%;
 				text-align: center;
 				color: #000;
+				@include rubik500;
+
+				@include mobileM {
+					font-size: 16px;
+				}
 			}
 
 			.user_data {
@@ -91,6 +99,11 @@
 					letter-spacing: 0%;
 					text-align: center;
 					color: #000;
+					@include rubik500;
+
+					@include mobileL {
+						display: none;
+					}
 				}
 
 				.avatar {
@@ -98,7 +111,7 @@
 					height: 45px;
 					border-radius: 50%;
 					overflow: hidden;
-					box-shadow: 2px 2px 2px 2px#00000069;
+					box-shadow: 0px 0px 5px 1px#00000069;
 
 					& img {
 						width: 100%;
