@@ -1,21 +1,20 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import s from './PersonalProfile.module.scss'
 import ikon from '../../assets/Header/ikon.png'
 import ProductList from './ProductList/ProductList'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import SuccessfullRequest from '../AddingProduct/SuccessfullRequest/SuccessfullRequest'
 import goOut from '../../assets/PersonalProfile/goOut.png'
 import { pathLink } from '../../reused'
 import { logOutUser } from '../../store/slice/userSlice'
+import LogOut from './LogOut/LogOut'
 
 const PersonalProfile: FC = () => {
 	const { user } = useAppSelector(state => state.user)
+	const [logOut, setLogOut] = useState(false)
 	const { error, reboot } = useAppSelector(state => state.addProductSlice)
-	const dispatch = useAppDispatch()
-	const logOut = () => {
-		dispatch(logOutUser())
-	}
+
 	return (
 		<div className={s.PersonalProfile}>
 			<div className={s.profile}>
@@ -24,18 +23,21 @@ const PersonalProfile: FC = () => {
 					<div className={s.text_field}>
 						<h2>{user?.seller_user?.shop_name}</h2>
 						<div className={s.path_editing}>
-							<NavLink to={'/change_user_profile'}>Редактировать профиль</NavLink>
-							<NavLink to={'/adding_product'}>Добавить товар</NavLink>
+							<NavLink to={'/change_user_profile'}>Редактировать профиль &#x2710;</NavLink>
+							<NavLink to={'/adding_product'}>Добавить товар +</NavLink>
+						</div>
+						<div onClick={() => setLogOut(true)} className={s.log_out}>
+							<h2>Выйти из аккаунта</h2>
 						</div>
 					</div>
 				</div>
-				<div className={s.out}>
-					<img src={goOut} alt="go-out" />
+				<div onClick={() => setLogOut(true)} className={s.out}>
 					<h2>Выйти из аккаунта</h2>
 				</div>
 			</div>
 			<ProductList />
 			{(error || reboot) && <SuccessfullRequest id={null} text={'Продукт успешно удалён'} />}
+			{logOut && <LogOut logOut={logOut} setLogOut={setLogOut} />}
 		</div>
 	)
 }

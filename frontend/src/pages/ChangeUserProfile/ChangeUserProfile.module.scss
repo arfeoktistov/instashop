@@ -13,6 +13,10 @@
     border-radius: 25px;
     position: relative;
 
+    @include mobileM {
+      height: 200px;
+    }
+
     & img {
       width: 100%;
       height: 100%;
@@ -51,6 +55,11 @@
         line-height: 20px;
         letter-spacing: 0px;
         text-align: center;
+        @include rubik500;
+
+        @include mobileM {
+          font-size: 12px;
+        }
       }
 
       & img {
@@ -74,11 +83,23 @@
 
 
       .main_img {
-        min-width: 250px;
+        width: 250px;
         max-height: 250px;
         overflow: hidden;
         border-radius: 25px;
         position: relative;
+
+        @include old1024 {
+          width: 48%;
+        }
+
+        @include mobileM {
+          max-height: 200px;
+        }
+
+        @include mobileS {
+          max-height: 180px;
+        }
 
         & img {
           width: 100%;
@@ -112,6 +133,10 @@
           cursor: pointer;
           width: 90%;
 
+          @include old1024 {
+            justify-content: center;
+          }
+
           & h2 {
             color: rgb(3, 3, 3);
             font-size: 14px;
@@ -119,6 +144,15 @@
             line-height: 20px;
             letter-spacing: 0px;
             text-align: center;
+            @include rubik500;
+
+            @include old1024 {
+              flex-direction: column;
+            }
+
+            @include mobileM {
+              font-size: 12px;
+            }
           }
         }
       }
@@ -130,7 +164,8 @@
       gap: 5px;
       width: 100%;
 
-      .input_field {
+      .input_field,
+      .error_text {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -143,6 +178,7 @@
           line-height: 20px;
           letter-spacing: 0px;
           text-align: left;
+          @include rubik500;
         }
 
         .text_field {
@@ -158,6 +194,18 @@
           letter-spacing: 0px;
           text-align: left;
           padding: 8px;
+          @include montserrat400;
+        }
+      }
+
+      .error_text {
+
+        .text_field {
+          border: 1.5px solid rgb(185, 33, 33);
+        }
+
+        & h2 {
+          color: rgb(185, 33, 33);
         }
       }
     }
@@ -167,6 +215,26 @@
     display: flex;
     align-items: center;
     justify-content: end;
+    gap: 20px;
+
+    @include mobileL {
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    & h5 {
+      color: rgb(185, 33, 33);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0px;
+      text-align: left;
+      @include montserrat600;
+
+      @include mobileM {
+        font-size: 20px;
+      }
+    }
 
     & button {
       border-radius: 24px;
@@ -178,6 +246,12 @@
       line-height: 19px;
       letter-spacing: 0px;
       text-align: left;
+      @include rubik500;
+
+      @include mobileL {
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 

@@ -46,6 +46,7 @@
 					letter-spacing: 0px;
 					text-align: left;
 					width: 100%;
+					@include rubik500
 				}
 
 				.text_field {
@@ -61,6 +62,7 @@
 					letter-spacing: 0px;
 					text-align: left;
 					padding: 12px 6px 12px 6px;
+					@include montserrat400
 				}
 
 				.description {
@@ -166,6 +168,11 @@
 			letter-spacing: 0px;
 			text-align: right;
 			width: 100%;
+			@include montserrat600;
+
+			@include mobileM {
+				font-size: 20px;
+			}
 
 			@include mobileL {
 				text-align: center;
@@ -182,6 +189,7 @@
 			line-height: 19px;
 			letter-spacing: 0px;
 			text-align: left;
+			@include rubik500;
 
 			@include mobileL {
 				width: 100%;

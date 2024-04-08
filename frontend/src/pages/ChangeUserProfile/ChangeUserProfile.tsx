@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { IShopSellerUser } from '../../store/modules';
 import { fetchByChangeUserData } from '../../store/slice/userSlice';
 import { pathLink } from '../../reused';
-import camera from '../../assets/PersonalProfile/camera.png'
 import defaultImg from '../../assets/PersonalProfile/default.png'
 import Loading from '../../Component/Loading/Loading';
 import SuccessfullUser from './SuccessfullUser/SuccessfullUser';
@@ -15,6 +14,7 @@ const ChangeUserProfile: FC = () => {
   const [imgFileBackground, setFileBackground] = useState('')
   const [imgFileInsta, setFileInsta] = useState('')
   const [imgFileMain, setFileMain] = useState('')
+  const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
 
   const [fileBackgroundImg, setFileBackgroundImg] = useState<string | File>('')
@@ -61,24 +61,40 @@ const ChangeUserProfile: FC = () => {
     }
   }, [])
 
+  if (errorText.includes('Введите название магазина!')) {
+    changeUserData.shop_name && setErrorText('')
+  } else if (errorText.includes('Введите описание!')) {
+    changeUserData.mini_description && setErrorText('')
+  } else if (errorText.includes('Введите ссылку на инстаграм!')) {
+    changeUserData.instagram_link && setErrorText('')
+  }
+
   const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (token && user?.seller_user && fileBackgroundImg && fileInstaImg && fileMainImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
-    } else if (token && user?.seller_user && fileBackgroundImg && fileInstaImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg } }))
-    } else if (token && user?.seller_user && fileBackgroundImg && fileMainImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, main_image: fileMainImg } }))
-    } else if (token && user?.seller_user && fileInstaImg && fileMainImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, insta_image: fileInstaImg, main_image: fileMainImg } }))
-    } else if (token && user?.seller_user && fileBackgroundImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg } }))
-    } else if (token && user?.seller_user && fileInstaImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
-    } else if (token && user?.seller_user && fileMainImg) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, main_image: fileMainImg } }))
-    } else if (token && user?.seller_user) {
-      dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link } }))
+    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link) {
+      if (token && user?.seller_user && fileBackgroundImg && fileInstaImg && fileMainImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
+      } else if (token && user?.seller_user && fileBackgroundImg && fileInstaImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg } }))
+      } else if (token && user?.seller_user && fileBackgroundImg && fileMainImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, main_image: fileMainImg } }))
+      } else if (token && user?.seller_user && fileInstaImg && fileMainImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, insta_image: fileInstaImg, main_image: fileMainImg } }))
+      } else if (token && user?.seller_user && fileBackgroundImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg } }))
+      } else if (token && user?.seller_user && fileInstaImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
+      } else if (token && user?.seller_user && fileMainImg) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, main_image: fileMainImg } }))
+      } else if (token && user?.seller_user) {
+        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link } }))
+      }
+    } else if (!changeUserData.shop_name) {
+      setErrorText('Введите название магазина!')
+    } else if (!changeUserData.mini_description) {
+      setErrorText('Введите описание!')
+    } else if (!changeUserData.instagram_link) {
+      setErrorText('Введите ссылку на инстаграм!')
     }
   }
 
@@ -124,7 +140,7 @@ const ChangeUserProfile: FC = () => {
       <div className={s.bagraund}>
         <img src={imgFileBackground ? imgFileBackground : defaultImg} alt="background" />
         <input ref={fileBackground} className={s.hidden} onChange={onSelectBeckground} type="file" accept='image/*' />
-        <div onClick={handleBackground} className={s.onclick_bg}> <img src={camera} alt="camera" /> <h2>Xотите изменить картинку заднего фона?</h2> </div>
+        <div onClick={handleBackground} className={s.onclick_bg}>  <h2>Изменить банер</h2></div>
       </div>
       <div className={s.images_main}>
         <div className={s.img_field}>
@@ -140,11 +156,11 @@ const ChangeUserProfile: FC = () => {
           </div>
         </div>
         <div className={s.text_field}>
-          <div className={s.input_field}>
+          <div className={errorText.includes('Введите название магазина!') ? s.error_text : s.input_field}>
             <h2>Название магазина</h2>
             <input className={s.text_field} value={changeUserData.shop_name} onChange={e => getChangeUserData('shop_name', e.target.value)} type="text" placeholder='shop_name' />
           </div>
-          <div className={s.input_field}>
+          <div className={errorText.includes('Введите описание!') ? s.error_text : s.input_field}>
             <h2>Мини описание</h2>
             <input className={s.text_field} value={changeUserData.mini_description} onChange={e => getChangeUserData('mini_description', e.target.value)} type="text" placeholder='mini_description' />
           </div>
@@ -152,13 +168,14 @@ const ChangeUserProfile: FC = () => {
             <h2>Подписчики</h2>
             <input className={s.text_field} value={changeUserData.followers} onChange={e => getChangeUserData('followers', e.target.value)} type="text" placeholder='followers' />
           </div>
-          <div className={s.input_field}>
+          <div className={errorText.includes('Введите ссылку на инстаграм!') ? s.error_text : s.input_field}>
             <h2>Ссылка в инстаграм</h2>
             <input className={s.text_field} value={changeUserData.instagram_link} onChange={e => getChangeUserData('instagram_link', e.target.value)} type="text" placeholder='instagram_link' />
           </div>
         </div>
       </div>
       <div className={s.btn_form}>
+        <h5>{errorText}</h5>
         <button>Редактировать профиль</button>
       </div>
       {(reboot || error?.includes('Упс что-то пошло не так!')) && <SuccessfullUser text={'Профиль успешно редактирован!'} />}

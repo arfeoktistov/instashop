@@ -14,15 +14,15 @@ const Header: FC = () => {
 	// console.log(user);
 
 	return (
-		<div className={s.header}>
+		<header className={s.header}>
 			<div className={`container ${s.in_header}`}>
 				<Link to={'/'} className={s.title_header}>
 					<img className={s.logo} src={logo} alt="logo" />
 					<h2 className={s.title}>AGREGAGATOR</h2>
 				</Link>
-				<div className={s.running_goose}>
+				{/* <div className={s.running_goose}>
 					<img src={goose} alt="goose" />
-				</div>
+				</div> */}
 				<div className={s.header_profile}>
 					{
 						!token ? <h2 onClick={() => setLogin(true)} className={s.login}>Войти</h2> :
@@ -34,7 +34,7 @@ const Header: FC = () => {
 				</div>
 			</div>
 			{login && <Login login={login} setLogin={setLogin} />}
-		</div>
+		</header>
 	)
 }
 

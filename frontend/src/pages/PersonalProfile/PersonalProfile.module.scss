@@ -1,3 +1,5 @@
+@import '../../SCSS/mixins';
+
 .PersonalProfile {
 	display: flex;
 	flex-direction: column;
@@ -6,18 +8,21 @@
 	.profile {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 
 		.user_data {
 			display: flex;
 			align-items: center;
 			gap: 20px;
 
+
+
 			.avatar {
 				width: 130px;
 				height: 130px;
 				border-radius: 50%;
 				overflow: hidden;
-				box-shadow: 2px 2px 2px 2px#00000069;
+				box-shadow: 0px 0px 5px 1px#00000069;
 
 				& img {
 					width: 100%;
@@ -26,6 +31,129 @@
 					object-position: center;
 				}
 			}
+
+			.text_field {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+
+				@include mobileM {
+					gap: 10px;
+				}
+
+				& h2 {
+					color: rgb(33, 33, 33);
+					font-size: 26px;
+					font-weight: 700;
+					line-height: 26px;
+					letter-spacing: 0px;
+					text-align: left;
+					@include rubik700;
+
+					@include old1024 {
+						font-size: 22px;
+					}
+
+					@include mobileM {
+						font-size: 18px;
+					}
+
+					@include mobileS {
+						font-size: 16px;
+					}
+				}
+
+				.path_editing {
+					display: flex;
+					gap: 25px;
+
+					@include mobileL {
+						flex-direction: column;
+						gap: 5px;
+					}
+
+					@include tablet {
+						gap: 10px;
+					}
+
+					& a {
+						color: rgb(33, 33, 33);
+						font-size: 20px;
+						font-weight: 500;
+						line-height: 26px;
+						letter-spacing: 0px;
+						text-align: left;
+						position: relative;
+						text-decoration: none;
+						@include rubik500;
+						cursor: pointer;
+
+						@include old1024 {
+							font-size: 18px;
+						}
+
+						@include tablet {
+							font-size: 16px;
+						}
+
+						@include mobileM {
+							font-size: 14px;
+						}
+
+						@include mobileS {
+							font-size: 12px;
+						}
+
+						&:after {
+							display: block;
+							position: absolute;
+							left: 0;
+							width: 0;
+							bottom: -5px;
+							height: 2px;
+							background-color: rgb(33, 33, 33);
+							content: "";
+							transition: width 0.3s ease-in-out;
+						}
+
+						&:hover:after,
+						&:focus:after {
+							width: 100%;
+						}
+					}
+				}
+
+				.log_out {
+					align-items: start;
+					gap: 10px;
+					cursor: pointer;
+					height: 25px;
+					display: none;
+
+					@include mobileL {
+						display: flex;
+					}
+
+					& h2 {
+						color: rgb(255, 0, 0);
+						font-size: 16px;
+						font-weight: 500;
+						line-height: 26px;
+						letter-spacing: 0px;
+						text-align: left;
+						@include rubik500;
+
+						@include mobileM {
+							font-size: 14px;
+						}
+
+						@include mobileS {
+							font-size: 12px;
+						}
+					}
+				}
+			}
+
 		}
 
 		.out {
@@ -35,65 +163,21 @@
 			cursor: pointer;
 			height: 25px;
 
-			& img {
-				width: 20px;
-			}
-
 			& h2 {
-				color: rgb(33, 33, 33);
-				font-size: 18px;
+				color: rgb(255, 0, 0);
+				font-size: 20px;
 				font-weight: 500;
 				line-height: 26px;
 				letter-spacing: 0px;
 				text-align: left;
-			}
-		}
+				@include rubik500;
 
-		.text_field {
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
+				@include old1024 {
+					font-size: 16px;
+				}
 
-			& h2 {
-				color: rgb(33, 33, 33);
-				font-size: 26px;
-				font-weight: 700;
-				line-height: 26px;
-				letter-spacing: 0px;
-				text-align: left;
-			}
-
-			.path_editing {
-				display: flex;
-				gap: 25px;
-
-				& a {
-					color: rgb(33, 33, 33);
-					font-size: 20px;
-					font-weight: 500;
-					line-height: 26px;
-					letter-spacing: 0px;
-					text-align: left;
-					position: relative;
-					text-decoration: none;
-					cursor: pointer;
-
-					&:after {
-						display: block;
-						position: absolute;
-						left: 0;
-						width: 0;
-						bottom: -5px;
-						height: 2px;
-						background-color: rgb(33, 33, 33);
-						content: "";
-						transition: width 0.3s ease-in-out;
-					}
-
-					&:hover:after,
-					&:focus:after {
-						width: 100%;
-					}
+				@include mobileL {
+					display: none;
 				}
 			}
 		}
