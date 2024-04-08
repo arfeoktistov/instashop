@@ -1,8 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.9f8de7f9.css",
-    "main.js": "/static/js/main.06412c75.js",
-    "static/media/goose.gif": "/static/media/goose.761fbad5b51df4d5fac8.gif",
+    "main.css": "/static/css/main.88d2132d.css",
+    "main.js": "/static/js/main.dd8ea5c7.js",
     "static/media/back.png": "/static/media/back.d723fb96c3884b3126da.png",
     "static/media/Rubik-Bold.ttf": "/static/media/Rubik-Bold.c934eb22c2c69992b34c.ttf",
     "static/media/Rubik-SemiBold.ttf": "/static/media/Rubik-SemiBold.869208702057daef053d.ttf",
@@ -13,12 +12,16 @@
     "static/media/Montserrat-Regular.ttf": "/static/media/Montserrat-Regular.24785cc015b27a3e964b.ttf",
     "static/media/logo.png": "/static/media/logo.1aa9d5b5f861579e11c6.png",
     "static/media/status.png": "/static/media/status.7c71626f5e07da7523e0.png",
+    "static/media/lg.svg?io9a6k": "/static/media/lg.09cd8e9be7081f216644.svg",
+    "static/media/lg.woff?io9a6k": "/static/media/lg.356a0e9cb064c7a196c6.woff",
+    "static/media/lg.ttf?io9a6k": "/static/media/lg.747d038541bfc6bb8ea9.ttf",
     "index.html": "/index.html",
-    "main.9f8de7f9.css.map": "/static/css/main.9f8de7f9.css.map",
-    "main.06412c75.js.map": "/static/js/main.06412c75.js.map"
+    "static/media/lg.woff2?io9a6k": "/static/media/lg.64b800aa30714fd916dc.woff2",
+    "main.88d2132d.css.map": "/static/css/main.88d2132d.css.map",
+    "main.dd8ea5c7.js.map": "/static/js/main.dd8ea5c7.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f8de7f9.css",
-    "static/js/main.06412c75.js"
+    "static/css/main.88d2132d.css",
+    "static/js/main.dd8ea5c7.js"
   ]
 }

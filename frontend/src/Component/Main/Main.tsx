@@ -4,13 +4,11 @@ import Home from '../../pages/Home/Home'
 import Profile from '../../pages/Profile/Profile'
 import DetailView from '../../pages/DetailView/DetailView'
 import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
-
 import AddingProduct from '../../pages/AddingProduct/AddingProduct'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import { getAllStores } from '../../store/slice/storesSlice'
 import { getLSToken } from '../../LS'
 import { fetchByToken, setToken } from '../../store/slice/userSlice'
-import Search from '../../pages/Search/Search'
 import ChangeUserProfile from '../../pages/ChangeUserProfile/ChangeUserProfile'
 
 const Main: FC = () => {

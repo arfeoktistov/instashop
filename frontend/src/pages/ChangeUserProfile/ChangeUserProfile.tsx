@@ -7,6 +7,7 @@ import { pathLink } from '../../reused';
 import defaultImg from '../../assets/PersonalProfile/default.png'
 import Loading from '../../Component/Loading/Loading';
 import SuccessfullUser from './SuccessfullUser/SuccessfullUser';
+import { Helmet } from 'react-helmet-async';
 
 const ChangeUserProfile: FC = () => {
   const dispatch = useAppDispatch()
@@ -16,6 +17,8 @@ const ChangeUserProfile: FC = () => {
   const [imgFileMain, setFileMain] = useState('')
   const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
+
+
 
   const [fileBackgroundImg, setFileBackgroundImg] = useState<string | File>('')
   const [fileInstaImg, setFileInstaImg] = useState<string | File>('')
@@ -137,6 +140,9 @@ const ChangeUserProfile: FC = () => {
 
   return (
     <form onSubmit={handleAddProduct} className={s.change_user_profile}>
+      <Helmet>
+        <title>Изменение данных магазина</title>
+      </Helmet>
       <div className={s.bagraund}>
         <img src={imgFileBackground ? imgFileBackground : defaultImg} alt="background" />
         <input ref={fileBackground} className={s.hidden} onChange={onSelectBeckground} type="file" accept='image/*' />

@@ -2,13 +2,12 @@ import React, { FC, useState } from 'react'
 import s from './PersonalProfile.module.scss'
 import ikon from '../../assets/Header/ikon.png'
 import ProductList from './ProductList/ProductList'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
+import { NavLink } from 'react-router-dom'
+import { useAppSelector } from '../../store/hooks/hooks'
 import SuccessfullRequest from '../AddingProduct/SuccessfullRequest/SuccessfullRequest'
-import goOut from '../../assets/PersonalProfile/goOut.png'
 import { pathLink } from '../../reused'
-import { logOutUser } from '../../store/slice/userSlice'
 import LogOut from './LogOut/LogOut'
+import { Helmet } from 'react-helmet-async'
 
 const PersonalProfile: FC = () => {
 	const { user } = useAppSelector(state => state.user)
@@ -17,6 +16,9 @@ const PersonalProfile: FC = () => {
 
 	return (
 		<div className={s.PersonalProfile}>
+			<Helmet>
+				<title>{user?.first_name || ''} {user?.last_name || ''} | Профиль</title>
+			</Helmet>
 			<div className={s.profile}>
 				<div className={s.user_data}>
 					<div className={s.avatar}><img src={(user?.seller_user?.insta_image && user?.seller_user?.insta_image.startsWith('http')) ? user?.seller_user?.insta_image : user?.seller_user?.insta_image ? pathLink + user?.seller_user?.insta_image : ikon} alt="avatar" /></div>
