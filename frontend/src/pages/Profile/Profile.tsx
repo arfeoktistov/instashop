@@ -17,6 +17,8 @@ const Profile: FC = () => {
 	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
+
 		if (id) {
 			dispatch(fetchByDetailProfile(+id))
 			!searchParams.get('c_store') && dispatch(fetchByProfileCard(+id))
@@ -36,13 +38,7 @@ const Profile: FC = () => {
 		<div >
 			<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 			<div className={s.backround} style={{
-				backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `,
-				backgroundRepeat: 'no-repeat',
-				borderRadius: 20,
-				borderBottomRightRadius: 20,
-				borderEndEndRadius: 20,
-				objectFit: 'cover',
-				objectPosition: 'center'
+				backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `
 			}}>
 				<div className={s.profileDiv}>
 					<img className={s.profile} src={profile?.insta_image ? profile?.insta_image : defStatus} alt="adi" />
