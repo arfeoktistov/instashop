@@ -6,12 +6,16 @@ import { NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../store/hooks/hooks'
 import SuccessfullRequest from '../AddingProduct/SuccessfullRequest/SuccessfullRequest'
 import { pathLink } from '../../reused'
+import { Helmet } from 'react-helmet-async'
 
 const PersonalProfile: FC = () => {
 	const { user } = useAppSelector(state => state.user)
 	const { error, reboot } = useAppSelector(state => state.addProductSlice)
 	return (
 		<div className={s.PersonalProfile}>
+			<Helmet>
+				<title>{user?.first_name || ''} {user?.last_name || ''} | Профиль</title>
+			</Helmet>
 			<div className={s.profile}>
 				<div className={s.avatar}><img src={user?.seller_user?.background_image.startsWith('http') ? user?.seller_user?.background_image : user?.seller_user?.background_image ? pathLink + user?.seller_user?.background_image : ikon} alt="avatar" /></div>
 				<div className={s.text_field}>
