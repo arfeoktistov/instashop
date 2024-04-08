@@ -3,23 +3,35 @@ import s from './PersonalProfile.module.scss'
 import ikon from '../../assets/Header/ikon.png'
 import ProductList from './ProductList/ProductList'
 import { NavLink } from 'react-router-dom'
-import { useAppSelector } from '../../store/hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import SuccessfullRequest from '../AddingProduct/SuccessfullRequest/SuccessfullRequest'
+import goOut from '../../assets/PersonalProfile/goOut.png'
 import { pathLink } from '../../reused'
+import { logOutUser } from '../../store/slice/userSlice'
 
 const PersonalProfile: FC = () => {
 	const { user } = useAppSelector(state => state.user)
 	const { error, reboot } = useAppSelector(state => state.addProductSlice)
+	const dispatch = useAppDispatch()
+	const logOut = () => {
+		dispatch(logOutUser())
+	}
 	return (
 		<div className={s.PersonalProfile}>
 			<div className={s.profile}>
-				<div className={s.avatar}><img src={user?.seller_user?.background_image.startsWith('http') ? user?.seller_user?.background_image : user?.seller_user?.background_image ? pathLink + user?.seller_user?.background_image : ikon} alt="avatar" /></div>
-				<div className={s.text_field}>
-					<h2>{user?.first_name}</h2>
-					<div className={s.path_editing}>
-						<NavLink to={'/change_user_profile'}>Редактировать профиль</NavLink>
-						<NavLink to={'/adding_product'}>Добавить товар</NavLink>
+				<div className={s.user_data}>
+					<div className={s.avatar}><img src={(user?.seller_user?.insta_image && user?.seller_user?.insta_image.startsWith('http')) ? user?.seller_user?.insta_image : user?.seller_user?.insta_image ? pathLink + user?.seller_user?.insta_image : ikon} alt="avatar" /></div>
+					<div className={s.text_field}>
+						<h2>{user?.seller_user?.shop_name}</h2>
+						<div className={s.path_editing}>
+							<NavLink to={'/change_user_profile'}>Редактировать профиль</NavLink>
+							<NavLink to={'/adding_product'}>Добавить товар</NavLink>
+						</div>
 					</div>
+				</div>
+				<div className={s.out}>
+					<img src={goOut} alt="go-out" />
+					<h2>Выйти из аккаунта</h2>
 				</div>
 			</div>
 			<ProductList />

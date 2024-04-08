@@ -105,7 +105,6 @@ const AddingProduct: FC = () => {
 		if (query) {
 			dispatch(fetchByGetDetailCard(+query))
 		}
-
 	}, [query])
 
 	useEffect(() => {

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { pathLink } from '../reused'
 import { UserLogin } from '../store/modules'
-import { IProductsCat, IForAddProduct, IIdToken, IForChangeProduct } from '../store/modules'
+import { IProductsCat, IForAddProduct, IIdToken, IForChangeProduct, IIdTokenShopUser } from '../store/modules'
 
 const instanse = axios.create({
 	baseURL: pathLink,
@@ -47,6 +47,10 @@ export const storesApi = {
 		const headers = { "Authorization": `Bearer ${token}` }
 		return instanse.get('/api/users/users/token/user-id/', { headers })
 	},
+	changeTokenUser({ id, seller_user, token }: IIdTokenShopUser) {
+		const headers = { "Authorization": `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
+		return instanse.put(`/api/users/seller-users/${id}/`, seller_user, { headers })
+	},
 	AddNewProduct({ productCard, token }: IForAddProduct) {
 		const headers = { "Authorization": `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
 		return instanse.post('/api/products/products/', productCard, { headers })
@@ -55,7 +59,7 @@ export const storesApi = {
 		const headers = { "Authorization": `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
 		return instanse.put(`/api/products/products/${id}/`, productCard, { headers })
 	},
-	deleteNewProduct({ id, token }: IIdToken) {
+	deleteProduct({ id, token }: IIdToken) {
 		const headers = { "Authorization": `Bearer ${token}` }
 		return instanse.delete(`/api/products/products/${id}/`, { headers })
 	}

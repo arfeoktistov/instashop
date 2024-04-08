@@ -1,15 +1,29 @@
+@import '../../SCSS/mixins';
+
 .AddingProduct {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 
 	& h2 {
-		width: 500px;
 		color: rgb(33, 33, 33);
 		font-size: 38px;
 		font-weight: 700;
 		line-height: 130%;
 		letter-spacing: 0px;
 		text-align: left;
+
+		@include old1024 {
+			font-size: 34px;
+		}
+
+		@include mobileL {
+			font-size: 30px;
+		}
+
+		@include mobileS {
+			font-size: 26px;
+		}
 	}
+
 }
