@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { storesApi } from '../../axios'
-import { GetToken, TokenNodules, UserLogin } from '../modules'
+import { GetToken, IIdTokenShopUser, TokenNodules, UserLogin } from '../modules'
 import { removeLSToken, setLSToken } from '../../LS'
 
 type UserState = {
@@ -8,6 +8,7 @@ type UserState = {
 	error: null | string
 	token: null | string
 	redirect: boolean
+	reboot: boolean
 	user: null | TokenNodules
 }
 
@@ -15,6 +16,7 @@ const initialState: UserState = {
 	error: null,
 	loading: false,
 	token: null,
+	reboot: false,
 	redirect: false,
 	user: null,
 }
@@ -41,17 +43,31 @@ export const fetchByToken = createAsyncThunk<TokenNodules, string, { rejectValue
 		return res.data
 	})
 
+// Изменение данных по seller_user
+export const fetchByChangeUserData = createAsyncThunk<void, IIdTokenShopUser, { rejectValue: string }>(
+	'user/fetchByChangeUserData', async (forChangeUserData, { rejectWithValue }) => {
+		const res = await storesApi.changeTokenUser(forChangeUserData)
+		// console.log(res)
+		if (res.status !== 200) {
+			return rejectWithValue('Server error')
+		}
+	})
+
 const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
 		toggleRedirect(state, action: PayloadAction<boolean>) {
 			state.redirect = action.payload
+			state.reboot = action.payload
 		},
 		setToken(state, action: PayloadAction<string | null>) {
 			state.token = action.payload
 		},
-		logOut(state) {
+		changeError(state, action: PayloadAction<string | null>) {
+			state.error = action.payload
+		},
+		logOutUser(state) {
 			state.token = null
 			state.user = null
 			removeLSToken()
@@ -95,7 +111,24 @@ const userSlice = createSlice({
 				state.error = 'Токен не правильный!'
 			}
 		})
+
+		addCase(fetchByChangeUserData.pending, (state) => {
+			state.loading = true
+			state.error = null
+		})
+
+		addCase(fetchByChangeUserData.fulfilled, (state) => {
+			state.reboot = true
+			state.loading = false
+		})
+
+		addCase(fetchByChangeUserData.rejected, (state, action) => {
+			state.loading = false
+			if (action.error.message?.includes('401')) {
+				state.error = 'Упс что-то пошло не так!'
+			}
+		})
 	},
 })
-export const { toggleRedirect, setToken, logOut, } = userSlice.actions
+export const { toggleRedirect, setToken, logOutUser, changeError } = userSlice.actions
 export default userSlice.reducer

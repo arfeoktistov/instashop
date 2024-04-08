@@ -22,6 +22,7 @@ type ISellerUser = {
 	product: number
 	shop_name: string
 	user: number
+	followers: string
 }
 
 export type TokenNodules = {
@@ -111,4 +112,22 @@ export type IForChangeProduct = {
 export type IIdToken = {
 	id: number
 	token: string
+}
+
+export type IShopSellerUser = {
+	user: string
+	shop_name: string
+	mini_description: string
+	instagram_link: string
+	product: string
+	followers: string
+	main_image?: File | string
+	background_image?: string | File
+	insta_image?: string | File
+}
+
+export type IIdTokenShopUser = {
+	id: number
+	token: string
+	seller_user: IShopSellerUser
 }
