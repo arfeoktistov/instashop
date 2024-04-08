@@ -1,3 +1,5 @@
+@import '../../SCSS/mixins';
+
 .arrow {
     padding: 30px 0 40px 0;
     cursor: pointer;
@@ -9,6 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
+    background-size: 100% 274px;
 
     .profileDiv {
         display: flex;
@@ -24,7 +27,7 @@
         h1 {
             color: '#030303';
             font-size: 26px;
-            font-family: 'Roboto';
+            @include rubik400;
             font-weight: 700;
             line-height: 30px;
         }
@@ -34,18 +37,19 @@
 
 
     .stats {
-        width: 30%;
+        width: 15%;
         display: flex;
 
 
         .noLine {
-            width: 25%;
+            width: 50%;
             border-right: 3px solid #f0f0f0;
 
             h2 {
+
                 color: #030303;
                 font-size: 18px;
-                font-family: "Roboto";
+                @include montserrat400;
                 font-weight: 500;
                 line-height: 22px;
                 text-align: center;
@@ -54,7 +58,7 @@
             h3 {
                 color: #030303;
                 font-size: 12px;
-                font-family: "Roboto";
+                @include montserrat400;
                 font-weight: 300;
                 line-height: 14px;
                 text-align: center;
@@ -62,13 +66,13 @@
         }
 
         .line {
-            width: 25%;
+            width: 50%;
             // border-right: 3px solid #f0f0f0;
 
             h2 {
                 color: #030303;
                 font-size: 18px;
-                font-family: "Roboto";
+                @include montserrat400;
                 font-weight: 500;
                 line-height: 22px;
                 text-align: center;
@@ -77,7 +81,7 @@
             h3 {
                 color: #030303;
                 font-size: 12px;
-                font-family: "Roboto";
+                @include montserrat400;
                 font-weight: 300;
                 line-height: 14px;
                 text-align: center;
@@ -101,7 +105,7 @@
         background-color: #151515;
         color: #ffffff;
         font-size: 14px;
-        font-family: "Roboto";
+        @include rubik400;
         font-weight: 500;
         line-height: 18px;
         outline: none;
@@ -113,29 +117,138 @@
 .newArrivals {
     color: #030303;
     font-size: 28px;
-    font-family: "Roboto";
     line-height: 30px;
     padding: 64px 0 24px 0;
+    @include rubik400;
+
+    @include mobileL {
+        text-align: center;
+
+    }
+
 }
 
-.shopCollections {
-    color: #030303;
-    font-size: 28px;
-    font-family: "Roboto";
-    line-height: 30px;
-    padding: 64px 0 24px 0;
-}
 
 .fiveCards {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     gap: 30px;
+    padding-top: 24px;
 
 
-    .card {
-        width: 18%;
-        height: 320px;
+}
 
+
+@media(max-width:768px) {
+    .fiveCards {
+        gap: 15px;
     }
+
+    .backround {
+        height: 225px;
+        background-size: 100% 174px;
+
+        .profileDiv {
+            .profile {
+                margin: 0 10px 0 10px;
+                width: 80px;
+                height: 80px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+        .stats {
+            width: 20%;
+
+            .line {
+                h2 {
+                    font-size: 14px;
+                }
+
+                h3 {
+                    font-size: 10px;
+                }
+            }
+
+            .noLine {
+                h2 {
+                    font-size: 14px;
+                }
+
+                h3 {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        a {
+            button {
+                width: 100%;
+                font-size: 10px;
+            }
+        }
+    }
+
+
+
+}
+
+@media(max-width:500px) {
+    .fiveCards {
+        gap: 15px;
+    }
+
+    .backround {
+
+        .profileDiv {
+            .profile {
+                margin: 0 10px 0 10px;
+                width: 60px;
+                height: 60px;
+            }
+
+            h1 {
+                font-size: 14px;
+            }
+        }
+
+        .stats {
+            width: 25%;
+
+            .line {
+                h2 {
+                    font-size: 12px;
+                }
+
+                h3 {
+                    font-size: 10px;
+                }
+            }
+
+            .noLine {
+                h2 {
+                    font-size: 12px;
+                }
+
+                h3 {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        a {
+            width: 15%;
+
+            button {
+                width: 100%;
+                font-size: 8px;
+            }
+        }
+    }
+
+
 }

@@ -1,3 +1,9 @@
+@mixin newMonitor1440 {
+    @media screen and (max-width:1440px) {
+        @content;
+    }
+}
+
 @mixin description {
     color: #030303;
     font-size: 14px;

@@ -29,6 +29,12 @@ section {
 	display: block;
 }
 
+html {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
 html,
 body {
 	height: 100%;
@@ -39,7 +45,6 @@ body {
 	font-size: 100%;
 	line-height: 1;
 	font-size: 14px;
-	font-family: "Gilroy";
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
@@ -47,9 +52,7 @@ body {
 
 input,
 button,
-textarea {
-	font-family: "Gilroy";
-}
+textarea {}
 
 input::-ms-clear {
 	display: none;

@@ -1,18 +1,24 @@
 /* Proxima */
 @font-face {
     font-family: 'MontserratReg', sans-serif;
+    font-style: normal;
+    font-weight: 400;
     /* 400 */
     src: url('./assets/fonts/Montserat/Montserrat-Regular.ttf') format('ttf');
 }
 
 @font-face {
     font-family: 'MontserratSemiBold', sans-serif;
+    font-style: normal;
+    font-weight: 600;
     /* 600 */
     src: url('./assets/fonts/Montserat/Montserrat-SemiBold.ttf') format('ttf');
 }
 
 @font-face {
     font-family: 'MontserratBold', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     /* 700 */
     src: url('./assets/fonts/Montserat/Montserrat-Bold.ttf') format('ttf');
 }
@@ -20,24 +26,32 @@
 /* Grotesk */
 @font-face {
     font-family: 'RubikReg', sans-serif;
+    font-style: normal;
+    font-weight: 400;
     /* 400 */
     src: url('./assets/fonts/Rubik/Rubik-Regular.ttf') format('ttf');
 }
 
 @font-face {
     font-family: 'RubikMedium', sans-serif;
+    font-style: normal;
+    font-weight: 500;
     /* 500 */
     src: url('./assets/fonts/Rubik/Rubik-Medium.ttf') format('ttf');
 }
 
 @font-face {
     font-family: 'RubikSemiBold', sans-serif;
+    font-style: normal;
+    font-weight: 600;
     /* 600 */
     src: url('./assets/fonts/Rubik/Rubik-SemiBold.ttf') format('ttf');
 }
 
 @font-face {
     font-family: 'RubikBold', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     /* 700 */
     src: url('./assets/fonts/Rubik/Rubik-Bold.ttf') format('ttf');
 }
