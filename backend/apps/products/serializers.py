@@ -22,11 +22,14 @@ class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(
         source='sub_category.category.name')
     images = ProductImageSerializer(read_only=True, many=True)
+    instagram_link = serializers.ReadOnlyField(
+        source='seller.instagram_link'
+    )
 
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'price', 'image', 'images', 'sub_category', 'sub_category_name',
-                  'category_name', 'seller']
+                  'category_name', 'instagram_link', 'seller']
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
