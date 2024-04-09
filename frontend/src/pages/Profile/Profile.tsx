@@ -60,7 +60,7 @@ const Profile: FC = () => {
 						</div>
 						<div className={s.stats}>
 							<div className={s.noLine}>
-								<h2>{profile?.product}</h2>
+								<h2>{profile?.product_count}</h2>
 								<h3>products</h3>
 							</div>
 							<div className={s.line}>
