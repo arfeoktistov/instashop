@@ -59,6 +59,7 @@ export type ProfileCardModules = {
 	sub_category: number
 	sub_category_name: string
 	category_name: string
+	instagram_link: string
 }
 
 export type IStores = {

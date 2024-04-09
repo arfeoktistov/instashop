@@ -84,7 +84,15 @@ export const fetchByCardsByCategories = createAsyncThunk<ProfileCardModules[], I
 const detailProfileSlice = createSlice({
     name: 'profile',
     initialState,
-    reducers: {},
+    reducers: {
+        clearDetail(state) {
+            state.detailview = null
+        },
+        clearProfile(state) {
+            state.profile = null
+            state.profileCard = []
+        }
+    },
     extraReducers: ({ addCase }) => {
         addCase(fetchByDetailProfile.pending, (state) => {
             state.loading = true
@@ -184,6 +192,8 @@ const detailProfileSlice = createSlice({
     }
 
 })
+
+export const { clearDetail, clearProfile } = detailProfileSlice.actions
 
 
 export default detailProfileSlice.reducer
