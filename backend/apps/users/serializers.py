@@ -4,14 +4,18 @@ from .models import User, SellerUser
 
 
 class SellerUserSerializer(serializers.ModelSerializer):
+    product_count = serializers.SerializerMethodField()
 
     class Meta:
         model = SellerUser
         fields = (
             'id', 'user', 'shop_name', 'main_image',
             'background_image', 'insta_image', 'mini_description',
-            'instagram_link', 'product', 'followers',
+            'instagram_link', 'product_count', 'followers',
         )
+
+    def get_product_count(self, obj):
+        return obj.products.count()
 
 
 class UserSerializer(serializers.ModelSerializer):
