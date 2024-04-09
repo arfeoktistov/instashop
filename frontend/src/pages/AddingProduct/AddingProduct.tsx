@@ -8,6 +8,7 @@ import { fetchByAddNewCard, fetchByChangeCard, fetchByGetDetailCard } from '../.
 import Loading from '../../Component/Loading/Loading'
 import { useSearchParams } from 'react-router-dom'
 import SuccessfullRequest from './SuccessfullRequest/SuccessfullRequest'
+import { Helmet } from 'react-helmet-async'
 interface ImagesObj {
 	blobUrl: string
 	file: File
@@ -105,7 +106,6 @@ const AddingProduct: FC = () => {
 		if (query) {
 			dispatch(fetchByGetDetailCard(+query))
 		}
-
 	}, [query])
 
 	useEffect(() => {
@@ -126,6 +126,9 @@ const AddingProduct: FC = () => {
 	}, [reboot])
 	return (
 		<div className={s.AddingProduct}>
+			<Helmet>
+				<title>Добавление/Изменение товара</title>
+			</Helmet>
 			<h2>Заполните данные для добавления товара</h2>
 			<AddPhoto deleteImg={deleteImg} setFiles={setFiles} files={files} previewImg={previewImg} setPreviewImg={setPreviewImg} setErrorText={setErrorText} errorText={errorText} setFilesReq={setFilesReq} />
 			<AddProductForm categories={categories} setCategories={setCategories} query={query} errorText={errorText} productCard={productCard} setProductCard={setProductCard} handleAddProduct={handleAddProduct} />

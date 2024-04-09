@@ -3,7 +3,7 @@
 
 .displayOne {
     display: flex;
-    padding-top: 60px;
+    padding-top: 40px;
     justify-content: center;
 
     @include mobileL {
@@ -86,7 +86,7 @@
         height: 620px;
         object-fit: cover;
         object-position: center;
-        border-radius: 50px;
+        border-radius: 6px;
 
         @include mobileL {
             height: 400px;
@@ -121,7 +121,7 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-        border-radius: 30px;
+        border-radius: 6px;
     }
 }
 

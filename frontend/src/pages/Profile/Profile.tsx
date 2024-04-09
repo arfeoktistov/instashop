@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import { fetchByDetailProfile, fetchByProfileCard, fetchByProfileCategories } from '../../store/slice/detailProfileSlice'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import SearchDetailView from './SearchDetailView/SearchDetailView'
+import { Helmet } from 'react-helmet-async'
 
 const Profile: FC = () => {
 	const { id } = useParams()
@@ -17,6 +18,8 @@ const Profile: FC = () => {
 	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
+
 		if (id) {
 			dispatch(fetchByDetailProfile(+id))
 			!searchParams.get('c_store') && dispatch(fetchByProfileCard(+id))
@@ -34,15 +37,15 @@ const Profile: FC = () => {
 
 	return (
 		<div >
+			<Helmet>
+				<meta property="og:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
+				<meta name="twitter:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
+				<link rel="canonical" href={`http://agregagator.gagaga.kg/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
+				<title>{`${profile?.shop_name ? profile?.shop_name : ''} | AGREGAGATOR`}</title>
+			</Helmet>
 			<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 			<div className={s.backround} style={{
-				backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `,
-				backgroundRepeat: 'no-repeat',
-				borderRadius: 20,
-				borderBottomRightRadius: 20,
-				borderEndEndRadius: 20,
-				objectFit: 'cover',
-				objectPosition: 'center'
+				backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `
 			}}>
 				<div className={s.profileDiv}>
 					<img className={s.profile} src={profile?.insta_image ? profile?.insta_image : defStatus} alt="adi" />
@@ -61,7 +64,6 @@ const Profile: FC = () => {
 				<a href={profile?.instagram_link}>
 					<button>Instagram</button>
 				</a>
-
 			</div>
 
 			<h2 className={s.newArrivals}>Товары</h2>

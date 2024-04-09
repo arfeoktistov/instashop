@@ -61,6 +61,7 @@ const AddPhoto: FC<AddPhotoProps> = ({ deleteImg, setFilesReq, errorText, setErr
 				<input ref={filePickerLeft} onChange={onSelectImage} className={s.hidden} type='file' multiple accept='image/*' />
 			</div>
 			{previewImg.map((url, i) => <div key={i} className={s.images_download} onClick={() => deleteImg(url)}><img src={url} /></div>)}
+			{errorText.includes('Картинки должны быть от 2 до 6') && <h2 className={s.error_title}>{errorText} </h2>}
 		</div>
 	)
 }

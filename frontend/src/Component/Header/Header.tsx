@@ -14,27 +14,27 @@ const Header: FC = () => {
 	// console.log(user);
 
 	return (
-		<div className={s.header}>
+		<header className={s.header}>
 			<div className={`container ${s.in_header}`}>
 				<Link to={'/'} className={s.title_header}>
 					<img className={s.logo} src={logo} alt="logo" />
 					<h2 className={s.title}>AGREGAGATOR</h2>
 				</Link>
-				<div className={s.running_goose}>
+				{/* <div className={s.running_goose}>
 					<img src={goose} alt="goose" />
-				</div>
+				</div> */}
 				<div className={s.header_profile}>
 					{
 						!token ? <h2 onClick={() => setLogin(true)} className={s.login}>Войти</h2> :
 							<Link to={'/personal_profile'} className={s.user_data}>
-								<h2 className={s.nick_name}>{user?.first_name} </h2>
-								<div className={s.avatar}><img src={user?.seller_user?.background_image.startsWith('http') ? user?.seller_user?.background_image : user?.seller_user?.background_image ? pathLink + user?.seller_user?.background_image : ikon} alt="avatar" /></div>
+								<h2 className={s.nick_name}>{user?.seller_user?.shop_name} </h2>
+								<div className={s.avatar}><img src={(user?.seller_user?.main_image && user?.seller_user?.main_image.startsWith('http')) ? user?.seller_user?.main_image : user?.seller_user?.main_image ? pathLink + user?.seller_user?.main_image : ikon} alt="avatar" /></div>
 							</Link>
 					}
 				</div>
 			</div>
 			{login && <Login login={login} setLogin={setLogin} />}
-		</div>
+		</header>
 	)
 }
 
