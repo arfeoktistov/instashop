@@ -17,8 +17,7 @@ const ChangeUserProfile: FC = () => {
   const [imgFileMain, setFileMain] = useState('')
   const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
-
-
+  console.log(loading);
 
   const [fileBackgroundImg, setFileBackgroundImg] = useState<string | File>('')
   const [fileInstaImg, setFileInstaImg] = useState<string | File>('')
@@ -119,7 +118,6 @@ const ChangeUserProfile: FC = () => {
       fileInsta.current.click()
     }
   }
-
   // console.log(user);
 
   useEffect(() => {
@@ -137,7 +135,6 @@ const ChangeUserProfile: FC = () => {
     }
   }, [user?.seller_user])
   // console.log(imgFileBackground);
-
   return (
     <form onSubmit={handleAddProduct} className={s.change_user_profile}>
       <Helmet>
