@@ -125,6 +125,7 @@
 					line-height: 20px;
 					letter-spacing: 0px;
 					text-align: left;
+					@include rubik500;
 				}
 
 				button {
@@ -144,6 +145,7 @@
 					line-height: 19px;
 					letter-spacing: 0px;
 					text-align: left;
+					@include rubik500;
 
 					@include mobileM {
 						width: 100%;

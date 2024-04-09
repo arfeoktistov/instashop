@@ -17,7 +17,7 @@ const ChangeUserProfile: FC = () => {
   const [imgFileMain, setFileMain] = useState('')
   const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
-  console.log(loading);
+  // console.log(loading);
 
   const [fileBackgroundImg, setFileBackgroundImg] = useState<string | File>('')
   const [fileInstaImg, setFileInstaImg] = useState<string | File>('')
@@ -73,7 +73,7 @@ const ChangeUserProfile: FC = () => {
 
   const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link) {
+    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link && (changeUserData.instagram_link.startsWith('http://') || changeUserData.instagram_link.startsWith('https://'))) {
       if (token && user?.seller_user && fileBackgroundImg && fileInstaImg && fileMainImg) {
         dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
       } else if (token && user?.seller_user && fileBackgroundImg && fileInstaImg) {
@@ -96,6 +96,8 @@ const ChangeUserProfile: FC = () => {
     } else if (!changeUserData.mini_description) {
       setErrorText('Введите описание!')
     } else if (!changeUserData.instagram_link) {
+      setErrorText('Введите ссылку на инстаграм!')
+    } else if (changeUserData.instagram_link.startsWith('http://') || changeUserData.instagram_link.startsWith('https://')) {
       setErrorText('Введите ссылку на инстаграм!')
     }
   }
@@ -173,7 +175,7 @@ const ChangeUserProfile: FC = () => {
           </div>
           <div className={errorText.includes('Введите ссылку на инстаграм!') ? s.error_text : s.input_field}>
             <h2>Ссылка в инстаграм</h2>
-            <input className={s.text_field} value={changeUserData.instagram_link} onChange={e => getChangeUserData('instagram_link', e.target.value)} type="text" placeholder='instagram_link' />
+            <input className={s.text_field} value={changeUserData.instagram_link} onChange={e => getChangeUserData('instagram_link', e.target.value)} type="url" placeholder='instagram_link' />
           </div>
         </div>
       </div>
