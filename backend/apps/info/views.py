@@ -33,6 +33,15 @@ class ApplicationsViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        tags=['Информация по заявкам'],
+        operation_summary="Создать новую заявку",
+        request_body=ApplicationSerializer,
+        responses={201: ApplicationSerializer}
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
 
 class FooterInfoViewSet(ModelViewSet):
     serializer_class = FooterInfoSerializer
