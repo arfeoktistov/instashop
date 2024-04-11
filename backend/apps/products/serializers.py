@@ -88,14 +88,18 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         images_data = validated_data.pop('images', None)
         image = serializers.ImageField(required=False, allow_null=True)
 
-        instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description', instance.description)
-        instance.price = validated_data.get('price', instance.price)
-        instance.image = validated_data.get('image', instance.image)
-        instance.sub_category = validated_data.get('sub_category', instance.sub_category)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
         instance.save()
 
-        if images_data:
+        # instance.name = validated_data.get('name', instance.name)
+        # instance.description = validated_data.get('description', instance.description)
+        # instance.price = validated_data.get('price', instance.price)
+        # instance.image = validated_data.get('image', instance.image)
+        # instance.sub_category = validated_data.get('sub_category', instance.sub_category)
+        # instance.save()
+
+        if images_data is not None:
             instance.images.all().delete()
             for image_file in images_data:
                 ProductImage.objects.create(product=instance, image=image_file)
@@ -103,13 +107,6 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         return instance
 
     def to_representation(self, instance):
-        representation = {
-            'id': instance.id,
-            'name': instance.name,
-            'description': instance.description,
-            'image': instance.image.url if hasattr(instance.image, 'url') else None,
-            'price': instance.price,
-            'sub_category': instance.sub_category.id,
-            'images': [ProductImageSerializer(image).data for image in instance.images.all()]
-        }
+        representation = super(ProductUpdateSerializer, self).to_representation(instance)
+        representation['images'] = [ProductImageSerializer(image).data for image in instance.images.all()]
         return representation
