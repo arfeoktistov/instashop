@@ -130,7 +130,7 @@ const DetailView: FC = () => {
                                     <p>{detailview?.description}</p>
                                 </div>
                                 <div className='link'>
-                                    <p>Связатся с продавцом:</p>
+                                    <p>Связаться с продавцом:</p>
                                     <div>
                                         <a href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
                                             <img src={insta} alt="img" />

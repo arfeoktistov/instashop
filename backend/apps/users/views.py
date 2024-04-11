@@ -12,9 +12,10 @@ from .models import User, SellerUser
 from .serializers import UserSerializer, SellerUserSerializer
 from .pagination import CustomPagination
 
-class GetUserIdView(APIView):
 
+class GetUserIdView(APIView):
     permission_classes = [IsAuthenticated, ]
+
     @swagger_auto_schema(
         tags=['Магазин'],
         operation_summary="Получить информацию о пользовавтеле по токену",
@@ -69,6 +70,8 @@ class SellerUserViewSet(ModelViewSet):
     )
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
+
+
 
     @swagger_auto_schema(
         tags=['Магазин'],

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'apps.categories',
     'apps.products',
     'apps.users',
+    'apps.info',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
