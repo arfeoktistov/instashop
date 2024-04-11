@@ -1,20 +1,13 @@
 import React, { FC, useEffect } from 'react';
-import s from './LogOut.module.scss'
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../store/hooks/hooks';
-import { logOutUser } from '../../../store/slice/userSlice';
-interface LogOutProps {
+import s from './DeleteProduct.module.scss'
+
+interface DeleteProductProps {
   setLogOut: (e: boolean) => void
   logOut: boolean
+  handleDeleteCard: () => void
 }
-const LogOut: FC<LogOutProps> = ({ logOut, setLogOut }) => {
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
-  const logOutOut = () => {
-    dispatch(logOutUser())
-    navigate('/')
-    setLogOut(false)
-  }
+const DeleteProduct: FC<DeleteProductProps> = ({ logOut, setLogOut, handleDeleteCard }) => {
+
   useEffect(() => {
     // При рождении убрать скрол
     document.body.style.overflow = 'hidden'
@@ -41,14 +34,14 @@ const LogOut: FC<LogOutProps> = ({ logOut, setLogOut }) => {
     <div onClick={() => setLogOut(false)} className={s.log_out}>
       <div className={s.modal_login} onClick={e => e.stopPropagation()}>
         <span onClick={() => setLogOut(false)} className={s.closed}> &#10006; </span>
-        <h2 className={s.title_text}>Выход из аккаунта?</h2>
+        <h2 className={s.title_text}>Удалить продукт?</h2>
         <div className={s.buttons}>
           <button className={s.cancellation} onClick={() => setLogOut(false)}>Отмена</button>
-          <button className={s.out_user} onClick={logOutOut}>Выйти</button>
+          <button className={s.out_user} onClick={handleDeleteCard}>Удалить</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default LogOut;
+export default DeleteProduct;

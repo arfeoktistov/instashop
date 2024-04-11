@@ -12,16 +12,17 @@ export type GetToken = {
 	refresh: string
 }
 
-type ISellerUser = {
-	background_image: string
-	id: number
-	insta_image: string
+export type ISellerUser = {
+	[key: string]: string | number | File | undefined | null
+	background_image: string | File | null
+	id?: number
+	insta_image: string | File | null
 	instagram_link: string
-	main_image: string
+	main_image: string | File | null
 	mini_description: string
-	product: number
+	product_count: number | string
 	shop_name: string
-	user: number
+	user: number | string
 	followers: string
 }
 
@@ -116,15 +117,15 @@ export type IIdToken = {
 }
 
 export type IShopSellerUser = {
-	user: string
+	user: string | number
 	shop_name: string
 	mini_description: string
 	instagram_link: string
-	product: string
+	product_count: string | number
 	followers: string
-	main_image?: File | string
-	background_image?: string | File
-	insta_image?: string | File
+	main_image?: File | string | null
+	background_image?: string | File | null
+	insta_image?: string | File | null
 }
 
 export type IIdTokenShopUser = {
