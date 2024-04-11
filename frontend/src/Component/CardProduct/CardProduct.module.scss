@@ -47,9 +47,10 @@
 			letter-spacing: 0px;
 			text-align: left;
 			white-space: nowrap;
+			width: 40%;
 
 			@include tablet {
-				font-size: 16px;
+				font-size: 14px;
 				width: 60%;
 				overflow: hidden;
 			}

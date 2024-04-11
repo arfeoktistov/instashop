@@ -1,0 +1,83 @@
+@import '../../../../SCSS/mixins';
+
+.log_out {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2000;
+  background-color: #00000038;
+  backdrop-filter: blur(5px);
+
+  .modal_login {
+    padding: 30px;
+    border-radius: 16px;
+    background-color: rgb(33, 33, 33);
+    position: relative;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include mobileS {
+      width: 90%;
+    }
+
+    .closed {
+      display: none;
+    }
+
+    .title_text {
+      color: rgb(255, 255, 255);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0%;
+      text-align: center;
+
+      @include mobileL {
+        font-size: 24px;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+
+      @include mobileS {
+        justify-content: center;
+      }
+
+      .out_user,
+      .cancellation {
+        width: 120px;
+        height: 40px;
+        border-radius: 6px;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 19px;
+        letter-spacing: 0%;
+        text-align: center;
+
+        @include mobileL {
+          font-size: 18px;
+        }
+      }
+
+      .out_user {
+        background-color: red;
+        color: #FCFCFC;
+      }
+
+      .cancellation {
+        background-color: rgb(255, 225, 225);
+        color: rgb(33, 33, 33);
+      }
+    }
+  }
+}

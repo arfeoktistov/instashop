@@ -47,7 +47,7 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 							value={productCard.description}
 							rows={4} cols={50} placeholder='Описание' className={s.description}></textarea>
 					</div>
-					<div className={errorText.includes('Введите стоимость!') ? `${s.error_text} ${s.left_part_field}` : s.left_part_field}>
+					<div className={(errorText.includes('Введите стоимость!') || errorText.includes('Стоимость должен быть менее 9999999999сом!')) ? `${s.error_text} ${s.left_part_field}` : s.left_part_field}>
 						<h2>Введите Стоимость</h2>
 						<input value={productCard.price} onChange={e => getProductCard('price', e.target.value)} className={s.text_field} type='number' placeholder='Стоимость' />
 					</div>
