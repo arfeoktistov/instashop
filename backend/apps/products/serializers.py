@@ -76,6 +76,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         write_only=True,
         required=False
     )
+    image = serializers.ImageField(required=False, allow_null=True)
 
     class Meta:
         model = Product
@@ -86,7 +87,6 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         images_data = validated_data.pop('images', None)
-        image = serializers.ImageField(required=False, allow_null=True)
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
