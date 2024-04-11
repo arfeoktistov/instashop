@@ -107,6 +107,16 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         return instance
 
     def to_representation(self, instance):
+        # representation = {
+        #     'id': instance.id,
+        #     'name': instance.name,
+        #     'description': instance.description,
+        #     'image': instance.image.url if hasattr(instance.image, 'url') else None,
+        #     'price': instance.price,
+        #     'sub_category': instance.sub_category.id,
+        #     'images': [ProductImageSerializer(image).data for image in instance.images.all()]
+        # }
+        # return representation
         representation = super(ProductUpdateSerializer, self).to_representation(instance)
         representation['images'] = [ProductImageSerializer(image).data for image in instance.images.all()]
         return representation
