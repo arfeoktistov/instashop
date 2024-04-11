@@ -139,3 +139,10 @@ export type IInfoData = {
 	phone_number: string
 	instagram_link: string
 }
+
+export type FeedbackData = {
+	name: string
+	phone_number: string
+	instagram_link: string
+	application_text: string
+}
