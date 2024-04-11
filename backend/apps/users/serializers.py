@@ -15,11 +15,17 @@ class SellerUserSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        for image_field in ['main_image', 'background_image', 'insta_image']:
+        image_fields = ['main_image', 'background_image', 'insta_image']
+        for image_field in image_fields:
             if image_field in validated_data:
                 value = validated_data[image_field]
                 if isinstance(value, str) or ('http' in value or 'https' in value):
-                    del validated_data[image_field]
+                    continue
+                else:
+                    setattr(instance, image_field, value)
+
+        for image_field in image_fields:
+            validated_data.pop(image_field, None)
 
         return super().update(instance, validated_data)
 
