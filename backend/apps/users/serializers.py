@@ -18,7 +18,7 @@ class SellerUserSerializer(serializers.ModelSerializer):
         for image_field in ['main_image', 'background_image', 'insta_image']:
             if image_field in validated_data:
                 value = validated_data[image_field]
-                if isinstance(value, str) and ('http' in value or 'https' in value):
+                if isinstance(value, str) or ('http' in value or 'https' in value):
                     del validated_data[image_field]
 
         return super().update(instance, validated_data)
