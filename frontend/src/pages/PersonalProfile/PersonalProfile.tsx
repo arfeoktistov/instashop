@@ -21,7 +21,7 @@ const PersonalProfile: FC = () => {
 			</Helmet>
 			<div className={s.profile}>
 				<div className={s.user_data}>
-					<div className={s.avatar}><img src={(user?.seller_user?.insta_image && user?.seller_user?.insta_image.startsWith('http')) ? user?.seller_user?.insta_image : user?.seller_user?.insta_image ? pathLink + user?.seller_user?.insta_image : ikon} alt="avatar" /></div>
+					<div className={s.avatar}><img src={(typeof user?.seller_user?.insta_image === "string" && user?.seller_user?.insta_image.startsWith('http')) ? user?.seller_user?.insta_image : user?.seller_user?.insta_image ? pathLink + user?.seller_user?.insta_image : ikon} alt="avatar" /></div>
 					<div className={s.text_field}>
 						<h2>{user?.seller_user?.shop_name}</h2>
 						<div className={s.path_editing}>

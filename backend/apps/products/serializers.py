@@ -22,11 +22,14 @@ class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(
         source='sub_category.category.name')
     images = ProductImageSerializer(read_only=True, many=True)
+    instagram_link = serializers.ReadOnlyField(
+        source='seller.instagram_link'
+    )
 
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'price', 'image', 'images', 'sub_category', 'sub_category_name',
-                  'category_name', 'seller']
+                  'category_name', 'instagram_link', 'seller']
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
@@ -84,12 +87,17 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         images_data = validated_data.pop('images', None)
 
-        instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description', instance.description)
-        instance.price = validated_data.get('price', instance.price)
-        instance.image = validated_data.get('image', instance.image)
-        instance.sub_category = validated_data.get('sub_category', instance.sub_category)
+        for field, value in validated_data.items():
+            if value != '' and value is not None:
+                setattr(instance, field, value)
         instance.save()
+
+        # instance.name = validated_data.get('name', instance.name)
+        # instance.description = validated_data.get('description', instance.description)
+        # instance.price = validated_data.get('price', instance.price)
+        # instance.image = validated_data.get('image', instance.image)
+        # instance.sub_category = validated_data.get('sub_category', instance.sub_category)
+        # instance.save()
 
         if images_data:
             instance.images.all().delete()

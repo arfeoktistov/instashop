@@ -25,7 +25,6 @@ const AddingProduct: FC = () => {
 	const [searchParams] = useSearchParams()
 	const [query] = useState(searchParams.get('id_card'))
 
-
 	const [productCard, setProductCard] = useState<IAddProductsCard>({
 		name: '',
 		description: '',
@@ -43,13 +42,15 @@ const AddingProduct: FC = () => {
 		productCard.description && setErrorText('')
 	} else if (errorText.includes('Введите стоимость!')) {
 		productCard.price && setErrorText('')
+	} else if (errorText.includes('Стоимость должен быть менее 9999999999сом!')) {
+		+productCard.price < 9999999999 && setErrorText('')
 	} else if (errorText.includes('Введите подкатегорию!')) {
 		productCard.sub_category && setErrorText('')
 	}
 
 	const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
 		e.preventDefault()
-		if (productCard.name && productCard.description && productCard.price && productCard.sub_category && query && token && user) {
+		if (productCard.name && productCard.description && productCard.price && +productCard.price < 9999999999 && productCard.sub_category && query && token && user) {
 			const formData = new FormData()
 			formData.append('name', `${productCard.name}`);
 			formData.append('description', `${productCard.description}`);
@@ -64,10 +65,9 @@ const AddingProduct: FC = () => {
 				for (let file of newArr) {
 					formData.append('images', file);
 				}
-
 			}
 			dispatch(fetchByChangeCard({ id: +query, token, productCard: formData }))
-		} else if (productCard.name && productCard.description && productCard.price && productCard.sub_category && (filesReq.length >= 2 && filesReq.length <= 6) && token && user) {
+		} else if (productCard.name && productCard.description && (productCard.price && +productCard.price < 9999999999) && productCard.sub_category && (filesReq.length >= 2 && filesReq.length <= 6) && token && user) {
 			const formData = new FormData()
 			formData.append('name', `${productCard.name}`);
 			formData.append('description', `${productCard.description}`);
@@ -82,14 +82,16 @@ const AddingProduct: FC = () => {
 				formData.append('images', file);
 			}
 			dispatch(fetchByAddNewCard({ token, productCard: formData }))
-		} else if (filesReq.length < 2) {
-			setErrorText('Картинки должны быть от 2 до 6')
+		} else if (!query && filesReq.length < 2) {
+			setErrorText('Количество картинок от 2 до 6')
 		} else if (!productCard.name) {
 			setErrorText('Введите название!')
 		} else if (!productCard.description) {
 			setErrorText('Введите описание!')
 		} else if (!productCard.price) {
 			setErrorText('Введите стоимость!')
+		} else if (!productCard.price && +productCard.price > 9999999999) {
+			setErrorText('Стоимость должен быть менее 9999999999сом!')
 		} else if (!productCard.sub_category) {
 			setErrorText('Введите подкатегорию!')
 		}
@@ -110,7 +112,7 @@ const AddingProduct: FC = () => {
 
 	useEffect(() => {
 		if (detail_card && query) {
-			setProductCard({ ...productCard, name: detail_card.name, description: detail_card.description, price: detail_card.price, sub_category: `${detail_card.sub_category}` })
+			setProductCard({ ...productCard, name: detail_card.name, description: detail_card.description, price: `${Math.ceil(+detail_card.price)}`, sub_category: `${detail_card.sub_category}` })
 			setCategories(detail_card.category_name)
 		}
 	}, [detail_card])
@@ -124,6 +126,7 @@ const AddingProduct: FC = () => {
 			setProductCard({ name: '', description: '', price: '', sub_category: '', image: '', images: [], })
 		}
 	}, [reboot])
+
 	return (
 		<div className={s.AddingProduct}>
 			<Helmet>

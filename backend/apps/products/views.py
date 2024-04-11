@@ -104,6 +104,22 @@ class SellerProductsViewSet(ReadOnlyModelViewSet):
         tags=['Получить продавцов по категории и подкатегории'],
         operation_summary="Получить товары по ID продавца и категориям",
         operation_description="Получить товары по ID продавца и категориям",
+        manual_parameters=[
+            openapi.Parameter(
+                'category_id',
+                in_=openapi.IN_QUERY,
+                description='ID категории',
+                type=openapi.TYPE_INTEGER,
+                required=False
+            ),
+            openapi.Parameter(
+                'subcategory_id',
+                in_=openapi.IN_QUERY,
+                description="ID подкатегории",
+                type=openapi.TYPE_INTEGER,
+                required=False
+            ),
+        ],
         responses={
             200: openapi.Response(
                 description="Список продавцов по категории и подкатегории",

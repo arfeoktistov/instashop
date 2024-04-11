@@ -1,7 +1,7 @@
-import React, { FC, FormEventHandler, useEffect, useRef, useState } from 'react';
+import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 import s from './ChangeUserProfile.module.scss'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { IShopSellerUser } from '../../store/modules';
+import { ISellerUser } from '../../store/modules';
 import { fetchByChangeUserData } from '../../store/slice/userSlice';
 import { pathLink } from '../../reused';
 import defaultImg from '../../assets/PersonalProfile/default.png'
@@ -12,30 +12,22 @@ import { Helmet } from 'react-helmet-async';
 const ChangeUserProfile: FC = () => {
   const dispatch = useAppDispatch()
   const { user, token } = useAppSelector(state => state.user)
-  const [imgFileBackground, setFileBackground] = useState('')
-  const [imgFileInsta, setFileInsta] = useState('')
-  const [imgFileMain, setFileMain] = useState('')
   const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
-
-
-
-  const [fileBackgroundImg, setFileBackgroundImg] = useState<string | File>('')
-  const [fileInstaImg, setFileInstaImg] = useState<string | File>('')
-  const [fileMainImg, setFileMainImg] = useState<string | File>('')
-
-  const fileMain = useRef<HTMLInputElement>(null)
-  const fileInsta = useRef<HTMLInputElement>(null)
-  const fileBackground = useRef<HTMLInputElement>(null)
-  const [changeUserData, setChangeUserData] = useState<IShopSellerUser>({
-    background_image: '',
+  const [shopImgs, setShopImgs] = useState({
     main_image: '',
-    insta_image: '',
+    background_image: '',
+    insta_image: ''
+  })
+  const [changeUserData, setChangeUserData] = useState<ISellerUser>({
+    background_image: null,
+    main_image: null,
+    insta_image: null,
     followers: '',
     instagram_link: '',
     mini_description: '',
     shop_name: '',
-    product: '',
+    product_count: '',
     user: ''
   })
 
@@ -43,24 +35,10 @@ const ChangeUserProfile: FC = () => {
     setChangeUserData({ ...changeUserData, [key]: value.trimStart() })
   }
 
-  const onSelectMain = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const toggleImgsFiles = React.useCallback((e: React.ChangeEvent<HTMLInputElement>, key: string) => {
     if (e.target.files) {
-      setFileMainImg(e.target.files[0])
-      setFileMain(URL.createObjectURL(new Blob([e.target.files[0]])))
-    }
-  }, [])
-  const onSelectBeckground = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFileBackgroundImg(e.target.files[0])
-      setFileBackground(URL.createObjectURL(new Blob([e.target.files[0]])))
-    } else {
-      setFileBackground('')
-    }
-  }, [])
-  const onSelectInsta = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFileInstaImg(e.target.files[0])
-      setFileInsta(URL.createObjectURL(new Blob([e.target.files[0]])))
+      setChangeUserData((prev) => ({ ...prev, [key]: e.target.files ? e.target.files[0] : '' }))
+      setShopImgs((prev) => ({ ...prev, [key]: URL.createObjectURL(new Blob([e.target.files ? e.target.files[0] : ''])) }))
     }
   }, [])
 
@@ -74,69 +52,32 @@ const ChangeUserProfile: FC = () => {
 
   const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link) {
-      if (token && user?.seller_user && fileBackgroundImg && fileInstaImg && fileMainImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
-      } else if (token && user?.seller_user && fileBackgroundImg && fileInstaImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg } }))
-      } else if (token && user?.seller_user && fileBackgroundImg && fileMainImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, main_image: fileMainImg } }))
-      } else if (token && user?.seller_user && fileInstaImg && fileMainImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, insta_image: fileInstaImg, main_image: fileMainImg } }))
-      } else if (token && user?.seller_user && fileBackgroundImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg } }))
-      } else if (token && user?.seller_user && fileInstaImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, background_image: fileBackgroundImg, insta_image: fileInstaImg, main_image: fileMainImg } }))
-      } else if (token && user?.seller_user && fileMainImg) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link, main_image: fileMainImg } }))
-      } else if (token && user?.seller_user) {
-        dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { followers: changeUserData.followers, user: changeUserData.user, shop_name: changeUserData.shop_name, product: changeUserData.product, mini_description: changeUserData.mini_description, instagram_link: changeUserData.instagram_link } }))
-      }
+    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http') && user?.seller_user) {
+      token && user.seller_user.id && dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { ...changeUserData } }))
     } else if (!changeUserData.shop_name) {
       setErrorText('Введите название магазина!')
     } else if (!changeUserData.mini_description) {
       setErrorText('Введите описание!')
-    } else if (!changeUserData.instagram_link) {
+    } else if (!changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http')) {
       setErrorText('Введите ссылку на инстаграм!')
     }
   }
 
-  const handleMain = () => {
-    if (fileMain.current) {
-      fileMain.current.focus()
-      fileMain.current.click()
-    }
-  }
-  const handleBackground = () => {
-    if (fileBackground.current) {
-      fileBackground.current.focus()
-      fileBackground.current.click()
-    }
-  }
-  const handleInsta = () => {
-    if (fileInsta.current) {
-      fileInsta.current.focus()
-      fileInsta.current.click()
-    }
-  }
-
-  // console.log(user);
-
   useEffect(() => {
     if (user?.seller_user) {
-      setChangeUserData({
-        ...changeUserData, user: `${user.seller_user?.user}`, product: `${user.seller_user.product}`,
-        shop_name: user.seller_user.shop_name, mini_description: user.seller_user.mini_description, instagram_link: user.seller_user.instagram_link,
-        followers: user.seller_user.followers
-      })
-      if (user.seller_user.background_image && user.seller_user.insta_image && user.seller_user.main_image) {
-        setFileBackground((user.seller_user.background_image && user.seller_user.background_image.startsWith('http')) ? user.seller_user.background_image : user.seller_user.background_image ? pathLink + user.seller_user.background_image : '')
-        setFileInsta((user.seller_user.insta_image && user.seller_user.insta_image.startsWith('http')) ? user.seller_user.insta_image : user.seller_user.insta_image ? pathLink + user.seller_user.insta_image : '')
-        setFileMain((user.seller_user.main_image && user.seller_user.main_image.startsWith('http')) ? user.seller_user.main_image : user.seller_user.main_image ? pathLink + user.seller_user.main_image : '')
+      const changedObj = { ...user?.seller_user }
+      for (let key in changedObj) {
+        if (key === 'id' || key === 'product_count') {
+          delete changedObj[key]
+        }
+        if (key.includes('image') && changedObj[key] !== '') {
+          setShopImgs((prev) => ({ ...prev, [key]: changedObj[key] }))
+        }
       }
+      const data = { ...changedObj, background_image: null, insta_image: null, main_image: null }
+      setChangeUserData(data)
     }
   }, [user?.seller_user])
-  // console.log(imgFileBackground);
 
   return (
     <form onSubmit={handleAddProduct} className={s.change_user_profile}>
@@ -144,21 +85,27 @@ const ChangeUserProfile: FC = () => {
         <title>Изменение данных магазина</title>
       </Helmet>
       <div className={s.bagraund}>
-        <img src={imgFileBackground ? imgFileBackground : defaultImg} alt="background" />
-        <input ref={fileBackground} className={s.hidden} onChange={onSelectBeckground} type="file" accept='image/*' />
-        <div onClick={handleBackground} className={s.onclick_bg}>  <h2>Изменить банер</h2></div>
+        <img src={shopImgs.background_image ? shopImgs.background_image.includes('http') ? shopImgs.background_image : pathLink + shopImgs.background_image : defaultImg} alt="background" />
+        <label htmlFor="background" className={s.onclick_bg}>
+          <input id='background' className={s.hidden} onChange={(e) => toggleImgsFiles(e, 'background_image')} type="file" accept='image/*' />
+          <h2>Изменить банер</h2>
+        </label>
       </div>
       <div className={s.images_main}>
         <div className={s.img_field}>
           <div className={s.main_img}>
-            <img src={imgFileMain ? imgFileMain : defaultImg} alt="main" />
-            <input ref={fileMain} className={s.hidden} onChange={onSelectMain} type="file" accept='image/*' />
-            <div onClick={handleMain} className={s.onclick_bg}><h2>Xотите изменить аватарку?</h2> </div>
+            <img src={shopImgs.main_image ? shopImgs.main_image.includes('http') ? shopImgs.main_image : pathLink + shopImgs.main_image : defaultImg} alt="main" />
+            <label htmlFor="main" className={s.onclick_bg}>
+              <input id='main' className={s.hidden} onChange={(e) => toggleImgsFiles(e, 'main_image')} type="file" accept='image/*' />
+              <h2>Xотите изменить аватарку?</h2>
+            </label>
           </div>
           <div className={s.main_img}>
-            <img src={imgFileInsta ? imgFileInsta : defaultImg} alt="insta" />
-            <input ref={fileInsta} className={s.hidden} onChange={onSelectInsta} type="file" accept='image/*' />
-            <div onClick={handleInsta} className={s.onclick_bg}> <h2>Изменить картинку инстаграма?</h2> </div>
+            <img src={shopImgs.insta_image ? shopImgs.insta_image.includes('http') ? shopImgs.insta_image : pathLink + shopImgs.insta_image : defaultImg} alt="insta" />
+            <label htmlFor="insta" className={s.onclick_bg}>
+              <input id='insta' className={s.hidden} onChange={(e) => toggleImgsFiles(e, 'insta_image')} type="file" accept='image/*' />
+              <h2>Изменить картинку инстаграма?</h2>
+            </label>
           </div>
         </div>
         <div className={s.text_field}>
@@ -176,7 +123,7 @@ const ChangeUserProfile: FC = () => {
           </div>
           <div className={errorText.includes('Введите ссылку на инстаграм!') ? s.error_text : s.input_field}>
             <h2>Ссылка в инстаграм</h2>
-            <input className={s.text_field} value={changeUserData.instagram_link} onChange={e => getChangeUserData('instagram_link', e.target.value)} type="text" placeholder='instagram_link' />
+            <input className={s.text_field} value={changeUserData.instagram_link} onChange={e => getChangeUserData('instagram_link', e.target.value)} type="url" placeholder='instagram_link' />
           </div>
         </div>
       </div>
@@ -184,7 +131,7 @@ const ChangeUserProfile: FC = () => {
         <h5>{errorText}</h5>
         <button>Редактировать профиль</button>
       </div>
-      {(reboot || error?.includes('Упс что-то пошло не так!')) && <SuccessfullUser text={'Профиль успешно редактирован!'} />}
+      {(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Не авторизован!')) && <SuccessfullUser text={'Профиль успешно отредактирован!'} />}
       {loading && <Loading />}
     </form>
   );

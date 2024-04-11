@@ -40,6 +40,7 @@ export const fetchByToken = createAsyncThunk<TokenNodules, string, { rejectValue
 		if (res.status !== 200) {
 			return rejectWithValue('Server error')
 		}
+
 		return res.data
 	})
 
@@ -124,8 +125,10 @@ const userSlice = createSlice({
 
 		addCase(fetchByChangeUserData.rejected, (state, action) => {
 			state.loading = false
-			if (action.error.message?.includes('401')) {
+			if (action.error.message?.includes('400')) {
 				state.error = 'Упс что-то пошло не так!'
+			} else if (action.error.message?.includes('401')) {
+				state.error = 'Не авторизован!'
 			}
 		})
 	},
