@@ -15,10 +15,10 @@ class SellerUserSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        for field_name in ['main_image', 'background_image', 'insta_image']:
-            if field_name in validated_data:
-                if isinstance(validated_data[field_name], str):
-                    validated_data.pop(field_name)
+        for image_field in ['main_image', 'background_image', 'insta_image']:
+            if image_field in validated_data and validated_data[image_field] is None:
+                validated_data.pop(image_field)
+
         return super().update(instance, validated_data)
 
     def get_product_count(self, obj):
