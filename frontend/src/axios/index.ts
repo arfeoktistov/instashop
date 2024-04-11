@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { pathLink } from '../reused'
-import { UserLogin } from '../store/modules'
+import { FeedbackData, UserLogin } from '../store/modules'
 import { IProductsCat, IForAddProduct, IIdToken, IForChangeProduct, IIdTokenShopUser } from '../store/modules'
 
 const instanse = axios.create({
@@ -62,5 +62,11 @@ export const storesApi = {
 	deleteProduct({ id, token }: IIdToken) {
 		const headers = { "Authorization": `Bearer ${token}` }
 		return instanse.delete(`/api/products/products/${id}/`, { headers })
+	},
+	getInfo() {
+		return instanse.get(`/api/info/footerinfo/`)
+	},
+	newFeedback(data: FeedbackData) {
+		return instanse.post(`/api/info/applications/`, data)
 	}
 }

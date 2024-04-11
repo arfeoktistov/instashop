@@ -133,3 +133,16 @@ export type IIdTokenShopUser = {
 	token: string
 	seller_user: IShopSellerUser
 }
+
+export type IInfoData = {
+	id: number
+	phone_number: string
+	instagram_link: string
+}
+
+export type FeedbackData = {
+	name: string
+	phone_number: string
+	instagram_link: string
+	application_text: string
+}

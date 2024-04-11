@@ -3,6 +3,7 @@ import userSlice from './slice/userSlice'
 import detailProfileSlice from './slice/detailProfileSlice'
 import addProductSlice from './slice/addProductSlice'
 import storesSlice from './slice/storesSlice'
+import infoSlice from './slice/infoSlice'
 
 export const store = configureStore({
 	// devTools:false
@@ -11,6 +12,7 @@ export const store = configureStore({
 		profile: detailProfileSlice,
 		addProductSlice: addProductSlice,
 		stores: storesSlice,
+		info: infoSlice,
 	},
 })
 
