@@ -15,18 +15,10 @@ class SellerUserSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        image_fields = ['main_image', 'background_image', 'insta_image']
-        for image_field in image_fields:
-            if image_field in validated_data:
-                value = validated_data[image_field]
-                if isinstance(value, str) or ('http' in value or 'https' in value):
-                    continue
-                else:
-                    setattr(instance, image_field, value)
-
-        for image_field in image_fields:
-            validated_data.pop(image_field, None)
-
+        for field_name in ['main_image', 'background_image', 'insta_image']:
+            if field_name in validated_data:
+                if isinstance(validated_data[field_name], str):
+                    validated_data.pop(field_name)
         return super().update(instance, validated_data)
 
     def get_product_count(self, obj):
