@@ -17,8 +17,8 @@ const Footer: FC = () => {
 			<footer className={s.footer}>
 				<div className={`${s.wrapper} container`}>
 					<div className={s.wrapper__links}>
-						<a href={info?.instagram_link} target='_blank' rel='noopener noreferrer'>Наш инстаграм!</a>
-						<a href={`tel:${info?.phone_number}`}>Телефон: {info?.phone_number}</a>
+						<a href={info?.instagram_link} target='_blank' rel='noopener noreferrer'>Наш Instagram!</a>
+						<a href={`https://wa.me/${info?.phone_number}`} target='_blank' rel='noopener noreferrer'>Наш WhatsApp!</a>
 					</div>
 					<div className={s.wrapper__feedback}>
 						<button onClick={() => setShow(true)}>Хочу стать партнером.</button>
