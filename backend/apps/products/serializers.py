@@ -87,17 +87,12 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         images_data = validated_data.pop('images', None)
 
-        for field, value in validated_data.items():
-            if value != '' and value is not None:
-                setattr(instance, field, value)
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.price = validated_data.get('price', instance.price)
+        instance.image = validated_data.get('image', instance.image)
+        instance.sub_category = validated_data.get('sub_category', instance.sub_category)
         instance.save()
-
-        # instance.name = validated_data.get('name', instance.name)
-        # instance.description = validated_data.get('description', instance.description)
-        # instance.price = validated_data.get('price', instance.price)
-        # instance.image = validated_data.get('image', instance.image)
-        # instance.sub_category = validated_data.get('sub_category', instance.sub_category)
-        # instance.save()
 
         if images_data:
             instance.images.all().delete()
