@@ -69,7 +69,29 @@ class SellerUserViewSet(ModelViewSet):
         responses={200: SellerUserSerializer}
     )
     def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=kwargs.pop('partial', False))
+        serializer.is_valid(raise_exception=True)
+
+        current_main_image = instance.main_image
+        current_background_image = instance.background_image
+        current_insta_image = instance.insta_image
+
+        if 'main_image' in request.data and (isinstance(request.data['main_image'], str) or 'http' in request.data['main_image']):
+            serializer.validated_data['main_image'] = current_main_image
+        if 'background_image' in request.data and (isinstance(request.data['background_image'], str) or 'http' in request.data['background_image']):
+            serializer.validated_data['background_image'] = current_background_image
+        if 'insta_image' in request.data and (isinstance(request.data['insta_image'], str) or 'http' in request.data['insta_image']):
+            serializer.validated_data['insta_image'] = current_insta_image
+
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+
+
 
     @swagger_auto_schema(
         tags=['Магазин'],
