@@ -86,6 +86,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         images_data = validated_data.pop('images', None)
+        image = serializers.ImageField(required=False, allow_null=True)
 
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
