@@ -3,15 +3,10 @@ from rest_framework.viewsets import (
     ReadOnlyModelViewSet,
     GenericViewSet,
 )
-
-
 from drf_yasg import openapi
-
-
 from rest_framework.request import Request
 from rest_framework.response import Response
 from typing import Any
-
 from rest_framework.decorators import action
 
 from .models import Category, SubCategory
