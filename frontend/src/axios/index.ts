@@ -62,5 +62,8 @@ export const storesApi = {
 	deleteProduct({ id, token }: IIdToken) {
 		const headers = { "Authorization": `Bearer ${token}` }
 		return instanse.delete(`/api/products/products/${id}/`, { headers })
+	},
+	getInfo() {
+		return instanse.get(`/api/info/footerinfo/`)
 	}
 }
