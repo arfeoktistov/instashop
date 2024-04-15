@@ -82,7 +82,7 @@ const DetailView: FC = () => {
                                     className="mySwiper2"
                                 >
                                     <SwiperSlide>
-                                        <a className='gallery_item' href={detailview?.image}>
+                                        <a className='gallery_item' href={detailview?.image.startsWith('http') ? `https${detailview?.image.slice(4)}` : pathLink + detailview?.image}>
                                             <img src={detailview?.image.startsWith('http') ? `https${detailview?.image.slice(4)}` : pathLink + detailview?.image} alt={detailview?.name} />
                                         </a>
                                     </SwiperSlide>
@@ -92,7 +92,7 @@ const DetailView: FC = () => {
                                             : detailview && detailview?.images.length > 0 &&
                                             detailview?.images.map((el, i) => (
                                                 <SwiperSlide className='cursor' key={i} >
-                                                    <a className='gallery_item' href={el.image}>
+                                                    <a className='gallery_item' href={el.image.startsWith('http') ? `https${el.image.slice(4)}` : pathLink + el.image}>
                                                         <img src={el.image.startsWith('http') ? `https${el.image.slice(4)}` : pathLink + el.image} alt={detailview.name} />
                                                     </a>
                                                 </SwiperSlide>
