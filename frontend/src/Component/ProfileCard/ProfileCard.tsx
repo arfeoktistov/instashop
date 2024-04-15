@@ -16,7 +16,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ profilCard }) => {
                 <LazyLoadImage
                     alt={`${profilCard.name}`}
                     effect="blur"
-                    src={`${profilCard.image?.startsWith('http') ? profilCard.image : pathLink + profilCard.image}`}
+                    src={`${profilCard.image?.startsWith('http') ? `https${profilCard.image.slice(4)}` : pathLink + profilCard.image}`}
                     className={s.image}
                 />
             </div>
