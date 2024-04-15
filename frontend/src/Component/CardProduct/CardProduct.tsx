@@ -7,6 +7,7 @@ import { ProfileCardModules } from '../../store/modules'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import { fetchByDeleteCard } from '../../store/slice/addProductSlice'
 import DeleteProduct from '../../pages/PersonalProfile/ProductList/DeleteProduct/DeleteProduct'
+import { pathLink } from '../../reused'
 
 const CardProduct: FC<ProfileCardModules> = ({ image, id, name }) => {
 	const dispatch = useAppDispatch()
@@ -16,12 +17,12 @@ const CardProduct: FC<ProfileCardModules> = ({ image, id, name }) => {
 		id && token &&
 			dispatch(fetchByDeleteCard({ id, token }))
 	}
-	// console.log(id);
+	// console.log(image);
 
 	return (
 		<div className={s.CardProduct}>
 			<Link to={`/detailview/${id}`} className={s.photo_product}>
-				<img src={image} alt='photos' />
+				<img src={image.startsWith('http') ? `https${image.slice(4)}` : pathLink + image} alt='photos' />
 			</Link>
 			<div className={s.name_pr}>
 				<NavLink className={s.name} to={`/detailview/${id}`} title={name}>{name.length > 10 ? name.slice(0, 10) + '...' : name}</NavLink>

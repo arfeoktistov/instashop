@@ -45,6 +45,7 @@ const AddPhoto: FC<AddPhotoProps> = ({ deleteImg, setFilesReq, errorText, setErr
 		setPreviewImg([...files].map(file => file.blobUrl))
 	}, [files])
 
+
 	return (
 		<div className={s.AddPhoto}>
 			<label htmlFor="images" className={errorText.includes('Количество картинок от 2 до 6') ? `${s.error_text} ${s.add_photo}` : s.add_photo}>
