@@ -7,11 +7,12 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface ProfileCardProps {
     profilCard: ProfileCardModules
+    id: string | undefined
 }
 
-const ProfileCard: FC<ProfileCardProps> = ({ profilCard }) => {
+const ProfileCard: FC<ProfileCardProps> = ({ profilCard, id }) => {
     return (
-        <Link className={s.card} to={`/detailview/${profilCard.id}`}>
+        <Link className={s.card} to={`/detailview/${profilCard.id}/${id}`}>
             <div className={s.imageClass}>
                 <LazyLoadImage
                     alt={`${profilCard.name}`}

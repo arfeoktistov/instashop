@@ -36,7 +36,7 @@ const Main: FC = () => {
 		<main className='container'>
 			<Routes>
 				<Route path='/' element={<Home />} />
-				<Route path='/detailview/:id' element={<DetailView />} />
+				<Route path='/detailview/:id/:shop' element={<DetailView />} />
 				<Route path='/profile/:id' element={<Profile />} />
 				{
 					token && <>
