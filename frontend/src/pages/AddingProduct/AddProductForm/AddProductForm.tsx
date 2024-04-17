@@ -15,7 +15,7 @@ interface AddProductFormProps {
 const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductCard, productCard, errorText, query, setCategories, categories }) => {
 	const dispatch = useAppDispatch()
 	const { category } = useAppSelector(state => state.addProductSlice)
-	const [subCategories, setSubCategories] = useState<string[]>([])
+	const [subCategories, setSubCategories] = useState<ISubCategory[]>([])
 
 	const getProductCard = (key: string, value: string) => {
 		setProductCard({ ...productCard, [key]: value.trimStart() })
@@ -27,12 +27,13 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 
 	useEffect(() => {
 		if (categories) {
-			category.filter((el) => el.name === categories && setSubCategories([...el.sub_categories].map(el => el.name)))
+			category.filter((el) => el.name === categories && setSubCategories([...el.sub_categories]))
 		} else if (categories === '') {
 			setSubCategories([])
 		}
 	}, [categories])
 
+	// console.log(subCategories);
 	return (
 		<form onSubmit={handleAddProduct} className={s.add_form}>
 			<div className={s.field_to_fill}>
@@ -66,7 +67,7 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 							<h2>Выберите Категорию</h2>
 							<select value={productCard.sub_category ? productCard.sub_category : ''} onChange={e => getProductCard('sub_category', e.target.value)} className={s.category}>
 								<option disabled value=''>Выберите подкатегорию</option>
-								{category.length > 0 && subCategories.sort().map((el, i) => <option key={i} value={el}>{el}</option>)}
+								{category.length > 0 && subCategories.sort((a, b) => +a.name - +b.name).map((el) => <option key={el.id} value={el.id}>{el.name}</option>)}
 							</select>
 						</div>
 					}

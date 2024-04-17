@@ -3,15 +3,14 @@ import s from './Login.module.scss'
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
-import { fetchByLogin, toggleRedirect } from '../../store/slice/userSlice'
+import { fetchByLogin, setLogin, toggleRedirect } from '../../store/slice/userSlice'
 import { UserLogin } from '../../store/modules'
 import { validateEmail } from '../../reused'
 import Loading from '../../Component/Loading/Loading'
 interface LoginProps {
-	setLogin: (e: boolean) => void
 	login: boolean
 }
-const Login: FC<LoginProps> = ({ login, setLogin }) => {
+const Login: FC<LoginProps> = ({ login }) => {
 	const [showPassword1, setShowPassword1] = useState(false)
 	const dispatch = useAppDispatch()
 	const { error, loading, redirect } = useAppSelector(state => state.user)
@@ -25,9 +24,13 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 		password: ''
 	})
 
+	const handleLogin = (value: boolean) => {
+		dispatch(setLogin(value))
+	}
+
 	useEffect(() => {
 		if (redirect) {
-			setLogin(false)
+			handleLogin(false)
 		}
 		return () => {
 			dispatch(toggleRedirect(false))
@@ -60,12 +63,12 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 		document.body.style.overflow = 'hidden'
 		// При нажатии на ESC закрыть модальное окно
 		document.addEventListener('keydown', e => {
-			e.code === 'Escape' && setLogin(false)
+			e.code === 'Escape' && handleLogin(false)
 		})
 		// При рождении навесит другое событие на кнопку назад у браузера
 		if (login) {
 			window.history.pushState(null, '', window.location.href)
-			window.onpopstate = () => setLogin(false)
+			window.onpopstate = () => handleLogin(false)
 		}
 
 		return () => {
@@ -84,10 +87,10 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 	}
 
 	return (
-		<div className={s.login} onClick={() => setLogin(false)}>
+		<div className={s.login} onClick={() => handleLogin(false)}>
 			<div className={s.modal_login} onClick={e => e.stopPropagation()}>
 				<form onSubmit={handleSubmit} className={s.form}>
-					<span onClick={() => setLogin(false)} className={s.closed}>
+					<span onClick={() => handleLogin(false)} className={s.closed}>
 						&#10006;
 					</span>
 					<h2 >Вход</h2>
@@ -130,7 +133,7 @@ const Login: FC<LoginProps> = ({ login, setLogin }) => {
 						</FormControl>
 					</div>
 					<div className={s.bottom_login}>
-						<h5 className={s.error_text}>{error?.includes('Логин или пароль неправильно введён!') ? error : error?.includes('Упс что-то пошло не так попробуйте снова!') ? error : ''} </h5>
+						<h5 className={s.error_text}>{(error?.includes('Логин или пароль неправильно введён!') || error?.includes('Упс что-то пошло не так попробуйте снова!') || error?.includes('Пожалуйста, залогиньтесь!')) ? error : ''} </h5>
 						<button>Вход</button>
 					</div>
 				</form>
