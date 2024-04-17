@@ -24,6 +24,7 @@ export type ISellerUser = {
 	shop_name: string
 	user: number | string
 	followers: string
+	whatsapp_number: string
 }
 
 export type TokenNodules = {

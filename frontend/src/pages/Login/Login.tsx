@@ -3,7 +3,7 @@ import s from './Login.module.scss'
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
-import { fetchByLogin, setLogin, toggleRedirect } from '../../store/slice/userSlice'
+import { changeError, fetchByLogin, setLogin, toggleRedirect } from '../../store/slice/userSlice'
 import { UserLogin } from '../../store/modules'
 import { validateEmail } from '../../reused'
 import Loading from '../../Component/Loading/Loading'
@@ -79,6 +79,7 @@ const Login: FC<LoginProps> = ({ login }) => {
 			// При закрытии вернуть действие по умолчанию на кнопку назад в браузере
 			if (!login) window.history.back()
 			window.onpopstate = () => { }
+			dispatch(changeError(null))
 		}
 	}, [])
 
@@ -96,14 +97,7 @@ const Login: FC<LoginProps> = ({ login }) => {
 					<h2 >Вход</h2>
 					<div className={s.username}>
 						<h3 className={errorText.includes('Email не правильно введён') ? s.error_text : ''}>Введите Логин </h3>
-						<TextField
-							className={s.input_username}
-							value={userData.email}
-							onChange={e => getUserData('email', e.target.value.toLowerCase())}
-							label='Email'
-							type='text'
-							autoComplete='current-username'
-						/>
+						<TextField className={s.input_username} value={userData.email} onChange={e => getUserData('email', e.target.value.toLowerCase())} label='Email' type='text' autoComplete='current-username' />
 					</div>
 					<div className={s.password}>
 						<h3 className={errorText.includes('Введите пароль') ? s.error_text : ''} >Введите Пароль</h3>
@@ -111,19 +105,10 @@ const Login: FC<LoginProps> = ({ login }) => {
 							<InputLabel htmlFor='outlined-adornment-password'>
 								Пароль
 							</InputLabel>
-							<OutlinedInput
-								value={userData.password}
-								onChange={e => getUserData('password', e.target.value)}
-								className={s.input_password}
-								type={showPassword1 ? 'text' : 'password'}
+							<OutlinedInput value={userData.password} onChange={e => getUserData('password', e.target.value)} className={s.input_password} type={showPassword1 ? 'text' : 'password'}
 								endAdornment={
 									<InputAdornment position='end'>
-										<IconButton
-											aria-label='toggle password visibility'
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-											edge='end'
-										>
+										<IconButton aria-label='toggle password visibility' onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge='end'>
 											{showPassword1 ? <VisibilityOff /> : <Visibility />}
 										</IconButton>
 									</InputAdornment>
@@ -133,7 +118,7 @@ const Login: FC<LoginProps> = ({ login }) => {
 						</FormControl>
 					</div>
 					<div className={s.bottom_login}>
-						<h5 className={s.error_text}>{(error?.includes('Логин или пароль неправильно введён!') || error?.includes('Упс что-то пошло не так попробуйте снова!') || error?.includes('Пожалуйста, залогиньтесь!')) ? error : ''} </h5>
+						<h5 className={s.error_text}>{(error?.includes('Логин или пароль неправильно введён!') || error?.includes('Упс что-то пошло не так попробуйте снова!')) ? error : ''} </h5>
 						<button>Вход</button>
 					</div>
 				</form>
