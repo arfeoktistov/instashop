@@ -38,6 +38,7 @@ const Profile: FC = () => {
 			navigate('/')
 		}
 	}
+	// console.log(profile);
 
 	return (
 		<div >

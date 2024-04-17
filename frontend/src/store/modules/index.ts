@@ -45,6 +45,7 @@ export type DetailProfile = {
 	product_count: number
 	instagram_link: string
 	background_image: string
+	whatsapp_number: string
 }
 export type ImagesMas = {
 	image: string
