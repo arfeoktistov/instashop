@@ -24,6 +24,7 @@ import 'lightgallery/css/lg-thumbnail.css';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import { Helmet } from 'react-helmet-async';
+import { pathLink } from '../../reused';
 
 
 
@@ -57,7 +58,7 @@ const DetailView: FC = () => {
             <Helmet>
                 <meta property="og:title" content={`${detailview?.name} | AGREGAGATOR`} />
                 <meta name="twitter:title" content={`${detailview?.name} | AGREGAGATOR`} />
-                <link rel="canonical" href={`http://agregagator.gagaga.kg/detailview/${id}`} />
+                <link rel="canonical" href={`https://agregagator.gagaga.kg/detailview/${id}`} />
                 <title>{detailview?.name ? detailview?.name : ''} | AGREGAGATOR</title>
             </Helmet>
             {
@@ -81,8 +82,8 @@ const DetailView: FC = () => {
                                     className="mySwiper2"
                                 >
                                     <SwiperSlide>
-                                        <a className='gallery_item' href={detailview?.image}>
-                                            <img src={detailview?.image} alt={detailview?.name} />
+                                        <a className='gallery_item' href={detailview?.image.startsWith('http') ? `https${detailview?.image.slice(4)}` : pathLink + detailview?.image}>
+                                            <img src={detailview?.image.startsWith('http') ? `https${detailview?.image.slice(4)}` : pathLink + detailview?.image} alt={detailview?.name} />
                                         </a>
                                     </SwiperSlide>
                                     {
@@ -91,8 +92,8 @@ const DetailView: FC = () => {
                                             : detailview && detailview?.images.length > 0 &&
                                             detailview?.images.map((el, i) => (
                                                 <SwiperSlide className='cursor' key={i} >
-                                                    <a className='gallery_item' href={el.image}>
-                                                        <img src={el.image} alt={detailview.name} />
+                                                    <a className='gallery_item' href={el.image.startsWith('http') ? `https${el.image.slice(4)}` : pathLink + el.image}>
+                                                        <img src={el.image.startsWith('http') ? `https${el.image.slice(4)}` : pathLink + el.image} alt={detailview.name} />
                                                     </a>
                                                 </SwiperSlide>
                                             ))
@@ -109,7 +110,7 @@ const DetailView: FC = () => {
                                     className="mySwiper"
                                 >
                                     <SwiperSlide>
-                                        <img src={detailview?.image} alt="img" />
+                                        <img src={detailview?.image.startsWith('http') ? `https${detailview?.image.slice(4)}` : pathLink + detailview?.image} alt={detailview.name} />
                                     </SwiperSlide>
                                     {
                                         error ?
@@ -117,7 +118,7 @@ const DetailView: FC = () => {
                                             : detailview && detailview?.images.length > 0 &&
                                             detailview?.images.map((el, i) => (
                                                 <SwiperSlide className='cursor' key={i} >
-                                                    <img src={el.image} />
+                                                    <img src={el.image.startsWith('http') ? `https${el.image.slice(4)}` : pathLink + el.image} alt={detailview.name} />
                                                 </SwiperSlide>
                                             ))
                                     }

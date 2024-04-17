@@ -30,7 +30,7 @@ const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) 
 					<LazyLoadImage
 						alt={`${shop_name}`}
 						effect="blur"
-						src={`${main_image?.startsWith('http') ? main_image : pathLink + main_image}`}
+						src={`${main_image?.startsWith('http') ? `https${main_image.slice(4)}` : pathLink + main_image}`}
 						className={s.image}
 					/>
 					{/* <div className={s.up_field}>

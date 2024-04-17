@@ -1,4 +1,4 @@
-export const pathLink = 'http://agregagator.gagaga.kg:8080'
+export const pathLink = 'https://agregagator.gagaga.kg:443'
 
 export const validateEmail = (email: string) => {
   const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

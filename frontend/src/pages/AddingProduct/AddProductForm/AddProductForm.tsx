@@ -14,24 +14,26 @@ interface AddProductFormProps {
 }
 const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductCard, productCard, errorText, query, setCategories, categories }) => {
 	const dispatch = useAppDispatch()
-	useEffect(() => {
-		dispatch(fetchByAllCategory())
-	}, [dispatch])
+	const { category } = useAppSelector(state => state.addProductSlice)
 	const [subCategories, setSubCategories] = useState<ISubCategory[]>([])
+
 	const getProductCard = (key: string, value: string) => {
 		setProductCard({ ...productCard, [key]: value.trimStart() })
 	}
-	const { category } = useAppSelector(state => state.addProductSlice)
+
+	useEffect(() => {
+		dispatch(fetchByAllCategory())
+	}, [dispatch])
 
 	useEffect(() => {
 		if (categories) {
-			category.filter((el) => el.name === categories && setSubCategories(el.sub_categories))
+			category.filter((el) => el.name === categories && setSubCategories([...el.sub_categories]))
 		} else if (categories === '') {
 			setSubCategories([])
 		}
 	}, [categories])
 
-
+	// console.log(subCategories);
 	return (
 		<form onSubmit={handleAddProduct} className={s.add_form}>
 			<div className={s.field_to_fill}>
@@ -56,7 +58,7 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 					<div className={s.right_part_field}>
 						<h2>Выберите Категорию</h2>
 						<select value={categories} onChange={(e) => setCategories(e.target.value)} className={s.category}>
-							<option value=''>Выберите категорию</option>
+							<option disabled value=''>Выберите категорию</option>
 							{category.length > 0 && category.map(el => <option key={el.id} value={el.name}>{el.name}</option>)}
 						</select>
 					</div>
@@ -64,8 +66,8 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 						<div className={errorText.includes('Введите подкатегорию!') ? `${s.error_text} ${s.right_part_field}` : s.right_part_field}>
 							<h2>Выберите Категорию</h2>
 							<select value={productCard.sub_category ? productCard.sub_category : ''} onChange={e => getProductCard('sub_category', e.target.value)} className={s.category}>
-								<option value=''>Выберите подкатегорию</option>
-								{category.length > 0 && subCategories.map(el => <option key={el.id} value={el.id}>{el.name}</option>)}
+								<option disabled value=''>Выберите подкатегорию</option>
+								{category.length > 0 && subCategories.sort((a, b) => +a.name - +b.name).map((el) => <option key={el.id} value={el.id}>{el.name}</option>)}
 							</select>
 						</div>
 					}

@@ -48,6 +48,7 @@
 			text-align: left;
 			white-space: nowrap;
 			width: 40%;
+			@include rubik700;
 
 			@include tablet {
 				font-size: 14px;

@@ -47,15 +47,15 @@ const Profile: FC = () => {
 					<Helmet>
 						<meta property="og:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
 						<meta name="twitter:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
-						<link rel="canonical" href={`http://agregagator.gagaga.kg/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
+						<link rel="canonical" href={`https://agregagator.gagaga.kg/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
 						<title>{`${profile?.shop_name ? profile?.shop_name : ''} | AGREGAGATOR`}</title>
 					</Helmet>
 					<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 					<div className={s.backround} style={{
-						backgroundImage: `url(${profile?.background_image ? profile?.background_image : defBack}) `
+						backgroundImage: `url(${profile?.background_image ? `https${profile?.background_image.slice(4)}` : defBack}) `
 					}}>
 						<div className={s.profileDiv}>
-							<img className={s.profile} src={profile?.insta_image ? profile?.insta_image : defStatus} alt="insta_photo" />
+							<img className={s.profile} src={profile?.insta_image ? `https${profile?.insta_image.slice(4)}` : defStatus} alt="insta_photo" />
 							<h1>{profile?.shop_name}</h1>
 						</div>
 						<div className={s.stats}>
