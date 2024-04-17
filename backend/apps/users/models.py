@@ -76,6 +76,7 @@ class SellerUser(models.Model):
     instagram_link = models.CharField(max_length=150, verbose_name='Ссылка инстаграм', default='')
     product = models.IntegerField(verbose_name='Количество товаров', default=0)
     followers = models.IntegerField(verbose_name='Количество подписчиков', default=0)
+    whatsapp_number = models.CharField(max_length=25, verbose_name='Номер Whatsapp', default='', null=True, blank=True)
 
     def __str__(self):
         return self.user.email
