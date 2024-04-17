@@ -115,6 +115,7 @@ const userSlice = createSlice({
 			state.loading = false
 			if (action.error.message?.includes('401')) {
 				removeLSToken()
+				state.token = null
 				state.login = true
 				state.error = 'Пожалуйста, залогиньтесь!'
 			}
