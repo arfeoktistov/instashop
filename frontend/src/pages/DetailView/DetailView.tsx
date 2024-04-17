@@ -30,7 +30,8 @@ import { pathLink } from '../../reused';
 
 const DetailView: FC = () => {
     const navigate = useNavigate()
-    const { detailview, error } = useAppSelector(state => state.profile)
+    const { detailview, profile, error } = useAppSelector(state => state.profile)
+
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
     const dispatch = useAppDispatch()
@@ -52,6 +53,7 @@ const DetailView: FC = () => {
             dispatch(clearDetail())
         }
     }, [])
+    // console.log(detailview);
 
     return (
         <>
@@ -136,9 +138,9 @@ const DetailView: FC = () => {
                                         <a href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
                                             <img src={insta} alt="img" />
                                         </a>
-                                        {/* <a href="" target="_blank" rel='noopener noreferrer'>
-                                        <img src={wh} alt="img" />
-                                    </a> */}
+                                        <a href={`https://wa.me/996705240820?text=Здравствуйте,%20понравилься%20этот%20товар%20на%20сайте%20agregagator.gagaga.kg/detailview/${id}.`} target="_blank" rel='noopener noreferrer'>
+                                            <img src={wh} alt="img" />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
