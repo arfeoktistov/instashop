@@ -81,7 +81,7 @@ const Profile: FC = () => {
 							error ?
 								<span className='error animate__backOutUp animate__animated'>{error}</span>
 								:
-								profileCard.length > 0 && profileCard.map(el => <ProfileCard key={el.id} profilCard={el} />)}
+								profileCard.length > 0 && profileCard.map(el => <ProfileCard id={id} key={el.id} profilCard={el} />)}
 					</div>
 				</>
 			}
