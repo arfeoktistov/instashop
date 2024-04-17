@@ -10,7 +10,7 @@ const ProductList: FC = () => {
 	const { profileCard, reboot } = useAppSelector(state => state.addProductSlice)
 
 	useEffect(() => {
-		user && user?.seller_user &&
+		user && user.seller_user?.id &&
 			dispatch(fetchByGetCard(user.seller_user?.id))
 	}, [dispatch, user, reboot])
 
