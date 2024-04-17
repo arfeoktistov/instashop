@@ -10,6 +10,7 @@ type UserState = {
 	redirect: boolean
 	reboot: boolean
 	user: null | TokenNodules
+	login: boolean
 }
 
 const initialState: UserState = {
@@ -19,6 +20,7 @@ const initialState: UserState = {
 	reboot: false,
 	redirect: false,
 	user: null,
+	login: false
 }
 // Авторизация
 export const fetchByLogin = createAsyncThunk<GetToken, UserLogin, { rejectValue: string }>(
@@ -73,6 +75,9 @@ const userSlice = createSlice({
 			state.user = null
 			removeLSToken()
 		},
+		setLogin(state, action: PayloadAction<boolean>) {
+			state.login = action.payload
+		},
 	},
 	extraReducers: ({ addCase }) => {
 		// ===============
@@ -109,7 +114,9 @@ const userSlice = createSlice({
 		addCase(fetchByToken.rejected, (state, action) => {
 			state.loading = false
 			if (action.error.message?.includes('401')) {
-				state.error = 'Токен не правильный!'
+				removeLSToken()
+				state.login = true
+				state.error = 'Пожалуйста, залогиньтесь!'
 			}
 		})
 
@@ -133,5 +140,5 @@ const userSlice = createSlice({
 		})
 	},
 })
-export const { toggleRedirect, setToken, logOutUser, changeError } = userSlice.actions
+export const { toggleRedirect, setToken, logOutUser, changeError, setLogin } = userSlice.actions
 export default userSlice.reducer
