@@ -97,7 +97,7 @@ class CategoryViewSet(ModelViewSet):
     @swagger_auto_schema(
         tags=['Категории'],
         operation_summary="Создать новую категорию",
-        operation_description="Создает новую категорию с указанным именем.",
+        operation_description="c.",
         request_body=CategorySerializer,
         responses={
             201: openapi.Response(
@@ -166,14 +166,14 @@ class SubCategoryViewSet(ModelViewSet):
 
     @swagger_auto_schema(
         tags=['Подкатегории'],
-        operation_summary="Получить список всех подкатегорий",
-        operation_description="Возвращает список всех доступных подкатегорий в системе.",
-        responses={
-            200: openapi.Response(
-                description="Список подкатегорий успешно получен.",
-                schema=SubCategorySerializer(many=True),
-            ),
-        }
+            operation_summary="Получить список всех подкатегорий",
+            operation_description="Возвращает список всех доступных подкатегорий в системе.",
+            responses={
+                200: openapi.Response(
+                    description="Список подкатегорий успешно получен.",
+                    schema=SubCategorySerializer(many=True),
+                ),
+            }
     )
     def list(self, request, *args, **kwargs):
         """Возвращает список всех подкатегорий."""
@@ -196,7 +196,7 @@ class SubCategoryViewSet(ModelViewSet):
         """Создает новую подкатегорию."""
         return super().create(request, *args, **kwargs)
 
-    swagger_auto_schema(
+    @swagger_auto_schema(
         tags=['Подкатегории'],
         operation_summary="Получить детали подкатегории по ID",
         operation_description="Возвращает детали конкретной подкатегории по её ID.",

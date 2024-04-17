@@ -24,6 +24,7 @@ export type ISellerUser = {
 	shop_name: string
 	user: number | string
 	followers: string
+	whatsapp_number: string
 }
 
 export type TokenNodules = {
@@ -45,6 +46,7 @@ export type DetailProfile = {
 	product_count: number
 	instagram_link: string
 	background_image: string
+	whatsapp_number: string
 }
 export type ImagesMas = {
 	image: string
