@@ -132,7 +132,9 @@ const AddingProduct: FC = () => {
 	const goBack = () => {
 		navigate(-1)
 	}
-
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 	return (
 		<div className={s.AddingProduct}>
 			<Helmet>
