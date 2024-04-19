@@ -13,6 +13,9 @@ const Home: FC = () => {
 	useEffect(() => {
 		!all_categories.length && dispatch(getAllDataForCategories())
 	}, [dispatch])
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 	return (
 		<div>
 			<Helmet>

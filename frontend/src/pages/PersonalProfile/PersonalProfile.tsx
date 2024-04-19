@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import s from './PersonalProfile.module.scss'
 import ikon from '../../assets/Header/ikon.png'
 import ProductList from './ProductList/ProductList'
@@ -19,7 +19,9 @@ const PersonalProfile: FC = () => {
 	const goBack = () => {
 		navigate(-1)
 	}
-
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 	return (
 		<div className={s.PersonalProfile}>
 			<Helmet>
