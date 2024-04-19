@@ -136,11 +136,11 @@ const DetailView: FC = () => {
                                     <h2>{Math.ceil(detailview?.price ? +detailview?.price : 0)} сом</h2>
                                     <div className='detailDisplay'>
                                         <a className='whA' href={`https://wa.me/${profile?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
-                                            <p>Связатся в </p>
+                                            <p>Связатся в WhatsApp</p>
                                             <img src={wh} alt="img" />
                                         </a>
                                         <a className='instA' href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
-                                            <p>Связатся в </p>
+                                            <p>Связатся в Instagram</p>
                                             <img className='inst' src={insta} alt="img" />
                                         </a>
                                     </div>
