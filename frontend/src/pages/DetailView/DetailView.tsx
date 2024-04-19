@@ -8,9 +8,9 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import insta from '../../assets/DetailView/pngwing.com.png'
-import wh from '../../assets/DetailView/WhatsApp_icon.png'
-import arrow from '../../assets/Profile/Icon arrow left.png'
+import insta from '../../assets/DetailView/insta.png'
+import wh from '../../assets/DetailView/whatsapp.png'
+import arrow from '../../assets/DetailView/leftArrow.png'
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
@@ -135,11 +135,11 @@ const DetailView: FC = () => {
                                     <h1>{detailview?.name}</h1>
                                     <h2>{Math.ceil(detailview?.price ? +detailview?.price : 0)} сом</h2>
                                     <div className='detailDisplay'>
-                                        <a href={`https://wa.me/${profile?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
+                                        <a className='whA' href={`https://wa.me/${profile?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
                                             <p>Связатся в </p>
                                             <img src={wh} alt="img" />
                                         </a>
-                                        <a href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
+                                        <a className='instA' href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
                                             <p>Связатся в </p>
                                             <img className='inst' src={insta} alt="img" />
                                         </a>

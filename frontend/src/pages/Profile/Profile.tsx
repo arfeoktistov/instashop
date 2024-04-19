@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import s from './Profile.module.scss'
-import arrow from '../../assets/Profile/Icon arrow left.png'
+import arrow from '../../assets/DetailView/leftArrow.png'
 import defBack from '../../assets/Profile/back.png'
 import defStatus from '../../assets/Profile/status.png'
 import ProfileCard from '../../Component/ProfileCard/ProfileCard'
