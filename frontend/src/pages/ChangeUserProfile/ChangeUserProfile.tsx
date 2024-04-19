@@ -8,9 +8,13 @@ import defaultImg from '../../assets/PersonalProfile/default.png'
 import Loading from '../../Component/Loading/Loading';
 import SuccessfullUser from './SuccessfullUser/SuccessfullUser';
 import { Helmet } from 'react-helmet-async';
+import arrow from '../../assets/DetailView/leftArrow.png'
+import { useNavigate } from 'react-router-dom';
 
 const ChangeUserProfile: FC = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const { user, token } = useAppSelector(state => state.user)
   const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
@@ -84,11 +88,17 @@ const ChangeUserProfile: FC = () => {
     }
   }, [user?.seller_user])
 
+  const goBack = () => {
+    navigate(-1)
+  }
+
   return (
     <form onSubmit={handleAddProduct} className={s.change_user_profile}>
       <Helmet>
         <title>Изменение данных магазина</title>
       </Helmet>
+      <img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
+
       <div className={s.bagraund}>
         <img src={shopImgs.background_image ? shopImgs.background_image.includes('http') ? `https${shopImgs.background_image.slice(4)}` : pathLink + shopImgs.background_image : defaultImg} alt="background" />
         <label htmlFor="background" className={s.onclick_bg}>
