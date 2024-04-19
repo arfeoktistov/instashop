@@ -91,7 +91,9 @@ const ChangeUserProfile: FC = () => {
   const goBack = () => {
     navigate(-1)
   }
-
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <form onSubmit={handleAddProduct} className={s.change_user_profile}>
       <Helmet>

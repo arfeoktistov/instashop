@@ -12,16 +12,14 @@ import { pathLink } from '../../reused'
 const CardProduct: FC<ProfileCardModules> = ({ image, id, name }) => {
 	const dispatch = useAppDispatch()
 	const [logOut, setLogOut] = useState(false)
-	const { token } = useAppSelector(state => state.user)
+	const { token, user } = useAppSelector(state => state.user)
 	const handleDeleteCard = () => {
 		id && token &&
 			dispatch(fetchByDeleteCard({ id, token }))
 	}
-	// console.log(image);
-
 	return (
 		<div className={s.CardProduct}>
-			<Link to={`/detailview/${id}`} className={s.photo_product}>
+			<Link to={`/detailview/${id}/${user?.seller_user?.id}`} className={s.photo_product}>
 				<img src={image.startsWith('http') ? `https${image.slice(4)}` : pathLink + image} alt='photos' />
 			</Link>
 			<div className={s.name_pr}>
