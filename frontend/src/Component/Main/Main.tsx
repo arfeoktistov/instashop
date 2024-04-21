@@ -14,7 +14,7 @@ import ChangeUserProfile from '../../pages/ChangeUserProfile/ChangeUserProfile'
 const Main: FC = () => {
 	const [searchParams] = useSearchParams()
 	const dispatch = useAppDispatch()
-	const { token, reboot } = useAppSelector(state => state.user)
+	const { token, reboot, login } = useAppSelector(state => state.user)
 
 	useEffect(() => {
 		let lsToken = getLSToken()
@@ -24,9 +24,10 @@ const Main: FC = () => {
 	}, [dispatch])
 
 	useEffect(() => {
-		token &&
+		if (token) {
 			dispatch(fetchByToken(token))
-	}, [dispatch, token, reboot])
+		}
+	}, [dispatch, token, reboot, login])
 
 	useEffect(() => {
 		!searchParams.get('c') && dispatch(getAllStores())
@@ -36,7 +37,7 @@ const Main: FC = () => {
 		<main className='container'>
 			<Routes>
 				<Route path='/' element={<Home />} />
-				<Route path='/detailview/:id' element={<DetailView />} />
+				<Route path='/detailview/:id/:shop' element={<DetailView />} />
 				<Route path='/profile/:id' element={<Profile />} />
 				{
 					token && <>

@@ -1,24 +1,34 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import s from './PersonalProfile.module.scss'
 import ikon from '../../assets/Header/ikon.png'
 import ProductList from './ProductList/ProductList'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate, useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../store/hooks/hooks'
 import SuccessfullRequest from '../AddingProduct/SuccessfullRequest/SuccessfullRequest'
 import { pathLink } from '../../reused'
 import LogOut from './LogOut/LogOut'
 import { Helmet } from 'react-helmet-async'
-
+import arrow from '../../assets/DetailView/leftArrow.png'
 const PersonalProfile: FC = () => {
+	const navigate = useNavigate()
+
 	const { user } = useAppSelector(state => state.user)
 	const [logOut, setLogOut] = useState(false)
 	const { error, reboot } = useAppSelector(state => state.addProductSlice)
 
+	const goBack = () => {
+		navigate(-1)
+	}
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 	return (
 		<div className={s.PersonalProfile}>
 			<Helmet>
 				<title>{user?.first_name || ''} {user?.last_name || ''} | Профиль</title>
 			</Helmet>
+			<img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
+
 			<div className={s.profile}>
 				<div className={s.user_data}>
 					<div className={s.avatar}><img src={(typeof user?.seller_user?.insta_image === "string" && user?.seller_user?.insta_image.startsWith('http')) ? `https${user?.seller_user?.insta_image.slice(4)}` : user?.seller_user?.insta_image ? pathLink + user?.seller_user?.insta_image : ikon} alt="avatar" /></div>

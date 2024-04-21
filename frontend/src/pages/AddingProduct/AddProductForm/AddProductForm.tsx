@@ -28,11 +28,20 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 	useEffect(() => {
 		if (categories) {
 			category.filter((el) => el.name === categories && setSubCategories([...el.sub_categories]))
+
 		} else if (categories === '') {
 			setSubCategories([])
 		}
 	}, [categories])
-
+	const sorted = subCategories.sort((a, b) => {
+		if (a.name.toLowerCase() < b.name.toLowerCase()) {
+			return -1;
+		}
+		if (a.name.toLowerCase() > b.name.toLowerCase()) {
+			return 1;
+		}
+		return 0;
+	});
 	// console.log(subCategories);
 	return (
 		<form onSubmit={handleAddProduct} className={s.add_form}>
@@ -67,7 +76,7 @@ const AddProductForm: FC<AddProductFormProps> = ({ handleAddProduct, setProductC
 							<h2>Выберите Категорию</h2>
 							<select value={productCard.sub_category ? productCard.sub_category : ''} onChange={e => getProductCard('sub_category', e.target.value)} className={s.category}>
 								<option disabled value=''>Выберите подкатегорию</option>
-								{category.length > 0 && subCategories.sort((a, b) => +a.name - +b.name).map((el) => <option key={el.id} value={el.id}>{el.name}</option>)}
+								{category.length > 0 && sorted.map((el) => <option key={el.id} value={el.id}>{el.name}</option>)}
 							</select>
 						</div>
 					}

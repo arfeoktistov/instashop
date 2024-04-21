@@ -14,6 +14,7 @@
 
 .arrow {
     cursor: pointer;
+    width: 40px;
 }
 
 .display {
@@ -231,4 +232,140 @@
     display: flex;
 
 
+}
+
+.detailDisplay {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 60%;
+        height: 50px;
+        padding: 5px;
+        padding-left: 20px;
+        border-radius: 10px;
+        background-color: #25D366;
+        margin-bottom: 5px;
+
+
+    }
+
+    @media(max-width:1550px) {
+        a {
+            width: 50%;
+        }
+    }
+
+    @media(max-width:1275px) {
+        a {
+            width: 60%;
+        }
+    }
+
+    @media(max-width:1075px) {
+        a {
+            width: 100%;
+
+
+        }
+    }
+
+    @media(max-width:767px) {
+        a {
+            width: 33%;
+
+
+        }
+    }
+
+    @media(max-width:450px) {
+        a {
+            width: 45%;
+
+
+        }
+    }
+
+    .instA {
+        background: #897994;
+        background: linear-gradient(to right,
+                #fcb045, #fd1d1d, #833ab4);
+
+        p {
+            color: white;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 130%;
+            letter-spacing: 0px;
+            text-align: left;
+            @include montserrat400;
+        }
+
+        @media(max-width:1075px) {
+            p {
+                font-size: 12px;
+            }
+        }
+
+        @media(max-width:767px) {
+            p {
+                font-size: 18px;
+            }
+        }
+
+        @media(max-width:525px) {
+            p {
+                font-size: 14px;
+            }
+        }
+
+
+        .inst {
+            width: 35px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .whA {
+
+        p {
+            color: white;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 130%;
+            letter-spacing: 0px;
+            text-align: left;
+            @include montserrat400;
+        }
+
+        @media(max-width:1075px) {
+            p {
+                font-size: 12px;
+            }
+        }
+
+        @media(max-width:767px) {
+            p {
+                font-size: 18px;
+            }
+        }
+
+        @media(max-width:525px) {
+            p {
+                font-size: 14px;
+            }
+        }
+
+        img {
+            width: 35px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
 }

@@ -8,9 +8,13 @@ import defaultImg from '../../assets/PersonalProfile/default.png'
 import Loading from '../../Component/Loading/Loading';
 import SuccessfullUser from './SuccessfullUser/SuccessfullUser';
 import { Helmet } from 'react-helmet-async';
+import arrow from '../../assets/DetailView/leftArrow.png'
+import { useNavigate } from 'react-router-dom';
 
 const ChangeUserProfile: FC = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const { user, token } = useAppSelector(state => state.user)
   const [errorText, setErrorText] = useState('')
   const { error, loading, reboot } = useAppSelector(state => state.user)
@@ -28,7 +32,8 @@ const ChangeUserProfile: FC = () => {
     mini_description: '',
     shop_name: '',
     product_count: '',
-    user: ''
+    user: '',
+    whatsapp_number: ''
   })
 
   const getChangeUserData = (key: string, value: string) => {
@@ -48,11 +53,13 @@ const ChangeUserProfile: FC = () => {
     changeUserData.mini_description && setErrorText('')
   } else if (errorText.includes('Введите ссылку на инстаграм!')) {
     changeUserData.instagram_link && setErrorText('')
+  } else if (errorText.includes('Введите номер whatsApp!')) {
+    changeUserData.whatsapp_number && setErrorText('')
   }
 
   const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http') && user?.seller_user) {
+    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http') && user?.seller_user && changeUserData.whatsapp_number) {
       token && user.seller_user.id && dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { ...changeUserData } }))
     } else if (!changeUserData.shop_name) {
       setErrorText('Введите название магазина!')
@@ -60,6 +67,8 @@ const ChangeUserProfile: FC = () => {
       setErrorText('Введите описание!')
     } else if (!changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http')) {
       setErrorText('Введите ссылку на инстаграм!')
+    } else if (!changeUserData.whatsapp_number) {
+      setErrorText('Введите номер whatsApp!')
     }
   }
 
@@ -79,11 +88,19 @@ const ChangeUserProfile: FC = () => {
     }
   }, [user?.seller_user])
 
+  const goBack = () => {
+    navigate(-1)
+  }
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <form onSubmit={handleAddProduct} className={s.change_user_profile}>
       <Helmet>
         <title>Изменение данных магазина</title>
       </Helmet>
+      <img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
+
       <div className={s.bagraund}>
         <img src={shopImgs.background_image ? shopImgs.background_image.includes('http') ? `https${shopImgs.background_image.slice(4)}` : pathLink + shopImgs.background_image : defaultImg} alt="background" />
         <label htmlFor="background" className={s.onclick_bg}>
@@ -124,6 +141,10 @@ const ChangeUserProfile: FC = () => {
           <div className={errorText.includes('Введите ссылку на инстаграм!') ? s.error_text : s.input_field}>
             <h2>Ссылка в инстаграм</h2>
             <input className={s.text_field} value={changeUserData.instagram_link} onChange={e => getChangeUserData('instagram_link', e.target.value)} type="url" placeholder='instagram_link' />
+          </div>
+          <div className={errorText.includes('Введите номер whatsApp!') ? s.error_text : s.input_field}>
+            <h2>WhatsApp</h2>
+            <input className={s.text_field} value={changeUserData.whatsapp_number} onChange={e => getChangeUserData('whatsapp_number', e.target.value)} type="tel" placeholder='996700700700' />
           </div>
         </div>
       </div>

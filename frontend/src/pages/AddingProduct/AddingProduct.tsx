@@ -2,11 +2,12 @@ import React, { FC, FormEventHandler, useEffect, useState } from 'react'
 import s from './AddingProduct.module.scss'
 import AddPhoto from './AddPhoto/AddPhoto'
 import AddProductForm from './AddProductForm/AddProductForm'
+import arrow from '../../assets/DetailView/leftArrow.png'
 import { IAddProductsCard } from '../../store/modules'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import { fetchByAddNewCard, fetchByChangeCard, fetchByGetDetailCard } from '../../store/slice/addProductSlice'
 import Loading from '../../Component/Loading/Loading'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import SuccessfullRequest from './SuccessfullRequest/SuccessfullRequest'
 import { Helmet } from 'react-helmet-async'
 interface ImagesObj {
@@ -24,6 +25,7 @@ const AddingProduct: FC = () => {
 	const [categories, setCategories] = useState('')
 	const [searchParams] = useSearchParams()
 	const [query] = useState(searchParams.get('id_card'))
+	const navigate = useNavigate()
 
 	const [productCard, setProductCard] = useState<IAddProductsCard>({
 		name: '',
@@ -127,11 +129,19 @@ const AddingProduct: FC = () => {
 		}
 	}, [reboot])
 
+	const goBack = () => {
+		navigate(-1)
+	}
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 	return (
 		<div className={s.AddingProduct}>
 			<Helmet>
 				<title>Добавление/Изменение товара</title>
 			</Helmet>
+			<img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
+
 			<h2>Заполните данные для добавления товара</h2>
 			<AddPhoto deleteImg={deleteImg} setFiles={setFiles} files={files} previewImg={previewImg} setPreviewImg={setPreviewImg} setErrorText={setErrorText} errorText={errorText} setFilesReq={setFilesReq} />
 			<AddProductForm categories={categories} setCategories={setCategories} query={query} errorText={errorText} productCard={productCard} setProductCard={setProductCard} handleAddProduct={handleAddProduct} />

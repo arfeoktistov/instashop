@@ -8,16 +8,16 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import insta from '../../assets/DetailView/ri_instagram-fill.png'
-import wh from '../../assets/DetailView/ri_whatsapp-fill.png'
-import arrow from '../../assets/Profile/Icon arrow left.png'
+import insta from '../../assets/DetailView/insta.png'
+import wh from '../../assets/DetailView/whatsapp.png'
+import arrow from '../../assets/DetailView/leftArrow.png'
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { clearDetail, fetchByDetailView, } from '../../store/slice/detailProfileSlice';
-import LightGallery from 'lightgallery/react';
+import { clearDetail, fetchByDetailProfile, fetchByDetailView } from '../../store/slice/detailProfileSlice';
+import LightGallery from 'lightgallery/react'
 import 'lightgallery/css/lightgallery.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
@@ -30,9 +30,11 @@ import { pathLink } from '../../reused';
 
 const DetailView: FC = () => {
     const navigate = useNavigate()
-    const { detailview, error } = useAppSelector(state => state.profile)
+    const { detailview, profile, error } = useAppSelector(state => state.profile)
+
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
+    const { shop } = useParams()
     const dispatch = useAppDispatch()
 
     const goBack = () => {
@@ -44,7 +46,11 @@ const DetailView: FC = () => {
             dispatch(fetchByDetailView(+id))
         }
     }, [dispatch, id])
-
+    useEffect(() => {
+        if (shop) {
+            dispatch(fetchByDetailProfile(+shop))
+        }
+    }, [dispatch, shop])
     useEffect(() => {
         window.scrollTo(0, 0)
 
@@ -128,19 +134,22 @@ const DetailView: FC = () => {
                                 <div className='detail_text'>
                                     <h1>{detailview?.name}</h1>
                                     <h2>{Math.ceil(detailview?.price ? +detailview?.price : 0)} сом</h2>
+                                    <div className='detailDisplay'>
+                                        <a className='whA' href={`https://wa.me/${profile?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
+                                            <p>Связатся в WhatsApp</p>
+                                            <img src={wh} alt="img" />
+                                        </a>
+                                        <a className='instA' href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
+                                            <p>Связатся в Instagram</p>
+                                            <img className='inst' src={insta} alt="img" />
+                                        </a>
+                                    </div>
                                     <p>{detailview?.description}</p>
                                 </div>
-                                <div className='link'>
+                                {/* <div className='link'>
                                     <p>Связаться с продавцом:</p>
-                                    <div>
-                                        <a href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
-                                            <img src={insta} alt="img" />
-                                        </a>
-                                        {/* <a href="" target="_blank" rel='noopener noreferrer'>
-                                        <img src={wh} alt="img" />
-                                    </a> */}
-                                    </div>
-                                </div>
+
+                                </div> */}
                             </div>
                         </div>
                     </div >
