@@ -35,7 +35,6 @@ const SearchInput: FC = () => {
 			setCategory('')
 			setSubCategory('')
 		}
-
 	}
 
 	useEffect(() => {
