@@ -29,13 +29,12 @@ class GetUserIdView(APIView):
 
 class SellerUserViewSet(ModelViewSet):
     serializer_class = SellerUserSerializer
-    # pagination_class = CustomPagination
     queryset = SellerUser.objects.all()
 
-    # def get_queryset(self):
-    #     if self.action == 'retrieve':
-    #         return SellerUser.objects.all()
-    #     return SellerUser.objects.exclude(id=33)
+    def get_queryset(self):
+        if self.action == 'list':
+            return SellerUser.objects.order_by('?')
+        return super().get_queryset()
 
     @swagger_auto_schema(
         tags=['Магазин'],
@@ -47,7 +46,7 @@ class SellerUserViewSet(ModelViewSet):
 
     @swagger_auto_schema(
         tags=['Магазин'],
-        operation_summary="Создать новый магазинов",
+        operation_summary="Создать новый магазин",
         request_body=SellerUserSerializer,
         responses={201: SellerUserSerializer}
     )
@@ -70,8 +69,6 @@ class SellerUserViewSet(ModelViewSet):
     )
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-
-
 
     @swagger_auto_schema(
         tags=['Магазин'],

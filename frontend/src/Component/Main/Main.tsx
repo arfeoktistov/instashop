@@ -38,7 +38,7 @@ const Main: FC = () => {
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/detailview/:id/:shop' element={<DetailView />} />
-				<Route path='/profile/:id' element={<Profile />} />
+				<Route path='/profile/:id/:store_name' element={<Profile />} />
 				{
 					token && <>
 						<Route path='/personal_profile' element={<PersonalProfile />} />
@@ -46,6 +46,7 @@ const Main: FC = () => {
 						<Route path='/change_user_profile' element={<ChangeUserProfile />} />
 					</>
 				}
+				{/* <Route path='*' element={<div>Oops page not found!</div>} /> */}
 			</Routes>
 		</main>
 	)

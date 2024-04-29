@@ -18,7 +18,7 @@ const ProductList: FC = () => {
 		<div className={s.ProductList}>
 			<h2>Список товаров </h2>
 			<div className={s.output}>
-				{profileCard.length > 0 ? profileCard.map(el => <CardProduct key={el.id} {...el} />) : <h2>Товары отсутствуют</h2>}
+				{profileCard.length > 0 ? profileCard.map(el => <CardProduct first_name={user?.first_name} key={el.id} {...el} />) : <h2>Товары отсутствуют</h2>}
 			</div>
 		</div>
 	)
