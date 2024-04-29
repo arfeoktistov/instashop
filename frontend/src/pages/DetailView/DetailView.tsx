@@ -30,7 +30,7 @@ import { pathLink } from '../../reused';
 
 const DetailView: FC = () => {
     const navigate = useNavigate()
-    const { detailview, profile, error } = useAppSelector(state => state.profile)
+    const { detailview, error } = useAppSelector(state => state.profile)
 
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
@@ -46,11 +46,7 @@ const DetailView: FC = () => {
             dispatch(fetchByDetailView(+id))
         }
     }, [dispatch, id])
-    useEffect(() => {
-        if (shop) {
-            dispatch(fetchByDetailProfile(+shop))
-        }
-    }, [dispatch, shop])
+
     useEffect(() => {
         window.scrollTo(0, 0)
 
@@ -135,7 +131,7 @@ const DetailView: FC = () => {
                                     <h1>{detailview?.name}</h1>
                                     <h2>{Math.ceil(detailview?.price ? +detailview?.price : 0)} сом</h2>
                                     <div className='detailDisplay'>
-                                        <a className='whA' href={`https://wa.me/${profile?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
+                                        <a className='whA' href={`https://wa.me/${detailview?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
                                             <p>Связатся в WhatsApp</p>
                                             <img src={wh} alt="img" />
                                         </a>
