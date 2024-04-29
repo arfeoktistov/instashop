@@ -9,7 +9,11 @@ import { fetchByDeleteCard } from '../../store/slice/addProductSlice'
 import DeleteProduct from '../../pages/PersonalProfile/ProductList/DeleteProduct/DeleteProduct'
 import { pathLink } from '../../reused'
 
-const CardProduct: FC<ProfileCardModules> = ({ image, id, name }) => {
+interface CardProductProps {
+	first_name?: string
+}
+
+const CardProduct: FC<ProfileCardModules & CardProductProps> = ({ image, id, name, first_name }) => {
 	const dispatch = useAppDispatch()
 	const [logOut, setLogOut] = useState(false)
 	const { token, user } = useAppSelector(state => state.user)
@@ -19,7 +23,7 @@ const CardProduct: FC<ProfileCardModules> = ({ image, id, name }) => {
 	}
 	return (
 		<div className={s.CardProduct}>
-			<Link to={`/detailview/${id}/${user?.seller_user?.id}`} className={s.photo_product}>
+			<Link to={`/detailview/${id}/${first_name}`} className={s.photo_product}>
 				<img src={image.startsWith('http') ? `https${image.slice(4)}` : pathLink + image} alt='photos' />
 			</Link>
 			<div className={s.name_pr}>
