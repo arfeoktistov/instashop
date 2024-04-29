@@ -25,7 +25,7 @@ const ShopCard: FC<IStores> = ({ id, main_image, mini_description, shop_name }) 
 
 	return (
 		<Tilt className={s.card} options={defaultOptions} >
-			<Link to={`/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`}>
+			<Link to={`/profile/${id}/${shop_name}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`}>
 				<div className={s.image_shop}>
 					<LazyLoadImage
 						alt={`${shop_name}`}

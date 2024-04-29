@@ -38,7 +38,6 @@ const Profile: FC = () => {
 			navigate('/')
 		}
 	}
-	// console.log(profile);
 
 	return (
 		<div >
@@ -48,7 +47,7 @@ const Profile: FC = () => {
 					<Helmet>
 						<meta property="og:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
 						<meta name="twitter:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
-						<link rel="canonical" href={`https://agregagator.gagaga.kg/profile/${id}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
+						<link rel="canonical" href={`https://agregagator.gagaga.kg/profile/${id}/${profile?.shop_name}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
 						<title>{`${profile?.shop_name ? profile?.shop_name : ''} | AGREGAGATOR`}</title>
 					</Helmet>
 					<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
@@ -81,7 +80,7 @@ const Profile: FC = () => {
 							error ?
 								<span className='error animate__backOutUp animate__animated'>{error}</span>
 								:
-								profileCard.length > 0 && profileCard.map(el => <ProfileCard id={id} key={el.id} profilCard={el} />)}
+								profileCard.length > 0 && profileCard.map(el => <ProfileCard store_name={profile?.shop_name} key={el.id} profilCard={el} />)}
 					</div>
 				</>
 			}
