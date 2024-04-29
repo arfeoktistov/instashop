@@ -9,6 +9,7 @@ import { pathLink } from '../../reused'
 import LogOut from './LogOut/LogOut'
 import { Helmet } from 'react-helmet-async'
 import arrow from '../../assets/DetailView/leftArrow.png'
+
 const PersonalProfile: FC = () => {
 	const navigate = useNavigate()
 
@@ -22,6 +23,7 @@ const PersonalProfile: FC = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0)
 	}, [])
+
 	return (
 		<div className={s.PersonalProfile}>
 			<Helmet>
