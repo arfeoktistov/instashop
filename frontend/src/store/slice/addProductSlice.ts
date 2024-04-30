@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { storesApi } from '../../axios'
-import { IAddProductsCard, ICategory, IForAddProduct, IForChangeProduct, IIdToken, ProfileCardModules } from '../modules'
+import { ICategory, IForAddProduct, IForChangeProduct, IIdToken, ProfileCardModules } from '../modules'
 
 type UserState = {
 	loading: boolean
@@ -141,6 +141,8 @@ const addProductSlice = createSlice({
 			state.loading = false
 			if (action.error.message?.includes('40')) {
 				state.error = 'Упс что-то пошло не так!'
+			} else if (action.error.message?.includes('413')) {
+				state.error = 'Размер загружаемых картинок не должно превышать 20 Мб!'
 			}
 		})
 		// =======================
