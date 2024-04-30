@@ -102,7 +102,8 @@ const ChangeUserProfile: FC = () => {
       <img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
 
       <div className={s.bagraund}>
-        <img src={shopImgs.background_image ? shopImgs.background_image.includes('http') ? `https${shopImgs.background_image.slice(4)}` : pathLink + shopImgs.background_image : defaultImg} alt="background" />
+        {/* <img src={shopImgs.background_image ? shopImgs.background_image.includes('http') ? `https${shopImgs.background_image.slice(4)}` : pathLink + shopImgs.background_image : defaultImg} alt="background" /> */}
+        <img src={shopImgs.background_image.startsWith('blob') ? shopImgs.background_image : shopImgs.background_image ? shopImgs.background_image.includes('http') ? `https${shopImgs.background_image.slice(4)}` : pathLink + shopImgs.background_image : defaultImg} alt="background" />
         <label htmlFor="background" className={s.onclick_bg}>
           <input id='background' className={s.hidden} onChange={(e) => toggleImgsFiles(e, 'background_image')} type="file" accept='image/*' />
           <h2>Изменить банер</h2>
@@ -111,14 +112,14 @@ const ChangeUserProfile: FC = () => {
       <div className={s.images_main}>
         <div className={s.img_field}>
           <div className={s.main_img}>
-            <img src={shopImgs.main_image ? shopImgs.main_image.includes('http') ? `https${shopImgs.main_image.slice(4)}` : pathLink + shopImgs.main_image : defaultImg} alt="main" />
+            <img src={shopImgs.main_image.startsWith('blob') ? shopImgs.main_image : shopImgs.main_image ? shopImgs.main_image.includes('http') ? `https${shopImgs.main_image.slice(4)}` : pathLink + shopImgs.main_image : defaultImg} alt="main" />
             <label htmlFor="main" className={s.onclick_bg}>
               <input id='main' className={s.hidden} onChange={(e) => toggleImgsFiles(e, 'main_image')} type="file" accept='image/*' />
               <h2>Xотите изменить аватарку?</h2>
             </label>
           </div>
           <div className={s.main_img}>
-            <img src={shopImgs.insta_image ? shopImgs.insta_image.includes('http') ? `https${shopImgs.insta_image.slice(4)}` : pathLink + shopImgs.insta_image : defaultImg} alt="insta" />
+            <img src={shopImgs.insta_image.startsWith('blob') ? shopImgs.insta_image : shopImgs.insta_image ? shopImgs.insta_image.includes('http') ? `https${shopImgs.insta_image.slice(4)}` : pathLink + shopImgs.insta_image : defaultImg} alt="insta" />
             <label htmlFor="insta" className={s.onclick_bg}>
               <input id='insta' className={s.hidden} onChange={(e) => toggleImgsFiles(e, 'insta_image')} type="file" accept='image/*' />
               <h2>Изменить картинку инстаграма?</h2>
