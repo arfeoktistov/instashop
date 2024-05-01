@@ -33,7 +33,8 @@ const ChangeUserProfile: FC = () => {
     shop_name: '',
     product_count: '',
     user: '',
-    whatsapp_number: ''
+    whatsapp_number: '',
+    telegram_link: ''
   })
 
   const getChangeUserData = (key: string, value: string) => {
@@ -55,11 +56,13 @@ const ChangeUserProfile: FC = () => {
     changeUserData.instagram_link && setErrorText('')
   } else if (errorText.includes('Введите номер whatsApp!')) {
     changeUserData.whatsapp_number && setErrorText('')
+  } else if (errorText.includes('Введите номер Telegram!')) {
+    changeUserData.telegram_link && setErrorText('')
   }
 
   const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http') && user?.seller_user && changeUserData.whatsapp_number) {
+    if (changeUserData.shop_name && changeUserData.mini_description && changeUserData.instagram_link && changeUserData.instagram_link.startsWith('http') && user?.seller_user && changeUserData.whatsapp_number && changeUserData.telegram_link) {
       token && user.seller_user.id && dispatch(fetchByChangeUserData({ token, id: user.seller_user.id, seller_user: { ...changeUserData } }))
     } else if (!changeUserData.shop_name) {
       setErrorText('Введите название магазина!')
@@ -69,6 +72,8 @@ const ChangeUserProfile: FC = () => {
       setErrorText('Введите ссылку на инстаграм!')
     } else if (!changeUserData.whatsapp_number) {
       setErrorText('Введите номер whatsApp!')
+    } else if (!changeUserData.telegram_link) {
+      setErrorText('Введите номер Telegram!')
     }
   }
 
@@ -146,6 +151,10 @@ const ChangeUserProfile: FC = () => {
           <div className={errorText.includes('Введите номер whatsApp!') ? s.error_text : s.input_field}>
             <h2>WhatsApp</h2>
             <input className={s.text_field} value={changeUserData.whatsapp_number} onChange={e => getChangeUserData('whatsapp_number', e.target.value)} type="tel" placeholder='996700700700' />
+          </div>
+          <div className={errorText.includes('Введите номер Telegram!') ? s.error_text : s.input_field}>
+            <h2>Telegram</h2>
+            <input className={s.text_field} value={changeUserData.telegram_link} onChange={e => getChangeUserData('telegram_link', e.target.value)} type="text" placeholder='telegram' />
           </div>
         </div>
       </div>
