@@ -25,6 +25,7 @@ export type ISellerUser = {
 	user: number | string
 	followers: string
 	whatsapp_number: string
+	telegram_link: string
 }
 
 export type TokenNodules = {
@@ -63,6 +64,7 @@ export type ProfileCardModules = {
 	sub_category_name: string
 	category_name: string
 	instagram_link: string
+	telegram_link: string
 }
 
 export type IStores = {
@@ -128,6 +130,7 @@ export type IShopSellerUser = {
 	main_image?: File | string | null
 	background_image?: string | File | null
 	insta_image?: string | File | null
+	telegram_link: string
 }
 
 export type IIdTokenShopUser = {
