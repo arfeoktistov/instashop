@@ -65,6 +65,7 @@ export type ProfileCardModules = {
 	category_name: string
 	instagram_link: string
 	telegram_link: string
+	whatsapp_number: string
 }
 
 export type IStores = {

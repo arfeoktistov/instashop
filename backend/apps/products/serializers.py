@@ -25,11 +25,17 @@ class ProductSerializer(serializers.ModelSerializer):
     instagram_link = serializers.ReadOnlyField(
         source='seller.instagram_link'
     )
+    whatsapp_number = serializers.ReadOnlyField(
+        source='seller.whatsapp_number'
+    )
+    telegram_link = serializers.ReadOnlyField(
+        source='seller.telegram_link'
+    )
 
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'price', 'image', 'images', 'sub_category', 'sub_category_name',
-                  'category_name', 'instagram_link', 'seller']
+                  'category_name', 'instagram_link', 'whatsapp_number', 'telegram_link', 'seller']
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):

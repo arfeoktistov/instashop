@@ -146,8 +146,8 @@ const AddingProduct: FC = () => {
 			<AddPhoto deleteImg={deleteImg} setFiles={setFiles} files={files} previewImg={previewImg} setPreviewImg={setPreviewImg} setErrorText={setErrorText} errorText={errorText} setFilesReq={setFilesReq} />
 			<AddProductForm categories={categories} setCategories={setCategories} query={query} errorText={errorText} productCard={productCard} setProductCard={setProductCard} handleAddProduct={handleAddProduct} />
 			{loading && <Loading />}
-			{(reboot || error?.includes('Упс что-то пошло не так!')) && < SuccessfullRequest id={query} text={`Карточка успешно создана`} />}
-			{(reboot || error?.includes('Упс что-то пошло не так!')) && query && < SuccessfullRequest id={query} text={`Карточка успешно изменена`} />}
+			{(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Размер загружаемых картинок не должно превышать 20 Мб!')) && < SuccessfullRequest id={query} text={`Карточка успешно создана`} />}
+			{(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Размер загружаемых картинок не должно превышать 20 Мб!')) && query && < SuccessfullRequest id={query} text={`Карточка успешно изменена`} />}
 		</div>
 	)
 }

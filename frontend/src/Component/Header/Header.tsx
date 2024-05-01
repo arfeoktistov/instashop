@@ -5,7 +5,7 @@ import Login from '../../pages/Login/Login'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import goose from '../../assets/Header/goose.gif'
-import logo from '../../assets/Header/logo.png'
+import logo from '../../assets/Header/logo.jpg'
 import { pathLink } from '../../reused'
 import { setLogin } from '../../store/slice/userSlice'
 
