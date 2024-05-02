@@ -40,7 +40,6 @@ const DetailView: FC = () => {
     const goBack = () => {
         navigate(-1)
     }
-
     useEffect(() => {
         if (id) {
             dispatch(fetchByDetailView(+id))
@@ -142,7 +141,7 @@ const DetailView: FC = () => {
                                             <img className='inst' src={insta} alt="img" />
                                         </a>
                                         {detailview.telegram_link &&
-                                            <a className='tg' href={detailview.telegram_link.startsWith('https') ? detailview.telegram_link : `https://t.me/+${detailview.telegram_link.startsWith('+') ? detailview.telegram_link.slice(1) : detailview.telegram_link}`} target="_blank" rel='noopener noreferrer'>
+                                            <a className='tg' href={detailview.telegram_link.startsWith('https') ? detailview.telegram_link : `https://t.me/${detailview.telegram_link.startsWith('+') ? detailview.telegram_link : detailview.telegram_link.startsWith('@') ? detailview.telegram_link.slice(1) : detailview.telegram_link}`} target="_blank" rel='noopener noreferrer'>
                                                 <p>Связатся в Telegram</p>
                                                 <img src={tg} alt="img" />
                                             </a>
