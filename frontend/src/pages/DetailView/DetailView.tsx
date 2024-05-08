@@ -31,7 +31,7 @@ import { pathLink } from '../../reused';
 const DetailView: FC = () => {
     const navigate = useNavigate()
     const { detailview, error } = useAppSelector(state => state.profile)
-
+    // const [adi, setAdi] = useState<string>('')
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
     const { shop } = useParams()
@@ -55,7 +55,23 @@ const DetailView: FC = () => {
         }
     }, [])
 
-    // console.log(detailview);
+    // console.log(adi);
+    // // const adi = detailview?.description.split('')
+    // const asdfff = () => {
+
+    //     if (detailview?.description && detailview?.description?.length > 0) {
+    //         let asdf = detailview.description.split('')
+    //         for (let i = 0; i < asdf.length; i++) {
+    //             if (asdf[i] == "&") {
+    //                 asdf[i] = `${<br />}`
+    //             }
+    //         };
+    //         setAdi(asdf.join(.))
+    //     }
+    // }
+    // useEffect(() => {
+    //     asdfff()
+    // }, [detailview?.description])
 
     return (
         <>
