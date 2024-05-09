@@ -23,7 +23,7 @@ const CardProduct: FC<ProfileCardModules & CardProductProps> = ({ image, id, nam
 	}
 	return (
 		<div className={s.CardProduct}>
-			<Link to={`/detailview/${id}/${first_name}`} className={s.photo_product}>
+			<Link to={`/detailview/${id}/${name}`} className={s.photo_product}>
 				<img src={image.startsWith('http') ? `https${image.slice(4)}` : pathLink + image} alt='photos' />
 			</Link>
 			<div className={s.name_pr}>
