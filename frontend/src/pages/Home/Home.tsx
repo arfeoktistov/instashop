@@ -21,7 +21,7 @@ const Home: FC = () => {
 			<Helmet>
 				<meta property="og:title" content={`Магазины | AGREGAGATOR`} />
 				<meta name="twitter:title" content={`Магазины | AGREGAGATOR`} />
-				<link rel="canonical" href={`https://agregagator.gagaga.kg/`} />
+				<link rel="canonical" href={`https://gagaga.kg/`} />
 				<title>Магазины | AGREGAGATOR</title>
 			</Helmet>
 			<SearchInput />
