@@ -77,7 +77,7 @@ const DetailView: FC = () => {
             <Helmet>
                 <meta property="og:title" content={`${detailview?.name} | AGREGAGATOR`} />
                 <meta name="twitter:title" content={`${detailview?.name} | AGREGAGATOR`} />
-                <link rel="canonical" href={`https://agregagator.gagaga.kg/detailview/${id}`} />
+                <link rel="canonical" href={`https://gagaga.kg/detailview/${id}`} />
                 <title>{detailview?.name ? detailview?.name : ''} | AGREGAGATOR</title>
             </Helmet>
             {
