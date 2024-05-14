@@ -1,4 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow:
-Sitemap: http://agregagator.gagaga.kg/sitemap.xml
+Sitemap: http://gagaga.kg/sitemap.xml

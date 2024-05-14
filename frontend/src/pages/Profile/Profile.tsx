@@ -52,7 +52,7 @@ const Profile: FC = () => {
 					<Helmet>
 						<meta property="og:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
 						<meta name="twitter:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
-						<link rel="canonical" href={`https://agregagator.gagaga.kg/profile/${id}/${profile?.shop_name}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
+						<link rel="canonical" href={`https://gagaga.kg/profile/${id}/${profile?.shop_name}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
 						<title>{`${profile?.shop_name ? profile?.shop_name : ''} | AGREGAGATOR`}</title>
 					</Helmet>
 					<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
