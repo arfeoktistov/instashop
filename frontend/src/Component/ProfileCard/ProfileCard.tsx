@@ -13,6 +13,7 @@ interface ProfileCardProps {
 const ProfileCard: FC<ProfileCardProps> = ({ profilCard, store_name }) => {
     return (
         <Link className={s.card} to={`/detailview/${profilCard.id}/${store_name}`}>
+
             <div className={s.imageClass}>
                 <LazyLoadImage
                     alt={`${profilCard.name}`}
@@ -25,6 +26,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ profilCard, store_name }) => {
                 <h2 title={profilCard.name}>{profilCard.name.length > 30 ? profilCard.name.slice(0, 30) + '...' : profilCard.name}</h2>
                 <h3>{Math.ceil(profilCard?.price ? +profilCard?.price : 0)} com</h3>
             </div>
+
         </Link >
 
     );
