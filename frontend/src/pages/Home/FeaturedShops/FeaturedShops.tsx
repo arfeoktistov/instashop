@@ -19,13 +19,14 @@ const FeaturedShops: FC = () => {
 					stores.length > 0 ?
 						stores.map(el => <ShopCard key={el.id} {...el} />)
 						:
+						error &&
 						<>
 							<h2 className={s.none}>Упс магазины не найдены!</h2>
 							<span className='error'>{error}</span>
 						</>
 				}
 			</div>
-		</div>
+		</div >
 	)
 }
 
