@@ -41,7 +41,7 @@
 
 		.title_header {
 			display: flex;
-			align-items: center;
+			align-items: end;
 			gap: 10px;
 
 			@include mobileL {
@@ -63,7 +63,8 @@
 			}
 
 			.logo {
-				width: 70px;
+				width: 200px;
+				// height: 70px;
 			}
 		}
 
