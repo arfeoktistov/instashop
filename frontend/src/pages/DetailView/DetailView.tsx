@@ -25,12 +25,13 @@ import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import { Helmet } from 'react-helmet-async';
 import { pathLink } from '../../reused';
+import Loading from '../../Component/Loading/Loading';
 
 
 
 const DetailView: FC = () => {
     const navigate = useNavigate()
-    const { detailview, error } = useAppSelector(state => state.profile)
+    const { detailview, error, loading } = useAppSelector(state => state.profile)
     // const [adi, setAdi] = useState<string>('')
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
@@ -77,7 +78,7 @@ const DetailView: FC = () => {
             <Helmet>
                 <meta property="og:title" content={`${detailview?.name} | AGREGAGATOR`} />
                 <meta name="twitter:title" content={`${detailview?.name} | AGREGAGATOR`} />
-                <link rel="canonical" href={`https://agregagator.gagaga.kg/detailview/${id}`} />
+                <link rel="canonical" href={`https://gagaga.kg/detailview/${id}`} />
                 <title>{detailview?.name ? detailview?.name : ''} | AGREGAGATOR</title>
             </Helmet>
             {
@@ -174,6 +175,7 @@ const DetailView: FC = () => {
                     </div >
                 </LightGallery>
             }
+            {loading && <Loading />}
         </>
     );
 };
