@@ -150,16 +150,16 @@ const DetailView: FC = () => {
                                     <div className='detailDisplay'>
                                         <a className='whA' href={`https://wa.me/${detailview?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
                                             <p>Связатся в WhatsApp</p>
-                                            <img src={wh} alt="img" />
+                                            <img src={wh} alt="whatsApp" />
                                         </a>
                                         <a className='instA' href={detailview.instagram_link} target="_blank" rel='noopener noreferrer'>
                                             <p>Связатся в Instagram</p>
-                                            <img className='inst' src={insta} alt="img" />
+                                            <img className='inst' src={insta} alt="instagram" />
                                         </a>
                                         {detailview.telegram_link &&
                                             <a className='tg' href={detailview.telegram_link.startsWith('https') ? detailview.telegram_link : `https://t.me/${detailview.telegram_link.startsWith('+') ? detailview.telegram_link : detailview.telegram_link.startsWith('@') ? detailview.telegram_link.slice(1) : detailview.telegram_link}`} target="_blank" rel='noopener noreferrer'>
                                                 <p>Связатся в Telegram</p>
-                                                <img src={tg} alt="img" />
+                                                <img src={tg} alt="telegram" />
                                             </a>
                                         }
 
@@ -168,7 +168,6 @@ const DetailView: FC = () => {
                                 </div>
                                 {/* <div className='link'>
                                     <p>Связаться с продавцом:</p>
-
                                 </div> */}
                             </div>
                         </div>
