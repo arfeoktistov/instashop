@@ -24,7 +24,7 @@ const CardProduct: FC<ProfileCardModules & CardProductProps> = ({ image, id, nam
 	return (
 		<div className={s.CardProduct}>
 			<Link to={`/detailview/${id}/${name}`} className={s.photo_product}>
-				<img src={image.startsWith('http') ? `https${image.slice(4)}` : pathLink + image} alt='photos' />
+				<img src={image.startsWith('http') ? `https${image.slice(4)}` : pathLink + image} alt={name} />
 			</Link>
 			<div className={s.name_pr}>
 				<NavLink className={s.name} to={`/detailview/${id}`} title={name}>{name.length > 10 ? name.slice(0, 10) + '...' : name}</NavLink>

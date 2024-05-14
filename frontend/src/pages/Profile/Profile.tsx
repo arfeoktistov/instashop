@@ -9,12 +9,13 @@ import { clearProfile, fetchByDetailProfile, fetchByProfileCard, fetchByProfileC
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import SearchDetailView from './SearchDetailView/SearchDetailView'
 import { Helmet } from 'react-helmet-async'
+import Loading from '../../Component/Loading/Loading'
 
 const Profile: FC = () => {
 	const { id } = useParams()
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
-	const { profile, profileCard, error } = useAppSelector(state => state.profile)
+	const { profile, profileCard, error, loading } = useAppSelector(state => state.profile)
 	const [searchParams] = useSearchParams()
 
 	useEffect(() => {
@@ -39,6 +40,10 @@ const Profile: FC = () => {
 		}
 	}
 
+	if (loading) {
+		return <Loading />
+	}
+
 	return (
 		<div >
 			{
@@ -55,7 +60,7 @@ const Profile: FC = () => {
 						backgroundImage: `url(${profile?.background_image ? `https${profile?.background_image.slice(4)}` : defBack}) `
 					}}>
 						<div className={s.profileDiv}>
-							<img className={s.profile} src={profile?.insta_image ? `https${profile?.insta_image.slice(4)}` : defStatus} alt="insta_photo" />
+							<img className={s.profile} src={profile?.insta_image ? `https${profile?.insta_image.slice(4)}` : defStatus} alt={profile.shop_name} />
 							<h1>{profile?.shop_name}</h1>
 						</div>
 						<div className={s.stats}>

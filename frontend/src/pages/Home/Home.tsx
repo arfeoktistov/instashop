@@ -26,7 +26,6 @@ const Home: FC = () => {
 			</Helmet>
 			<SearchInput />
 			<FeaturedShops />
-			{/* <TrendingCategories /> */}
 		</div>
 	)
 }
