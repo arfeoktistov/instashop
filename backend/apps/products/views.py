@@ -10,7 +10,7 @@ from .permissions import IsSellerProduct
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related('sub_category__category', 'seller').prefetch_related('images')
     permission_classes = (
         IsAuthenticatedOrReadOnly,
         IsSellerProduct,
@@ -97,7 +97,9 @@ class SellerProductsViewSet(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         seller_id = self.kwargs.get('seller_id')
-        return Product.objects.filter(seller__id=seller_id) if seller_id else Product.objects.none()
+        return Product.objects.filter(seller__id=seller_id).select_related(
+            'sub_category__category', 'seller').prefetch_related('images') \
+            if seller_id else Product.objects.none()
 
     @action(detail=False, methods=['get'], url_path='products-by-category')
     @swagger_auto_schema(
@@ -133,7 +135,7 @@ class SellerProductsViewSet(ReadOnlyModelViewSet):
         category_id = request.query_params.get('category_id')
         subcategory_id = request.query_params.get('subcategory_id')
 
-        queryset = Product.objects.filter(seller__id=seller_id)
+        queryset = Product.objects.filter(seller__id=seller_id).select_related('sub_category__category', 'seller').prefetch_related('images')
 
         if category_id:
             queryset = queryset.filter(sub_category__category__id=category_id)

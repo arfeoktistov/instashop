@@ -9,7 +9,7 @@ from decimal import Decimal
 class Product(models.Model):
     """Модель продукта.
 
-    ### Attrs:
+    ### Атрибуты:
     - sub_category (ForeignKey): Подкатегория, к которой принадлежит продукт.
     - name (str): Название продукта.
     - description (str): Описание продукта.
@@ -17,27 +17,30 @@ class Product(models.Model):
     - price (Decimal): Цена продукта.
     - image (ResizedImageField): Основное изображение продукта.
     """
-    sub_category: models.ForeignKey = models.ForeignKey(
+    sub_category = models.ForeignKey(
         SubCategory, on_delete=models.PROTECT,
         verbose_name='Подкатегория',
-        related_name='products'
+        related_name='products',
+        db_index=True
     )
-    name: models.CharField = models.CharField(
-        max_length=127, verbose_name='Название'
+    name = models.CharField(
+        max_length=127, verbose_name='Название',
+        db_index=True
     )
-    description: models.TextField = models.TextField(
+    description = models.TextField(
         verbose_name='Описание'
     )
-    seller: models.ForeignKey = models.ForeignKey(
+    seller = models.ForeignKey(
         SellerUser, on_delete=models.CASCADE,
         verbose_name='Продавец',
         related_name='products'
     )
-    price: models.DecimalField = models.DecimalField(
+    price = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name='Цена',
-        validators=[MinValueValidator(Decimal('0.01'))]
+        validators=[MinValueValidator(Decimal('0.01'))],
+        db_index=True
     )
-    image: ResizedImageField = ResizedImageField(
+    image = ResizedImageField(
         verbose_name='Фото', upload_to='products/images',
         size=[1440, 2560], quality=75
     )
@@ -47,22 +50,27 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        verbose_name: str = 'Продукт'
-        verbose_name_plural: str = 'Продукты'
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['price']),
+            models.Index(fields=['sub_category']),
+        ]
 
 
 class ProductImage(models.Model):
     """Модель изображения продукта.
 
-    ### Attrs:
+    ### Атрибуты:
     - product (ForeignKey): Продукт, к которому принадлежит изображение.
     - image (ResizedImageField): Изображение продукта.
     """
-    product: models.ForeignKey = models.ForeignKey(
+    product = models.ForeignKey(
         Product, related_name='images', on_delete=models.CASCADE,
         verbose_name='Продукт'
     )
-    image: ResizedImageField = ResizedImageField(
+    image = ResizedImageField(
         verbose_name='Фото', upload_to='products/images',
         size=[1440, 2560], quality=75
     )
@@ -72,5 +80,5 @@ class ProductImage(models.Model):
         return f"Image for {self.product.name}"
 
     class Meta:
-        verbose_name: str = 'Изображение продукта'
-        verbose_name_plural: str = 'Изображения продуктов'
+        verbose_name = 'Изображение продукта'
+        verbose_name_plural = 'Изображения продуктов'

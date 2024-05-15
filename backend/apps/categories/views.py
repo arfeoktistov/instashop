@@ -47,15 +47,14 @@ class CategoryViewSet(ModelViewSet):
         category_id = self.kwargs.get('pk')
         subcategory_id = request.query_params.get('subcategory_id')
 
+        sellers_queryset = SellerUser.objects.filter(
+            products__sub_category__category_id=category_id
+        ).distinct().select_related('products')
+
         if subcategory_id:
-            sellers_queryset = SellerUser.objects.filter(
-                products__sub_category__id=subcategory_id,
-                products__sub_category__category_id=category_id
-            ).distinct()
-        else:
-            sellers_queryset = SellerUser.objects.filter(
-                products__sub_category__category_id=category_id
-            ).distinct()
+            sellers_queryset = sellers_queryset.filter(
+                products__sub_category__id=subcategory_id
+            )
 
         serializer = SellerUserSerializer(sellers_queryset, many=True)
         return Response(serializer.data)
@@ -285,10 +284,11 @@ class SellerCategoriesViewSet(ReadOnlyModelViewSet):
     )
     def get_categories(self, request, pk=None):
         seller = self.get_object()
-        products = Product.objects.filter(seller=seller)
+        products = Product.objects.filter(seller=seller).select_related('sub_category__category')
         categories_ids = products.values_list('sub_category__category', flat=True).distinct()
-        categories = Category.objects.filter(id__in=categories_ids)
+        categories = Category.objects.filter(id__in=categories_ids).prefetch_related('sub_categories')
         serializer = CategorySerializer(categories, many=True, context={'request': request, 'seller': seller})
         return Response(serializer.data)
+
 
 

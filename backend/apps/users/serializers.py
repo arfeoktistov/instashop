@@ -16,15 +16,16 @@ class SellerUserSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        for image_field in ['main_image', 'background_image', 'insta_image']:
-            if image_field in validated_data and validated_data[image_field] is None:
-                validated_data.pop(image_field)
-
+        self._remove_empty_images(validated_data)
         return super().update(instance, validated_data)
 
     def get_product_count(self, obj):
         return obj.products.count()
 
+    def _remove_empty_images(self, validated_data):
+        for image_field in ['main_image', 'background_image', 'insta_image']:
+            if validated_data.get(image_field) is None:
+                validated_data.pop(image_field)
 
 class UserSerializer(serializers.ModelSerializer):
     seller_user = SellerUserSerializer(read_only=True, many=False)

@@ -1,11 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import (
-    APIView,
-)
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from apps.users.serializers import (
-    UserSerializer
-)
 from rest_framework.viewsets import ModelViewSet
 from drf_yasg.utils import swagger_auto_schema
 from .models import User, SellerUser
@@ -14,26 +9,25 @@ from .pagination import CustomPagination
 
 
 class GetUserIdView(APIView):
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         tags=['Магазин'],
-        operation_summary="Получить информацию о пользовавтеле по токену",
+        operation_summary="Получить информацию о пользователе по токену",
         responses={200: UserSerializer(many=False)}
     )
     def get(self, request, *args, **kwargs):
-        user = request.user
-        user_data = UserSerializer(instance=user, many=False).data
+        user_data = UserSerializer(instance=request.user, many=False).data
         return Response(user_data)
 
 
 class SellerUserViewSet(ModelViewSet):
     serializer_class = SellerUserSerializer
-    queryset = SellerUser.objects.all()
+    queryset = SellerUser.objects.all().select_related('user').prefetch_related('user__seller_user__products')
 
     def get_queryset(self):
         if self.action == 'list':
-            return SellerUser.objects.order_by('?')
+            return SellerUser.objects.order_by('?').select_related('user').prefetch_related('user__seller_user__products')
         return super().get_queryset()
 
     @swagger_auto_schema(
