@@ -9,13 +9,14 @@ import { pathLink } from '../../reused'
 import LogOut from './LogOut/LogOut'
 import { Helmet } from 'react-helmet-async'
 import arrow from '../../assets/DetailView/leftArrow.png'
+import Loading from '../../Component/Loading/Loading'
 
 const PersonalProfile: FC = () => {
 	const navigate = useNavigate()
 
 	const { user } = useAppSelector(state => state.user)
 	const [logOut, setLogOut] = useState(false)
-	const { error, reboot } = useAppSelector(state => state.addProductSlice)
+	const { error, reboot, loading } = useAppSelector(state => state.addProductSlice)
 
 	const goBack = () => {
 		navigate(-1)
@@ -52,6 +53,7 @@ const PersonalProfile: FC = () => {
 			<ProductList />
 			{(error || reboot) && <SuccessfullRequest id={null} text={'Продукт успешно удалён'} />}
 			{logOut && <LogOut logOut={logOut} setLogOut={setLogOut} />}
+			{loading && <Loading />}
 		</div>
 	)
 }
