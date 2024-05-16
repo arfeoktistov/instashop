@@ -53,8 +53,8 @@ const SearchDetailView: FC = () => {
     }, [dispatch, location.search])
 
     useEffect(() => {
-        if ((categoryStore || subCategoryStore) && id) {
-            dispatch(fetchByCardsByCategories({ id, cat_id: categoryStore, sub_id: subCategoryStore }))
+        if ((categoryStore || subCategoryStore)) {
+            id && dispatch(fetchByCardsByCategories({ id, cat_id: categoryStore, sub_id: subCategoryStore }))
         }
 
     }, [dispatch, categoryStore, subCategoryStore])

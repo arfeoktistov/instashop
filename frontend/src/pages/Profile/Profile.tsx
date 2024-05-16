@@ -40,12 +40,8 @@ const Profile: FC = () => {
 		}
 	}
 
-	if (loading) {
-		return <Loading />
-	}
-
 	return (
-		<div >
+		<div>
 			{
 				profile &&
 				<>
@@ -60,7 +56,7 @@ const Profile: FC = () => {
 						backgroundImage: `url(${profile?.background_image ? `https${profile?.background_image.slice(4)}` : defBack}) `
 					}}>
 						<div className={s.profileDiv}>
-							<img className={s.profile} src={profile?.insta_image ? `https${profile?.insta_image.slice(4)}` : defStatus} alt={profile.shop_name} />
+							<img className={s.profile} src={profile?.insta_image ? `https${profile?.insta_image.slice(4)}` : defStatus} alt={profile?.shop_name} />
 							<h1>{profile?.shop_name}</h1>
 						</div>
 						<div className={s.stats}>
@@ -82,10 +78,11 @@ const Profile: FC = () => {
 					<SearchDetailView />
 					<div className={s.fiveCards}>
 						{
-							error ?
-								<span className='error animate__backOutUp animate__animated'>{error}</span>
-								:
-								profileCard.length > 0 && profileCard.map(el => <ProfileCard store_name={profile?.shop_name} key={el.id} profilCard={el} />)}
+							loading ? <Loading /> :
+								error ?
+									<span className='error animate__backOutUp animate__animated'>{error}</span>
+									:
+									profileCard.length > 0 && profileCard.map(el => <ProfileCard store_name={profile?.shop_name} key={el.id} profilCard={el} />)}
 					</div>
 				</>
 			}
