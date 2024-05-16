@@ -50,10 +50,10 @@ const Profile: FC = () => {
 				profile &&
 				<>
 					<Helmet>
-						<meta property="og:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
-						<meta name="twitter:title" content={`${profile?.shop_name} | AGREGAGATOR`} />
+						<meta property="og:title" content={`${profile?.shop_name} | G Market`} />
+						<meta name="twitter:title" content={`${profile?.shop_name} | G Market`} />
 						<link rel="canonical" href={`https://gagaga.kg/profile/${id}/${profile?.shop_name}?c=${searchParams.get('c') || ''}&sub=${searchParams.get('sub') || ''}`} />
-						<title>{`${profile?.shop_name ? profile?.shop_name : ''} | AGREGAGATOR`}</title>
+						<title>{`${profile?.shop_name ? profile?.shop_name : ''} | G Market`}</title>
 					</Helmet>
 					<img onClick={goBack} className={s.arrow} src={arrow} alt="arrow" />
 					<div className={s.backround} style={{

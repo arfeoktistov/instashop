@@ -28,7 +28,7 @@ const PersonalProfile: FC = () => {
 	return (
 		<div className={s.PersonalProfile}>
 			<Helmet>
-				<title>{user?.first_name || ''} {user?.last_name || ''} | Профиль</title>
+				<title>{user?.first_name || ''} {user?.last_name || ''} | Профиль G Market</title>
 			</Helmet>
 			<img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
 
