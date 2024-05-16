@@ -17,20 +17,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    sub_category_name = serializers.ReadOnlyField(
-        source='sub_category.name')
-    category_name = serializers.ReadOnlyField(
-        source='sub_category.category.name')
+    sub_category_name = serializers.ReadOnlyField(source='sub_category.name')
+    category_name = serializers.ReadOnlyField(source='sub_category.category.name')
     images = ProductImageSerializer(read_only=True, many=True)
-    instagram_link = serializers.ReadOnlyField(
-        source='seller.instagram_link'
-    )
-    whatsapp_number = serializers.ReadOnlyField(
-        source='seller.whatsapp_number'
-    )
-    telegram_link = serializers.ReadOnlyField(
-        source='seller.telegram_link'
-    )
+    instagram_link = serializers.ReadOnlyField(source='seller.instagram_link')
+    whatsapp_number = serializers.ReadOnlyField(source='seller.whatsapp_number')
+    telegram_link = serializers.ReadOnlyField(source='seller.telegram_link')
 
     class Meta:
         model = Product
@@ -57,23 +49,17 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         seller = user.seller_user
         product = Product.objects.create(**validated_data, seller=seller)
-
-        for image_data in images_data:
-            ProductImage.objects.create(product=product, image=image_data)
-
+        self._handle_images(product, images_data)
         return product
 
     def to_representation(self, instance):
-        representation = {
-            'id': instance.id,
-            'name': instance.name,
-            'description': instance.description,
-            'image': instance.image.url if instance.image else None,
-            'price': instance.price,
-            'sub_category': instance.sub_category.id,
-            'images': [image.image.url for image in instance.images.all()]
-        }
+        representation = super().to_representation(instance)
+        representation['images'] = [image.image.url for image in instance.images.all()]
         return representation
+
+    def _handle_images(self, product, images_data):
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)
 
 
 class ProductUpdateSerializer(serializers.ModelSerializer):
@@ -98,31 +84,17 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
         instance.save()
 
-        # instance.name = validated_data.get('name', instance.name)
-        # instance.description = validated_data.get('description', instance.description)
-        # instance.price = validated_data.get('price', instance.price)
-        # instance.image = validated_data.get('image', instance.image)
-        # instance.sub_category = validated_data.get('sub_category', instance.sub_category)
-        # instance.save()
-
         if images_data is not None:
             instance.images.all().delete()
-            for image_file in images_data:
-                ProductImage.objects.create(product=instance, image=image_file)
+            self._handle_images(instance, images_data)
 
         return instance
 
     def to_representation(self, instance):
-        # representation = {
-        #     'id': instance.id,
-        #     'name': instance.name,
-        #     'description': instance.description,
-        #     'image': instance.image.url if hasattr(instance.image, 'url') else None,
-        #     'price': instance.price,
-        #     'sub_category': instance.sub_category.id,
-        #     'images': [ProductImageSerializer(image).data for image in instance.images.all()]
-        # }
-        # return representation
-        representation = super(ProductUpdateSerializer, self).to_representation(instance)
+        representation = super().to_representation(instance)
         representation['images'] = [ProductImageSerializer(image).data for image in instance.images.all()]
         return representation
+
+    def _handle_images(self, product, images_data):
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)

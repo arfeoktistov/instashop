@@ -76,10 +76,10 @@ const DetailView: FC = () => {
     return (
         <>
             <Helmet>
-                <meta property="og:title" content={`${detailview?.name} | AGREGAGATOR`} />
-                <meta name="twitter:title" content={`${detailview?.name} | AGREGAGATOR`} />
-                <link rel="canonical" href={`https://gagaga.kg/detailview/${id}`} />
-                <title>{detailview?.name ? detailview?.name : ''} | AGREGAGATOR</title>
+                <meta property="og:title" content={`${detailview?.name} | G Market`} />
+                <meta name="twitter:title" content={`${detailview?.name} | G Market`} />
+                <link rel="canonical" href={`https://gagaga.kg/detailview/${id}/${shop}`} />
+                <title>{detailview?.name ? detailview?.name : ''} | G Market</title>
             </Helmet>
             {
                 detailview &&

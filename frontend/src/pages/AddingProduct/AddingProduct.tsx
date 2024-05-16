@@ -138,7 +138,7 @@ const AddingProduct: FC = () => {
 	return (
 		<div className={s.AddingProduct}>
 			<Helmet>
-				<title>Добавление/Изменение товара</title>
+				<title>Добавление/Изменение товара | G Market</title>
 			</Helmet>
 			<img onClick={goBack} className='arrow' src={arrow} alt="arrow" />
 
