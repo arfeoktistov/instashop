@@ -49,7 +49,7 @@ class CategoryViewSet(ModelViewSet):
 
         sellers_queryset = SellerUser.objects.filter(
             products__sub_category__category_id=category_id
-        ).distinct().select_related('products')
+        ).distinct().prefetch_related('products')
 
         if subcategory_id:
             sellers_queryset = sellers_queryset.filter(
