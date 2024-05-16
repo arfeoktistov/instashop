@@ -37,6 +37,8 @@ class User(AbstractUser):
         verbose_name_plural = 'Пользователи'
         indexes = [
             models.Index(fields=['email', ]),
+            models.Index(fields=['phone_number']),
+            models.Index(fields=['role']),
         ]
         ordering = ['email']
 
@@ -85,3 +87,6 @@ class SellerUser(models.Model):
     class Meta:
         verbose_name = 'Продавец'
         verbose_name_plural = 'Продавцы'
+        indexes = [
+            models.Index(fields=['shop_name']),
+        ]

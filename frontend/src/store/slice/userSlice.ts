@@ -137,6 +137,8 @@ const userSlice = createSlice({
 				state.error = 'Упс что-то пошло не так!'
 			} else if (action.error.message?.includes('401')) {
 				state.error = 'Не авторизован!'
+			} else if (action.error.message?.includes('50')) {
+				state.error = 'Упс сервер не работает, попробуйте позже!'
 			}
 		})
 	},

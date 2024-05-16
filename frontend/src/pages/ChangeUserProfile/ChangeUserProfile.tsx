@@ -162,7 +162,7 @@ const ChangeUserProfile: FC = () => {
         <h5>{errorText}</h5>
         <button>Редактировать профиль</button>
       </div>
-      {(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Не авторизован!')) && <SuccessfullUser text={'Профиль успешно отредактирован!'} />}
+      {(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Не авторизован!') || error?.includes('Упс сервер не работает, попробуйте позже!')) && <SuccessfullUser text={'Профиль успешно отредактирован!'} />}
       {loading && <Loading />}
     </form>
   );
