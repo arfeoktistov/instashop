@@ -20,7 +20,6 @@ export const storesApi = {
 	},
 	getSubCategory() {
 		return instance.get(`/api/categories/subcategories/`)
-
 	},
 	addNewUser(getUser: UserLogin) {
 		return instance.post(`/api/users/token/`, getUser)
@@ -48,8 +47,6 @@ export const storesApi = {
 		return instance.get('/api/users/users/token/user-id/', { headers })
 	},
 	changeTokenUser({ id, seller_user, token }: IIdTokenShopUser) {
-		console.log(seller_user, token, id);
-
 		const headers = { "Authorization": `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
 		return instance.put(`/api/users/seller-users/${id}/`, seller_user, { headers })
 	},
