@@ -19,10 +19,10 @@ const Home: FC = () => {
 	return (
 		<div>
 			<Helmet>
-				<meta property="og:title" content={`Магазины | AGREGAGATOR`} />
-				<meta name="twitter:title" content={`Магазины | AGREGAGATOR`} />
+				<meta property="og:title" content={`Магазины | G Market`} />
+				<meta name="twitter:title" content={`Магазины | G Market`} />
 				<link rel="canonical" href={`https://gagaga.kg/`} />
-				<title>Магазины | AGREGAGATOR</title>
+				<title>Магазины | G Market</title>
 			</Helmet>
 			<SearchInput />
 			<FeaturedShops />
