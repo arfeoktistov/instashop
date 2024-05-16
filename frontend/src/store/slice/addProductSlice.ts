@@ -143,6 +143,8 @@ const addProductSlice = createSlice({
 				state.error = 'Упс что-то пошло не так!'
 			} else if (action.error.message?.includes('413')) {
 				state.error = 'Размер загружаемых картинок не должно превышать 20 Мб!'
+			} else if (action.error.message?.includes('50')) {
+				state.error = 'Упс сервер не работает, попробуйте позже!'
 			}
 		})
 		// =======================
@@ -160,6 +162,8 @@ const addProductSlice = createSlice({
 			state.loading = false
 			if (action.error.message?.includes('404')) {
 				state.error = 'Упс что-то пошло не так не удалось удалить!'
+			} else if (action.error.message?.includes('50')) {
+				state.error = 'Упс сервер не работает, попробуйте позже!'
 			}
 		})
 		// =======================
@@ -194,6 +198,8 @@ const addProductSlice = createSlice({
 			state.loading = false
 			if (action.error.message?.includes('40')) {
 				state.error = 'Упс что-то пошло не так!'
+			} else if (action.error.message?.includes('50')) {
+				state.error = 'Упс сервер не работает, попробуйте позже!'
 			}
 		})
 	},
