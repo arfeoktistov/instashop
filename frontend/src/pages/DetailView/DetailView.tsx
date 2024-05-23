@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import './DetailView.scss'
-
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -27,12 +25,9 @@ import { Helmet } from 'react-helmet-async';
 import { pathLink } from '../../reused';
 import Loading from '../../Component/Loading/Loading';
 
-
-
 const DetailView: FC = () => {
     const navigate = useNavigate()
     const { detailview, error, loading } = useAppSelector(state => state.profile)
-    // const [adi, setAdi] = useState<string>('')
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const { id } = useParams()
     const { shop } = useParams()
@@ -54,24 +49,6 @@ const DetailView: FC = () => {
             dispatch(clearDetail())
         }
     }, [])
-
-    // console.log(adi);
-    // // const adi = detailview?.description.split('')
-    // const asdfff = () => {
-
-    //     if (detailview?.description && detailview?.description?.length > 0) {
-    //         let asdf = detailview.description.split('')
-    //         for (let i = 0; i < asdf.length; i++) {
-    //             if (asdf[i] == "&") {
-    //                 asdf[i] = `${<br />}`
-    //             }
-    //         };
-    //         setAdi(asdf.join(.))
-    //     }
-    // }
-    // useEffect(() => {
-    //     asdfff()
-    // }, [detailview?.description])
 
     return (
         <>
@@ -149,7 +126,7 @@ const DetailView: FC = () => {
                                     <h1>{detailview?.name}</h1>
                                     <h2>{Math.ceil(detailview?.price ? +detailview?.price : 0)} сом</h2>
                                     <div className='detailDisplay'>
-                                        <a className='whA' href={`https://wa.me/${detailview?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://agregagator.gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
+                                        <a className='whA' href={`https://wa.me/${detailview?.whatsapp_number}?text=Здравствуйте,%20понравился%20этот%20товар%20на%20сайте%20https://gagaga.kg/detailview/${id}/${shop}`} target="_blank" rel='noopener noreferrer'>
                                             <p>Связатся в WhatsApp</p>
                                             <img src={wh} alt="whatsApp" />
                                         </a>
@@ -163,7 +140,6 @@ const DetailView: FC = () => {
                                                 <img src={tg} alt="telegram" />
                                             </a>
                                         }
-
                                     </div>
                                     <p>{detailview?.description}</p>
                                 </div>

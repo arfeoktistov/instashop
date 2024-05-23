@@ -20,11 +20,11 @@ const Footer: FC = () => {
 			<footer className={s.footer}>
 				<div className={`${s.wrapper} container`}>
 					<div className={s.wrapper__links}>
-						<a className={s.whats_app} href={info?.instagram_link} target='_blank' rel='noopener noreferrer'>
+						<a className={s.whats_app} href={`https://wa.me/${info?.phone_number}`} target='_blank' rel='noopener noreferrer'>
 							<p>WhatsApp</p>
 							<img src={whatsapp} alt="whatsApp" />
 						</a>
-						<a className={s.instagram} href={`https://wa.me/${info?.phone_number}`} target='_blank' rel='noopener noreferrer'>
+						<a className={s.instagram} href={info?.instagram_link} target='_blank' rel='noopener noreferrer'>
 							<p>Instagram</p>
 							<img src={instagram} alt="instagram" />
 						</a>
