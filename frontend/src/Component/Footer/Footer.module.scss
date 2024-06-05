@@ -25,6 +25,7 @@
             @include mobileL {
                 flex-direction: column;
                 margin-bottom: 20px;
+                width: 100%;
             }
 
             & .whats_app {
@@ -40,6 +41,10 @@
                 border-radius: 10px;
                 background-color: #25D366;
                 margin-bottom: 5px;
+
+                @include mobileL {
+                    width: 270px;
+                }
 
                 & p {
                     color: white;
@@ -74,6 +79,10 @@
                         #fcb045, #fd1d1d, #833ab4);
 
                 margin-bottom: 5px;
+
+                @include mobileL {
+                    width: 270px;
+                }
 
                 & p {
                     color: white;
