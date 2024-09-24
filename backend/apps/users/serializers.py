@@ -10,9 +10,14 @@ class SellerUserSerializer(serializers.ModelSerializer):
         model = SellerUser
         fields = (
             'id', 'user', 'shop_name', 'main_image',
+<<<<<<< HEAD
             'background_image', 'insta_image', 'mini_description',
             'instagram_link', 'product_count', 'followers',
             'whatsapp_number', 'telegram_link',
+=======
+            'insta_image', 'mini_description',
+            'instagram_link', 'product', 'followers',
+>>>>>>> fe2ddc59 (rework)
         )
 
     def update(self, instance, validated_data):
