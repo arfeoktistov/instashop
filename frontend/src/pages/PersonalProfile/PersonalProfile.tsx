@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import s from './PersonalProfile.module.scss'
+<<<<<<< HEAD
 import ikon from '../../assets/Header/ikon.png'
 import ProductList from './ProductList/ProductList'
 import { NavLink, Navigate, useNavigate } from 'react-router-dom'
@@ -10,6 +11,11 @@ import LogOut from './LogOut/LogOut'
 import { Helmet } from 'react-helmet-async'
 import arrow from '../../assets/DetailView/leftArrow.png'
 import Loading from '../../Component/Loading/Loading'
+=======
+import profile from '../../assets/PersonalProfile/Rectangle.png'
+import ProductList from './ProductList/ProductList'
+import { NavLink } from 'react-router-dom'
+>>>>>>> 9c1faaff (personal profile)
 
 const PersonalProfile: FC = () => {
 	const navigate = useNavigate()
@@ -27,6 +33,7 @@ const PersonalProfile: FC = () => {
 
 	return (
 		<div className={s.PersonalProfile}>
+<<<<<<< HEAD
 			<Helmet>
 				<title>{user?.first_name || ''} {user?.last_name || ''} | Профиль G Market</title>
 			</Helmet>
@@ -54,6 +61,19 @@ const PersonalProfile: FC = () => {
 			{(error || reboot) && <SuccessfullRequest id={null} text={'Продукт успешно удалён'} />}
 			{logOut && <LogOut logOut={logOut} setLogOut={setLogOut} />}
 			{loading && <Loading />}
+=======
+			<div className={s.profile}>
+				<img className={s.avatar} src={profile} alt='girls' />
+				<div className={s.text_field}>
+					<h2>Название профиля</h2>
+					<div className={s.path_editing}>
+						<NavLink to={'/adding_product'}>Редактировать профиль</NavLink>
+						<NavLink to={'/adding_product'}>Добавить товар</NavLink>
+					</div>
+				</div>
+			</div>
+			<ProductList />
+>>>>>>> 9c1faaff (personal profile)
 		</div>
 	)
 }

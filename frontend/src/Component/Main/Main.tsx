@@ -3,6 +3,7 @@ import { Route, Routes, useSearchParams } from 'react-router-dom'
 import Home from '../../pages/Home/Home'
 import Profile from '../../pages/Profile/Profile'
 import DetailView from '../../pages/DetailView/DetailView'
+<<<<<<< HEAD
 import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
 import AddingProduct from '../../pages/AddingProduct/AddingProduct'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
@@ -10,6 +11,11 @@ import { getAllStores } from '../../store/slice/storesSlice'
 import { getLSToken } from '../../LS'
 import { fetchByToken, setToken } from '../../store/slice/userSlice'
 import ChangeUserProfile from '../../pages/ChangeUserProfile/ChangeUserProfile'
+=======
+import SearchDetailView from '../../pages/DetailView/DetailViewComponents/SearchDetailView/SearchDetailView'
+import PersonalProfile from '../../pages/PersonalProfile/PersonalProfile'
+import AddingProduct from '../../pages/AddingProduct/AddingProduct'
+>>>>>>> 9c1faaff (personal profile)
 
 const Main: FC = () => {
 	const [searchParams] = useSearchParams()
@@ -37,6 +43,7 @@ const Main: FC = () => {
 		<main className='container'>
 			<Routes>
 				<Route path='/' element={<Home />} />
+<<<<<<< HEAD
 				<Route path='/detailview/:id/:shop' element={<DetailView />} />
 				<Route path='/profile/:id/:store_name' element={<Profile />} />
 				{
@@ -47,6 +54,16 @@ const Main: FC = () => {
 					</>
 				}
 				{/* <Route path='*' element={<div>Oops page not found!</div>} /> */}
+=======
+				<Route path='/search_input' element={<SearchDetailView />} />
+				<Route path='/detailview' element={<DetailView />} />
+				<Route path='/discover' element={<Discover />} />
+				<Route path='/profile/:id' element={<Profile />} />
+				<Route path='/personal_profile' element={<PersonalProfile />} />
+				<Route path='/search' element={<Search />} />
+				<Route path='/adding_product' element={<AddingProduct />} />
+				<Route path='/search-results' element={<SearchResults />} />
+>>>>>>> 9c1faaff (personal profile)
 			</Routes>
 		</main>
 	)

@@ -1,6 +1,7 @@
 export type IObjectKeys = {
 	[key: string]: string | null | undefined
 }
+<<<<<<< HEAD
 
 export type UserLogin = {
 	email: string
@@ -152,3 +153,9 @@ export type FeedbackData = {
 	instagram_link: string
 	application_text: string
 }
+=======
+export type Icategory = {
+	id: number
+	name: string
+}
+>>>>>>> 9c1faaff (personal profile)

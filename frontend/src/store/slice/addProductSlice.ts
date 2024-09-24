@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+<<<<<<< HEAD
 import { storesApi } from '../../axios'
 import { ICategory, IForAddProduct, IForChangeProduct, IIdToken, ProfileCardModules } from '../modules'
 
@@ -9,11 +10,21 @@ type UserState = {
 	category: ICategory[]
 	profileCard: ProfileCardModules[]
 	detail_card: ProfileCardModules | null
+=======
+import { authApi } from '../../axios'
+import { Icategory } from '../modules'
+
+type UserState = {
+	loading: boolean
+	error: null | string
+	category: Icategory[]
+>>>>>>> 9c1faaff (personal profile)
 }
 
 const initialState: UserState = {
 	error: null,
 	loading: false,
+<<<<<<< HEAD
 	reboot: false,
 	category: [],
 	profileCard: [],
@@ -82,10 +93,27 @@ export const fetchByDeleteCard = createAsyncThunk<void, IIdToken, { rejectValue:
 			return rejectWithValue('Server error')
 		}
 	})
+=======
+	category: [],
+}
+export const fetchByAllCategory = createAsyncThunk<
+	Icategory[],
+	void,
+	{ rejectValue: string }
+>('news/fetchByAllNews', async (_, { rejectWithValue }) => {
+	const res = await authApi.getCategory()
+	console.log(res)
+	if (res.status !== 200) {
+		return rejectWithValue('Server Error')
+	}
+	return res.data
+})
+>>>>>>> 9c1faaff (personal profile)
 
 const addProductSlice = createSlice({
 	name: 'product',
 	initialState,
+<<<<<<< HEAD
 	reducers: {
 		toggleReboot(state, action: PayloadAction<boolean>) {
 			state.reboot = action.payload
@@ -94,14 +122,22 @@ const addProductSlice = createSlice({
 			state.error = action.payload
 		},
 	},
+=======
+	reducers: {},
+>>>>>>> 9c1faaff (personal profile)
 	extraReducers: ({ addCase }) => {
 		addCase(fetchByAllCategory.pending, state => {
 			state.loading = true
 			state.error = null
 		})
 		addCase(fetchByAllCategory.fulfilled, (state, action) => {
+<<<<<<< HEAD
 			state.category = action.payload
 			state.loading = false
+=======
+			state.loading = false
+			state.category = action.payload
+>>>>>>> 9c1faaff (personal profile)
 		})
 		addCase(fetchByAllCategory.rejected, (state, action) => {
 			state.loading = false
@@ -109,6 +145,7 @@ const addProductSlice = createSlice({
 				state.error = 'Упс что то пошло не так!'
 			}
 		})
+<<<<<<< HEAD
 		// =======================
 		addCase(fetchByGetCard.pending, (state) => {
 			state.loading = true
@@ -205,5 +242,9 @@ const addProductSlice = createSlice({
 	},
 })
 export const { toggleReboot, changeError } = addProductSlice.actions
+=======
+	},
+})
+>>>>>>> 9c1faaff (personal profile)
 
 export default addProductSlice.reducer

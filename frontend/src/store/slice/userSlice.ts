@@ -143,5 +143,9 @@ const userSlice = createSlice({
 		})
 	},
 })
+<<<<<<< HEAD
 export const { toggleRedirect, setToken, logOutUser, changeError, setLogin } = userSlice.actions
+=======
+
+>>>>>>> 9c1faaff (personal profile)
 export default userSlice.reducer

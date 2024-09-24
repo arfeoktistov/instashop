@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { FC, FormEventHandler, useEffect, useState } from 'react'
 import s from './AddingProduct.module.scss'
 import AddPhoto from './AddPhoto/AddPhoto'
@@ -148,6 +149,29 @@ const AddingProduct: FC = () => {
 			{loading && <Loading />}
 			{(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Размер загружаемых картинок не должно превышать 20 Мб!') || error?.includes('Упс сервер не работает, попробуйте позже!')) && < SuccessfullRequest id={query} text={`Карточка успешно создана`} />}
 			{(reboot || error?.includes('Упс что-то пошло не так!') || error?.includes('Размер загружаемых картинок не должно превышать 20 Мб!') || error?.includes('Упс сервер не работает, попробуйте позже!')) && query && < SuccessfullRequest id={query} text={`Карточка успешно изменена`} />}
+=======
+import React, { FC, FormEventHandler, useState } from 'react'
+import s from './AddingProduct.module.scss'
+import AddPhoto from './AddPhoto/AddPhoto'
+import AddProductForm from './AddProductForm/AddProductForm'
+
+const AddingProduct: FC = () => {
+	const [fileLeft, setFileLeft] = useState<File | string>('')
+	const [fileCenter, setFileCenter] = useState<File | string>('')
+	const [fileRight, setFileRight] = useState<File | string>('')
+	const handleAddProduct: FormEventHandler<HTMLFormElement> = e => {
+		e.preventDefault()
+	}
+	return (
+		<div className={s.AddingProduct}>
+			<h2>Заполните данные для добавления товара</h2>
+			<AddPhoto
+				setFileLeft={setFileLeft}
+				setFileCenter={setFileCenter}
+				setFileRight={setFileRight}
+			/>
+			<AddProductForm handleAddProduct={handleAddProduct} />
+>>>>>>> 9c1faaff (personal profile)
 		</div>
 	)
 }

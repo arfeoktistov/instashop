@@ -1,17 +1,25 @@
+<<<<<<< HEAD
 @import '../../SCSS/mixins';
 
+=======
+>>>>>>> 9c1faaff (personal profile)
 .AddingProduct {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 
 	& h2 {
+<<<<<<< HEAD
+=======
+		width: 500px;
+>>>>>>> 9c1faaff (personal profile)
 		color: rgb(33, 33, 33);
 		font-size: 38px;
 		font-weight: 700;
 		line-height: 130%;
 		letter-spacing: 0px;
 		text-align: left;
+<<<<<<< HEAD
 		@include montserrat700;
 
 		@include old1024 {
@@ -28,3 +36,7 @@
 	}
 
 }
+=======
+	}
+}
+>>>>>>> 9c1faaff (personal profile)
